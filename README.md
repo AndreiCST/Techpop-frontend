@@ -2,7 +2,7 @@
 |--------------------------------|---------------------------------------------------------------------------|---|
 | /                              | pagina de inicio                                                          |   |
 | /search                        | pagina lista de productos                                                 |   |
-| /search/:category                     | pagina lista de productos de una categoria                                |   |   
+| /search/:category              | pagina lista de productos de una categoria                                |   |   
 | /product/:id                   | pagina del producto especifico                                            |   | 
 | /signup                        | registro de usuario (modal?)                                              |   |
 | /login                         | perfil del usuario  (modal?)                                              |   |
