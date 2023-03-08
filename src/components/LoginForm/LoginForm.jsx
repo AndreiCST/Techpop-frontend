@@ -1,7 +1,7 @@
 import { useState, useContext } from "react"
 import { Form, Button } from "react-bootstrap"
-import { AuthContext } from "../../contexts/auth.context"
-import authService from "../../services/auth.services"
+import { AuthContext } from "./../../contexts/auth.context"
+import authService from "./../../services/auth.services"
 
 
 const LoginForm = () => {
@@ -11,7 +11,7 @@ const LoginForm = () => {
         password: ''
     })
 
-    // const { authenticateUser, user } = useContext(AuthContext)
+    const { authenticateUser, user } = useContext(AuthContext)
 
     const handleInputChange = e => {
         const { value, name } = e.target
@@ -26,7 +26,7 @@ const LoginForm = () => {
             .login(loginData)
             .then(({ data }) => {
                 localStorage.setItem('authToken', data.authToken)
-                // authenticateUser()
+                authenticateUser()
             })
             .catch(err => console.log(err))
     }
