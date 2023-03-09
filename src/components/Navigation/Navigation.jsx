@@ -1,8 +1,11 @@
+import { useContext } from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../contexts/auth.context'
 
 const Navigation = () => {
     const navbarStyle = 'dark'
+    const { user, logout } = useContext(AuthContext)
 
     return (
         <Navbar bg={navbarStyle} variant={navbarStyle} expand="md" className='mb-4'>
@@ -20,6 +23,23 @@ const Navigation = () => {
                         <Link to="/profile">
                             <Nav.Link as="span">Perfil</Nav.Link>
                         </Link>
+                        {
+                            user
+                                ?
+                                <>
+                                    <Nav.Link as="span" onClick={logout}>Cerrar sesión</Nav.Link>
+                                </>
+                                :
+                                <>
+                                    <Link to="/login">
+                                        <Nav.Link as="span">Iniciar sesión</Nav.Link>
+                                    </Link>
+                                    <Link to="/signup">
+                                        <Nav.Link as="span">Registrarme</Nav.Link>
+                                    </Link>
+                                </>
+                        }
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>
