@@ -1,7 +1,26 @@
 import './ProfilePage.css'
+import userService from './../../services/user.services'
+import { useContext, useEffect, useState } from 'react'
+import { AuthContext } from './../../contexts/auth.context'
 
 const ProfilePage = () => {
-    return <h1>Profile</h1>
+
+    const { user, logout, isLoading } = useContext(AuthContext)
+    // const [infoUser, setInfoUser] = useState([])
+
+    // useEffect(() => {
+    //     loadUser()
+    // }, [])
+
+    // const loadUser = () => {
+    //     userService
+    //         .getUser(user._id)
+    //         .then(({ data }) => {
+    //             setInfoUser(data)
+    //         })
+    //         .catch(err => console.log(err))
+    // }
+    return <h1>{user.firstName}</h1>
 }
 
 export default ProfilePage
