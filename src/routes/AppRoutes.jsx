@@ -5,7 +5,7 @@ import HomePage from '../pages/HomePage/HomePage'
 import ProfilePage from '../pages/ProfilePage/ProfilePage'
 import SearchPage from '../pages/SearchPage/SearchPage'
 import SearchCategPage from '../pages/SearchCategPage/SearchCategPage'
-import ProductPage from '../pages/ProductPage/ProductPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage/ProductDetailsPage'
 import PrivateRoute from "./PrivateRoute"
 
 const AppRoutes = () => {
@@ -18,7 +18,7 @@ const AppRoutes = () => {
             </Route>
             <Route path="/search" element={<SearchPage />} />
             <Route path="/search/:category" element={<SearchCategPage />} />
-            <Route path="/product/:product_id" element={<ProductPage />} />
+            <Route path="/:product_id" element={<ProductDetailsPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<p>404</p>} />
