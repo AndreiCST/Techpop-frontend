@@ -9,20 +9,22 @@ import Sellings from '../../components/Sellings/Sellings'
 import Favourites from '../../components/Favourites/Favourites'
 import Conversations from '../../components/Conversations/Conversations'
 import Wallet from '../../components/Wallet/Wallet'
+import { useParams } from 'react-router-dom'
 
 const ProfilePage = () => {
 
     const { user } = useContext(AuthContext)
+    const { user_id } = useParams()
     const [infoUser, setInfoUser] = useState({})
     const [currentSection, setcurrentSection] = useState('Ventas')
 
     const sectionsList = ['Compras', 'Ventas', 'Favoritos', 'Conversaciones', 'Cartera']
 
     const profilInfo = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        valorations: user.valorations,
-        profilImage: user.avatar
+        firstName: infoUser.firstName,
+        lastName: infoUser.lastName,
+        valorations: infoUser.valorations?.allValorations,
+        profilImage: infoUser.avatar
     }
 
     const favourites = {
@@ -43,7 +45,7 @@ const ProfilePage = () => {
 
     const loadUser = () => {
         userService
-            .getUser(user._id)
+            .getUser(user_id)
             .then(({ data }) => {
                 setInfoUser(data)
             })
