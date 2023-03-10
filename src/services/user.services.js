@@ -20,7 +20,7 @@ class UserService {
     }
 
     getUser(user_id) {
-        return this.api.post(`/profile/${user_id}`)
+        return this.api.get(`/profile/${user_id}`)
     }
 }
 
