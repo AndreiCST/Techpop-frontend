@@ -2,13 +2,13 @@ import { useState } from "react"
 import { Col, ListGroup, Row } from "react-bootstrap"
 import ProductList from "../ProductList/ProductList"
 
-const Sellings = ({ sellings }) => {
+const Favourites = ({ favourites }) => {
 
-    const { selling, sold } = sellings
+    const { products, sellers } = favourites
 
-    const [currentSection, setcurrentSection] = useState('selling')
+    const [currentSection, setcurrentSection] = useState('products')
 
-    const sectionsList = ['selling', 'sold']
+    const sectionsList = ['products', 'sellers']
 
     const handleInputSection = (component) => {
         setcurrentSection(component)
@@ -42,10 +42,10 @@ const Sellings = ({ sellings }) => {
 
 
 
-            {currentSection === 'selling' && <ProductList products={selling} />}
-            {currentSection === 'sold' && <ProductList products={sold} />}
+            {currentSection === 'products' && <ProductList products={products} />}
+            {currentSection === 'sellers' && <h1>hay que hacer la lista de usuarios</h1>}
         </>
     )
 }
 
-export default Sellings
+export default Favourites

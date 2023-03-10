@@ -49,7 +49,7 @@ const ProductsListPage = () => {
                         :
                         <>
                             <h1>Listado de Productos</h1>
-                            {user && <Button onClick={() => setShowModal(true)} variant="dark" size='sm'>Crear nueva</Button>}
+                            {user && <Button onClick={() => setShowModal(true)} variant="dark" size='sm'>Crear producto</Button>}
                             <hr />
                             <ProductsList products={products} />
                         </>
