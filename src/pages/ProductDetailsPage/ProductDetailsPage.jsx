@@ -1,49 +1,27 @@
 import { useEffect, useState } from "react"
-import { Container, Row, Col, Button, Carousel } from "react-bootstrap"
+import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import productService from "../../services/product.services"
-import userService from "../../services/user.services"
 
 import './ProductDetailsPage.css'
 
 
 const ProductPage = () => {
 
-    const [product, setProduct] = useState({})
+    const [product, setProduct] = useState([])
     const [productOwner, setProductOwner] = useState({})
-    // const [isLoading, setIsLoading] = useState(true)
 
     const { product_id } = useParams()
 
     useEffect(() => {
         productService
             .getOneProduct(product_id)
-            .then(({ data }) => setProduct(data))
+            .then(({ data }) => {
+                setProduct(data)
+                setProductOwner(data.owner)
+            })
             .catch(err => console.error(err))
     }, [])
-
-    useEffect(() => {
-        if (product.owner) {
-            userService
-                .getUser(product.owner)
-                .then(({ data }) => {
-                    setProductOwner(data);
-                })
-                .catch(err => console.log(err))
-        }
-    }, [product.owner])
-
-    // useEffect(() => {
-
-    //     userService
-    //         // .getUser(`${product.owner}`)
-    //         .getUser({ user_id: product.owner })
-    //         .then(({ userData }) => {
-    //             setProductOwner(userData)
-    //             setIsLoading(false)
-    //         })
-    //         .catch(err => console.log(err))
-    // }, [])
 
 
     return (
@@ -78,11 +56,15 @@ const ProductPage = () => {
                 <Col md={{ span: 6, offset: 1 }}>
                     <h3>Descripcion:</h3>
                     <p>{product.description}</p>
-                    <ul>
-                        <li>Precio: {product.price}</li>
-                        <li>{productOwner.firstName}{productOwner.lastName}</li>
-                        <li>{product.stateOfProduct}</li>
-                    </ul>
+                    <ListGroup>
+                        <ListGroup.Item>Precio: {product.price}</ListGroup.Item>
+                        <ListGroup.Item>
+                            Owner: <Link to={`/profile/${productOwner._id}`}>{productOwner.firstName} {productOwner.lastName}</Link> |
+                            Valoration Avg: {productOwner.valorations?.avgValoration}
+                        </ListGroup.Item>
+                        <ListGroup.Item>State: {product.stateOfProduct}</ListGroup.Item>
+                    </ListGroup>
+
                     <hr />
 
                     <Link to="/">
