@@ -1,5 +1,7 @@
-const Purchases = () => {
-    return <h1>Compras</h1>
+import ProductList from "../ProductList/ProductList"
+
+const Purchases = ({ purchases }) => {
+    return <ProductList products={purchases} />
 }
 
 export default Purchases

@@ -6,7 +6,7 @@ import userService from './../../services/user.services'
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
 import Purchases from '../../components/Purchases/Purchases'
 import Sellings from '../../components/Sellings/Sellings'
-import Favorits from '../../components/Favorits/Favorits'
+import Favourites from '../../components/Favourites/Favourites'
 import Conversations from '../../components/Conversations/Conversations'
 import Wallet from '../../components/Wallet/Wallet'
 
@@ -19,11 +19,23 @@ const ProfilePage = () => {
     const sectionsList = ['Compras', 'Ventas', 'Favoritos', 'Conversaciones', 'Cartera']
 
     const profilInfo = {
-        firstName: infoUser.firstName,
-        lastName: infoUser.lastName,
-        valorations: infoUser.valorations?.avgValoration,
-        profilImage: infoUser.avatar
+        firstName: user.firstName,
+        lastName: user.lastName,
+        valorations: user.valorations,
+        profilImage: user.avatar
     }
+
+    const favourites = {
+        products: infoUser.favouriteProducts,
+        sellers: infoUser.favouriteSellers
+    }
+
+    const sellings = {
+        selling: infoUser.sellingProducts,
+        sold: infoUser.soldProducts
+    }
+
+    const purchases = infoUser.purchasedProducts
 
     useEffect(() => {
         loadUser()
@@ -48,9 +60,9 @@ const ProfilePage = () => {
             <Row className='mt-5'>
                 <Col md={{ span: 9 }}>
 
-                    {currentSection === 'Compras' && <Purchases />}
-                    {currentSection === 'Ventas' && <Sellings />}
-                    {currentSection === 'Favoritos' && <Favorits />}
+                    {currentSection === 'Compras' && <Purchases {...{ purchases }} />}
+                    {currentSection === 'Ventas' && <Sellings {...{ sellings }} />}
+                    {currentSection === 'Favoritos' && <Favourites {...{ favourites }} />}
                     {currentSection === 'Conversaciones' && <Conversations />}
                     {currentSection === 'Cartera' && <Wallet />}
 

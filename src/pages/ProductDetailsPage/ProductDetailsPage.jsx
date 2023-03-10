@@ -11,7 +11,6 @@ const ProductPage = () => {
 
     const [product, setProduct] = useState({})
     const [productOwner, setProductOwner] = useState({})
-    // const [isLoading, setIsLoading] = useState(true)
 
     const { product_id } = useParams()
 
@@ -32,19 +31,6 @@ const ProductPage = () => {
                 .catch(err => console.log(err))
         }
     }, [product.owner])
-
-    // useEffect(() => {
-
-    //     userService
-    //         // .getUser(`${product.owner}`)
-    //         .getUser({ user_id: product.owner })
-    //         .then(({ userData }) => {
-    //             setProductOwner(userData)
-    //             setIsLoading(false)
-    //         })
-    //         .catch(err => console.log(err))
-    // }, [])
-
 
     return (
 

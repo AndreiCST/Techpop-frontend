@@ -9,7 +9,7 @@ const ProductList = ({ products }) => {
 
         <Row>
             {
-                products.map(elm => {
+                products?.map(elm => {
                     return (
                         <Col md={{ span: 3 }} key={elm._id}>
                             <ProductCard {...elm} />
