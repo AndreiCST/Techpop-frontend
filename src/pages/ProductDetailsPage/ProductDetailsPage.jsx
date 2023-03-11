@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
+import { AuthContext } from "../../contexts/auth.context"
 import productService from "../../services/product.services"
 
 import './ProductDetailsPage.css'
@@ -12,6 +13,9 @@ const ProductPage = () => {
     const [productOwner, setProductOwner] = useState({})
 
     const { product_id } = useParams()
+    const { user } = useContext(AuthContext)
+
+    console.log(user)
 
     useEffect(() => {
         productService
@@ -19,9 +23,11 @@ const ProductPage = () => {
             .then(({ data }) => {
                 setProduct(data)
                 setProductOwner(data.owner)
+
             })
             .catch(err => console.log(err))
     }, [])
+
 
 
     return (
@@ -64,6 +70,10 @@ const ProductPage = () => {
                         </ListGroup.Item>
                         <ListGroup.Item>State: {product.stateOfProduct}</ListGroup.Item>
                     </ListGroup>
+
+                    <hr />
+
+                    <button onClick={() => productService.addToFav(product._id, user._id)}>Agregar a favoritos</button>
 
                     <hr />
 
