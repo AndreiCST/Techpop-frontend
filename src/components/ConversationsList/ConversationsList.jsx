@@ -1,6 +1,6 @@
 import ConversationCard from "../ConversationCard/ConversationCard"
 
-const Conversations = ({ conversations }) => {
+const ConversationsList = ({ conversations }) => {
 
     return (
         <>
@@ -13,4 +13,4 @@ const Conversations = ({ conversations }) => {
     )
 }
 
-export default Conversations
+export default ConversationsList

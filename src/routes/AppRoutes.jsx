@@ -8,6 +8,7 @@ import SearchCategPage from '../pages/SearchCategPage/SearchCategPage'
 import ProductDetailsPage from '../pages/ProductDetailsPage/ProductDetailsPage'
 import PrivateRoute from "./PrivateRoute"
 import NewProductPage from './../pages/NewProductPage/NewProductPage'
+import ConversationPage from "../pages/ConversationPage/ConversationPage"
 
 const AppRoutes = () => {
 
@@ -17,6 +18,7 @@ const AppRoutes = () => {
             <Route element={<PrivateRoute />}>
                 <Route path="/profile/:user_id" element={<ProfilePage />} />
                 <Route path='/profile/new_product' element={<NewProductPage />} />
+                <Route path='/profile/conversations/:conversation_id' element={<ConversationPage />} />
             </Route>
             <Route path="/search" element={<SearchPage />} />
             <Route path="/search/:category" element={<SearchCategPage />} />

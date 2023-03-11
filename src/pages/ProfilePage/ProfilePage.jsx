@@ -7,7 +7,7 @@ import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
 import Purchases from '../../components/Purchases/Purchases'
 import Sellings from '../../components/Sellings/Sellings'
 import Favourites from '../../components/Favourites/Favourites'
-import Conversations from '../../components/Conversations/Conversations'
+import ConversationsList from '../../components/ConversationsList/ConversationsList'
 import Wallet from '../../components/Wallet/Wallet'
 import { useParams } from 'react-router-dom'
 
@@ -94,7 +94,7 @@ const ProfilePage = () => {
                     {currentSection === 'Compras' && <Purchases {...{ purchases }} />}
                     {currentSection === 'Ventas' && <Sellings {...{ sellings }} />}
                     {currentSection === 'Favoritos' && <Favourites {...{ favourites }} />}
-                    {currentSection === 'Conversaciones' && <Conversations {...{ conversations }} />}
+                    {currentSection === 'Conversaciones' && <ConversationsList {...{ conversations }} />}
                     {currentSection === 'Cartera' && <Wallet />}
 
                 </Col>

@@ -20,7 +20,7 @@ const ProductPage = () => {
                 setProduct(data)
                 setProductOwner(data.owner)
             })
-            .catch(err => console.error(err))
+            .catch(err => console.log(err))
     }, [])
 
 

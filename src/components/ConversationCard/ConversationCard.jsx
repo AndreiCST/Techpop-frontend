@@ -10,7 +10,7 @@ const ConversationCard = ({ conversation }) => {
     const [convInfo, setconvInfo] = useState({})
     const { user } = useContext(AuthContext)
     const participant = conversation.participants[0] !== user._id ? conversation.participants[0] : conversation.participants[1]
-    console.log(convInfo)
+
     useEffect(() => {
         loadConvInfo()
     }, [])
@@ -24,7 +24,7 @@ const ConversationCard = ({ conversation }) => {
 
     return (
         <>
-            <Link>
+            <Link to={`/profile/conversations/${conversation._id}`}>
                 <Card>
 
                     <Card.Img style={{ height: '20px', width: '20px' }} variant="top" src={convInfo.avatar} />
