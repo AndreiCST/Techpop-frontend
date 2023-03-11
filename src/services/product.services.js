@@ -16,8 +16,8 @@ class ProductsService {
         return this.api.get(`/${product_id}`)
     }
 
-    saveProduct(productData) {
-        return this.api.post('/create-product/:user_id', productData)
+    saveProduct(productData, user_id) {
+        return this.api.post(`/create-product/${user_id}`, productData)
     }
 }
 
