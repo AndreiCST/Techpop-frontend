@@ -20,13 +20,14 @@ const Navigation = () => {
                         <Link to="/search">
                             <Nav.Link as="span">Buscar</Nav.Link>
                         </Link>
-                        <Link to={`/profile/${user._id}`}>
-                            <Nav.Link as="span">Perfil</Nav.Link>
-                        </Link>
+
                         {
                             user
                                 ?
                                 <>
+                                    <Link to={`/profile/${user._id}`}>
+                                        <Nav.Link as="span">Perfil</Nav.Link>
+                                    </Link>
                                     <Nav.Link as="span" onClick={logout}>Cerrar sesión</Nav.Link>
                                 </>
                                 :

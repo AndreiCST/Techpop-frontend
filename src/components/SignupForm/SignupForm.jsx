@@ -16,7 +16,7 @@ const SignupForm = () => {
         avatar: ''
     })
 
-    const [loadingImage, setLodingImage] = useState(false)
+    const [loadingImage, setLoadingImage] = useState(false)
     const [errors, setErrors] = useState([])
 
     const navigate = useNavigate()
@@ -38,7 +38,7 @@ const SignupForm = () => {
 
     const handleFileUpload = e => {
 
-        setLodingImage(true)
+        setLoadingImage(true)
 
         const formData = new FormData()
         formData.append('imageData', e.target.files[0])
@@ -47,7 +47,7 @@ const SignupForm = () => {
             .uploadimage(formData)
             .then(res => {
                 setSignupData({ ...signupData, avatar: res.data.cloudinary_url })
-                setLodingImage(false)
+                setLoadingImage(false)
             })
             .catch(err => console.log(err))
     }
