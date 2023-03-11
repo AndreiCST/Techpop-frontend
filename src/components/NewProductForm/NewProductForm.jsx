@@ -19,7 +19,9 @@ const NewProductForm = ({ fireFinalActions }) => {
         description: '',
         images: [],
         price: '',
-        stateOfProduct: ''
+        stateOfProduct: '',
+        category: '',
+        subcategory: ''
     })
 
     const [errors, setErrors] = useState([])
@@ -48,7 +50,6 @@ const NewProductForm = ({ fireFinalActions }) => {
                 setLoadingImage(false)
             })
             .catch(err => {
-                console.log(err)
                 setLoadingImage(false)
             })
     }
@@ -76,34 +77,9 @@ const NewProductForm = ({ fireFinalActions }) => {
                         <Form.Label>Nombre:</Form.Label>
                         <Form.Control type="text" value={productData.name} onChange={handleInputChange} name="name" />
                     </Form.Group>
-
-                    {/* <Form.Group as={Col} controlId="category">
-                        <Form.Label>Categoria:</Form.Label>
-                        <Form.Control type="text" value={productData.category} onChange={handleInputChange} name="category" />
-                    </Form.Group> */}
-                </Row>
-
-                <Form.Group className="mb-3" controlId="description">
-                    <Form.Label>Descripcion:</Form.Label>
-                    <Form.Control type="text" value={productData.description} onChange={handleInputChange} name="description" />
-                </Form.Group>
-
-                <Row className="mb-3">
                     <Form.Group as={Col} controlId="price">
                         <Form.Label>Precio:</Form.Label>
                         <Form.Control type="text" value={productData.price} onChange={handleInputChange} name="price" />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="stateOfProduct">
-                        <Form.Label>Estado del Producto:</Form.Label>
-                        <Form.Select aria-label="Default select example" value={productData.stateOfProduct} onChange={handleInputChange} name="stateOfProduct">
-                            <option>Seleccionar</option>
-                            <option value="NEW">NEW</option>
-                            <option value="ALMOSTNEW">ALMOSTNEW</option>
-                            <option value="USED">USED</option>
-                            <option value="VERYUSED">VERYUSED</option>
-                            <option value="NOTSPECIFIED">NOTSPECIFIED</option>
-                        </Form.Select>
                     </Form.Group>
                 </Row>
 
@@ -112,7 +88,50 @@ const NewProductForm = ({ fireFinalActions }) => {
                     <Form.Control type="file" onChange={handleFileUpload} multiple />
                 </Form.Group>
 
-                {/* {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>} */}
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Label>Descripcion:</Form.Label>
+                    <Form.Control type="text" value={productData.description} onChange={handleInputChange} name="description" />
+                </Form.Group>
+
+                <Row className="mb-3">
+
+                    <Form.Group as={Col} controlId="category">
+                        <Form.Label>Categoria:</Form.Label>
+                        <Form.Select aria-label="Default select example" value={productData.category} onChange={handleInputChange} name="category">
+                            <option>Seleccionar</option>
+                            <option value="Informatica">Informatica</option>
+                            <option value="Electrodomesticos">Electrodomesticos</option>
+                            <option value="Telefonia">Telefonia</option>
+                            <option value="Consola">Consola</option>
+                            <option value="Otros">Otros</option>
+                        </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="subcategory">
+                        <Form.Label>Subategoria:</Form.Label>
+                        <Form.Select aria-label="Default select example" value={productData.subcategory} onChange={handleInputChange} name="subcategory">
+                            <option>Seleccionar</option>
+                            <option value="Producto">Producto</option>
+                            <option value="Accesorio">Accesorio</option>
+                            <option value="Videojuego">Videojuego</option>
+                            <option value="Otros">Otros</option>
+                        </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="stateOfProduct">
+                        <Form.Label>Estado del Producto:</Form.Label>
+                        <Form.Select aria-label="Default select example" value={productData.stateOfProduct} onChange={handleInputChange} name="stateOfProduct">
+                            <option>Seleccionar</option>
+                            <option value="NEW">Nuevo</option>
+                            <option value="ALMOSTNEW">Casi Nuevo</option>
+                            <option value="USED">Usado</option>
+                            <option value="VERYUSED">Muy Usado</option>
+                        </Form.Select>
+                    </Form.Group>
+                </Row>
+
+
+                {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
                 <div className="d-grid">
                     <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Cargando Imagen...' : 'Crear Producto'}</Button>
