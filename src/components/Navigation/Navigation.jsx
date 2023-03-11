@@ -8,7 +8,7 @@ const Navigation = () => {
     const { user, logout } = useContext(AuthContext)
 
     return (
-        <Navbar bg={navbarStyle} variant={navbarStyle} expand="md" className='mb-4'>
+        <Navbar fixed="top" bg={navbarStyle} variant={navbarStyle} expand="md" className='mb-4'>
             <Container>
                 <Navbar.Brand href="#">Coasters App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -20,13 +20,14 @@ const Navigation = () => {
                         <Link to="/search">
                             <Nav.Link as="span">Buscar</Nav.Link>
                         </Link>
-                        <Link to={`/profile/${user._id}`}>
-                            <Nav.Link as="span">Perfil</Nav.Link>
-                        </Link>
+
                         {
                             user
                                 ?
                                 <>
+                                    <Link to={`/profile/${user._id}`}>
+                                        <Nav.Link as="span">Perfil</Nav.Link>
+                                    </Link>
                                     <Nav.Link as="span" onClick={logout}>Cerrar sesión</Nav.Link>
                                 </>
                                 :
@@ -43,7 +44,8 @@ const Navigation = () => {
                     </Nav>
                 </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
+
     )
 }
 

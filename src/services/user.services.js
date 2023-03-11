@@ -20,7 +20,15 @@ class UserService {
     }
 
     getUser(user_id) {
-        return this.api.get(`/profile/${user_id}`)
+        return this.api.get(`/profile/all-info/${user_id}`)
+    }
+
+    getConvInfo(user_id) {
+        return this.api.get(`/profile/conv-info/${user_id}`)
+    }
+
+    getReducedInfoUser(user_id) {
+        return this.api.get(`/profile/reduced-info/${user_id}`)
     }
 }
 

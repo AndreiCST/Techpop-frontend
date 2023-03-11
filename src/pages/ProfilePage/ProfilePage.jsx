@@ -1,7 +1,7 @@
 import './ProfilePage.css'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from './../../contexts/auth.context'
-import { Col, Container, ListGroup, Row } from 'react-bootstrap'
+import { Col, Container, ListGroup, Nav, Row } from 'react-bootstrap'
 import userService from './../../services/user.services'
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
 import Purchases from '../../components/Purchases/Purchases'
@@ -39,6 +39,10 @@ const ProfilePage = () => {
 
     const purchases = infoUser.purchasedProducts
 
+    const conversations = infoUser.conversations
+
+    const wallet = infoUser.wallet
+
     useEffect(() => {
         loadUser()
     }, [])
@@ -57,46 +61,45 @@ const ProfilePage = () => {
     }
 
     return (
-        <Container fluid>
+        <Container className='aaa'>
 
-            <Row className='mt-5'>
-                <Col md={{ span: 9 }}>
-
-                    {currentSection === 'Compras' && <Purchases {...{ purchases }} />}
-                    {currentSection === 'Ventas' && <Sellings {...{ sellings }} />}
-                    {currentSection === 'Favoritos' && <Favourites {...{ favourites }} />}
-                    {currentSection === 'Conversaciones' && <Conversations />}
-                    {currentSection === 'Cartera' && <Wallet />}
-
-                </Col>
+            <Row>
 
                 <Col md={{ span: 2 }}>
 
                     <ProfileHeader {...{ profilInfo }} />
 
-                    <ListGroup as="ul" className='mt-3'>
+                    <Nav className="flex-column mb-5 mt-5">
 
                         {
                             sectionsList.map((elem, index) => {
                                 return (
-                                    <Col key={index}>
-                                        <ListGroup.Item
-                                            as="button"
-                                            onClick={() => handleInputSection(elem)}
-                                        >
-                                            {elem}
-                                        </ListGroup.Item>
-                                    </Col>
-
+                                    <Nav.Link
+                                        key={index}
+                                        as='button'
+                                        onClick={() => handleInputSection(elem)}>
+                                        {elem}
+                                    </Nav.Link>
                                 )
                             })
                         }
 
-                    </ListGroup>
+                    </Nav>
+
 
                 </Col>
-            </Row>
 
+                <Col md={{ span: 8, offset: 2 }}>
+
+                    {currentSection === 'Compras' && <Purchases {...{ purchases }} />}
+                    {currentSection === 'Ventas' && <Sellings {...{ sellings }} />}
+                    {currentSection === 'Favoritos' && <Favourites {...{ favourites }} />}
+                    {currentSection === 'Conversaciones' && <Conversations {...{ conversations }} />}
+                    {currentSection === 'Cartera' && <Wallet />}
+
+                </Col>
+
+            </Row>
 
         </Container >
     )

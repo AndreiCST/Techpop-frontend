@@ -1,5 +1,16 @@
-const Conversations = () => {
-    return <h1>Conversaciones</h1>
+import ConversationCard from "../ConversationCard/ConversationCard"
+
+const Conversations = ({ conversations }) => {
+
+    return (
+        <>
+            {
+                conversations.map((conversation, index) => {
+                    return <ConversationCard key={index} {...{ conversation }} />
+                })
+            }
+        </>
+    )
 }
 
 export default Conversations
