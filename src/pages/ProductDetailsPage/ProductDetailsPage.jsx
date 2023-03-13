@@ -2,27 +2,39 @@ import { useContext, useEffect, useState } from "react"
 import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
+import userService from "../../services/product.services"
 import productService from "../../services/product.services"
 
 import './ProductDetailsPage.css'
+
 
 
 const ProductPage = () => {
 
     const [product, setProduct] = useState([])
     const [productOwner, setProductOwner] = useState({})
+    const [favoriteProducts, setFavoriteProducts] = useState([])
 
     const { product_id } = useParams()
     const { user } = useContext(AuthContext)
-
-    console.log(user)
 
     useEffect(() => {
         productService
             .getOneProduct(product_id)
             .then(({ data }) => {
-                setProduct(data)
-                setProductOwner(data.owner)
+                userService
+                    .getUser(user._id)
+                    .then(() => {
+
+
+
+                        setProduct(data)
+                        setProductOwner(data.owner)
+
+
+
+                    })
+                    .catch()
 
             })
             .catch(err => console.log(err))
@@ -32,7 +44,7 @@ const ProductPage = () => {
 
     return (
 
-        <Container>
+        <Container className="productDetailsPage">
 
             <h1 className="mb-4">Detalles de {product.name}</h1>
             <hr />
@@ -59,7 +71,7 @@ const ProductPage = () => {
                 </Col>
 
 
-                <Col md={{ span: 6, offset: 1 }}>
+                <Col md={{ span: 6, offset: 1 }} className="mb-4">
                     <h3>Descripcion:</h3>
                     <p>{product.description}</p>
                     <ListGroup>
@@ -73,14 +85,26 @@ const ProductPage = () => {
 
                     <hr />
 
-                    <button onClick={() => productService.addToFav(product._id, user._id)}>Agregar a favoritos</button>
 
-                    <hr />
 
-                    <Link to="/">
-                        <Button as="figure" variant="dark">Volver a la lista</Button>
-                    </Link>
+
+
+
+                    <Button variant="dark" type="submit" onClick={() => userService.addToFav(product._id, user._id)}>Agregar a favoritos</Button>
+
+
+
+
+
+
+
                 </Col>
+
+                <hr />
+
+                <Link to="/">
+                    <Button as="figure" variant="dark">Volver a la lista</Button>
+                </Link>
 
             </Row>
 

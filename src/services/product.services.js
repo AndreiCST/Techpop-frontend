@@ -20,9 +20,6 @@ class ProductsService {
         return this.api.post(`/create-product/${user_id}`, productData)
     }
 
-    addToFav(product_id, user_id) {
-        return this.api.put(`/addToFav/${product_id}`, { user_id })
-    }
 }
 
 const productService = new ProductsService()
