@@ -4,10 +4,7 @@ import './HomePage.css'
 const HomePage = () => {
     return (
         <>
-            <h1>Welcome to our App</h1>
-            <hr />
-
-            <ProductsListPage />
+            <h1 className='mt-5'>Welcome to our App</h1>
         </>
     )
 }
