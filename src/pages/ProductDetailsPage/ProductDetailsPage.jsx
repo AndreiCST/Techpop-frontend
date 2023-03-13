@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
-import userService from "../../services/product.services"
+import userService from "../../services/user.services"
 import productService from "../../services/product.services"
 
 import './ProductDetailsPage.css'
@@ -11,12 +11,13 @@ import './ProductDetailsPage.css'
 
 const ProductPage = () => {
 
-    const [product, setProduct] = useState([])
-    const [productOwner, setProductOwner] = useState({})
-    const [favoriteProducts, setFavoriteProducts] = useState([])
-
     const { product_id } = useParams()
     const { user } = useContext(AuthContext)
+
+    const [product, setProduct] = useState([])
+    const [productOwner, setProductOwner] = useState({})
+    const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
+
 
     useEffect(() => {
         productService
@@ -24,10 +25,43 @@ const ProductPage = () => {
             .then(({ data }) => {
                 setProduct(data)
                 setProductOwner(data.owner)
+                if (user) {
+                    isFavProduct()
+                }
             })
             .catch(err => console.log(err))
     }, [])
 
+
+    const isFavProduct = () => {
+
+        userService
+            .getFavProd(user._id, product_id)
+            .then(data => {
+                setIsFavouriteProducts(data.data)
+                console.log(data.data)
+            })
+            .catch(err => console.log(err))
+    }
+
+
+    const handleFavClick = () => {
+        if (isFavouriteProducts) {
+            userService
+                .removeFromFavProd(user._id, product_id)
+                .then(() => {
+                    setIsFavouriteProducts(false)
+                })
+                .catch(err => console.log(err))
+        } else {
+            userService
+                .addToFavProd(user._id, product_id)
+                .then(() => {
+                    setIsFavouriteProducts(true)
+                })
+                .catch(err => console.log(err))
+        }
+    }
 
 
     return (
@@ -58,7 +92,6 @@ const ProductPage = () => {
                     </Carousel>
                 </Col>
 
-
                 <Col md={{ span: 6, offset: 1 }} className="mb-4">
                     <h3>Descripcion:</h3>
                     <p>{product.description}</p>
@@ -73,18 +106,7 @@ const ProductPage = () => {
 
                     <hr />
 
-
-
-
-
-
-                    <Button variant="dark" type="submit" onClick={() => userService.addToFav(product._id, user._id)}>Agregar a favoritos</Button>
-
-
-
-
-
-
+                    <Button onClick={handleFavClick}>{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
 
                 </Col>
 

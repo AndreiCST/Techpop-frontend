@@ -39,20 +39,28 @@ class UserService {
         return this.api.get(`/conversations/conversation-messages/${convId}`)
     }
 
-    addToFavProd(product_id, user_id) {
-        return this.api.put(`/addToFavProd/${product_id}`, { user_id })
+    getFavProd(user_id, product_id) {
+        return this.api.get(`/favourites/is-favourite-product/${user_id}/${product_id}`)
     }
 
-    removeFromFavProd(product_id, user_id) {
-        return this.api.put(`/removeFromFavProd/${product_id}`, { user_id })
+    addToFavProd(user_id, product_id) {
+        return this.api.put(`/favourites/addToFavProd/${user_id}/${product_id}`)
     }
 
-    addToFavSel(seller_id, user_id) {
-        return this.api.put(`/addToFavSel/${seller_id}`, { user_id })
+    removeFromFavProd(user_id, product_id) {
+        return this.api.put(`/favourites/removeFromFavProd/${user_id}/${product_id}`)
     }
 
-    removeFromFavSel(seller_id, user_id) {
-        return this.api.put(`/addToFavSel/${seller_id}`, { user_id })
+    getFavSel(user_id, seller_id) {
+        return this.api.get(`/favourites/is-favourite-seller/${user_id}/${seller_id}`)
+    }
+
+    addToFavSel(user_id, seller_id) {
+        return this.api.put(`/favourites/addToFavSel/${user_id}/${seller_id}`)
+    }
+
+    removeFromFavSel(user_id, seller_id) {
+        return this.api.put(`/favourites/addToFavSel/${user_id}/${seller_id}`)
     }
 }
 
