@@ -3,12 +3,11 @@ import SignupPage from "../pages/SignupPage/SignupPage"
 import LoginPage from "../pages/LoginPage/LoginPage"
 import HomePage from '../pages/HomePage/HomePage'
 import ProfilePage from '../pages/ProfilePage/ProfilePage'
-import SearchPage from '../pages/SearchPage/SearchPage'
-import SearchCategPage from '../pages/SearchCategPage/SearchCategPage'
 import ProductDetailsPage from '../pages/ProductDetailsPage/ProductDetailsPage'
 import PrivateRoute from "./PrivateRoute"
 import NewProductPage from './../pages/NewProductPage/NewProductPage'
 import ConversationPage from "../pages/ConversationPage/ConversationPage"
+import ProductsListPage from "../pages/ProductsListPage/ProductsListPage"
 
 const AppRoutes = () => {
 
@@ -20,8 +19,7 @@ const AppRoutes = () => {
                 <Route path='/profile/new_product' element={<NewProductPage />} />
                 <Route path='/profile/conversations/:conversation_id' element={<ConversationPage />} />
             </Route>
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/search/:category" element={<SearchCategPage />} />
+            <Route path="/search" element={<ProductsListPage />} />
             <Route path="/:product_id" element={<ProductDetailsPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
