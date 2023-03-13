@@ -38,6 +38,22 @@ class UserService {
     getConversationMessages(convId) {
         return this.api.get(`/conversations/conversation-messages/${convId}`)
     }
+
+    addToFavProd(product_id, user_id) {
+        return this.api.put(`/addToFavProd/${product_id}`, { user_id })
+    }
+
+    removeFromFavProd(product_id, user_id) {
+        return this.api.put(`/removeFromFavProd/${product_id}`, { user_id })
+    }
+
+    addToFavSel(seller_id, user_id) {
+        return this.api.put(`/addToFavSel/${seller_id}`, { user_id })
+    }
+
+    removeFromFavSel(seller_id, user_id) {
+        return this.api.put(`/addToFavSel/${seller_id}`, { user_id })
+    }
 }
 
 const userService = new UserService()
