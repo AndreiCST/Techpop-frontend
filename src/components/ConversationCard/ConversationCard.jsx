@@ -5,11 +5,11 @@ import { AuthContext } from "../../contexts/auth.context"
 import userService from "../../services/user.services"
 
 
-const ConversationCard = ({ conversation }) => {
+const ConversationCard = ({ _id, participants }) => {
 
     const [convInfo, setconvInfo] = useState({})
     const { user } = useContext(AuthContext)
-    const participant = conversation.participants[0] !== user._id ? conversation.participants[0] : conversation.participants[1]
+    const participant = participants[0] !== user._id ? participants[0] : participants[1]
 
     useEffect(() => {
         loadConvInfo()
@@ -24,10 +24,10 @@ const ConversationCard = ({ conversation }) => {
 
     return (
         <>
-            <Link to={`/profile/conversations/${conversation._id}`}>
+            <Link to={`/profile/conversations/${_id}`}>
                 <Card>
 
-                    <Card.Img style={{ height: '20px', width: '20px' }} variant="top" src={convInfo.avatar} />
+                    <Card.Img style={{ height: '20px', width: '20px' }} variant="left" src={convInfo.avatar} />
                     <Card.Title>{convInfo.firstName} {convInfo.lastName}</Card.Title>
 
                 </Card>

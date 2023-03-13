@@ -1,17 +1,20 @@
-import { Button, Card, Col, Row } from "react-bootstrap"
+import { Card } from "react-bootstrap"
 
-const ProfileHeader = ({ profilInfo }) => {
-
-    const { firstName, lastName, valorations, profilImage } = profilInfo
+const ProfileHeader = ({ firstName, lastName, valorations, profilImage }) => {
 
     return (
 
-        <Card style={{ width: '18rem' }}>
+        <Card>
+
             <Card.Img variant="top" src={profilImage} />
+
             <Card.Body>
+
                 <Card.Title>{`${firstName} ${lastName}`}</Card.Title>
                 <Card.Text>{valorations}</Card.Text>
+
             </Card.Body>
+
         </Card>
 
     )

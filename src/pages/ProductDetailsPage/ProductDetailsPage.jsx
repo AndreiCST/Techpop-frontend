@@ -22,20 +22,8 @@ const ProductPage = () => {
         productService
             .getOneProduct(product_id)
             .then(({ data }) => {
-                userService
-                    .getUser(user._id)
-                    .then(() => {
-
-
-
-                        setProduct(data)
-                        setProductOwner(data.owner)
-
-
-
-                    })
-                    .catch()
-
+                setProduct(data)
+                setProductOwner(data.owner)
             })
             .catch(err => console.log(err))
     }, [])
@@ -55,7 +43,7 @@ const ProductPage = () => {
                     <Carousel>
 
                         {
-                            product.images && product.images.map((elm, index) => {
+                            product?.images?.map((elm, index) => {
                                 return (
                                     <Carousel.Item key={index}>
                                         <img

@@ -1,7 +1,7 @@
 import './ProfilePage.css'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from './../../contexts/auth.context'
-import { Col, Container, ListGroup, Nav, Row } from 'react-bootstrap'
+import { Col, Container, ListGroup, Nav, Row, Tab } from 'react-bootstrap'
 import userService from './../../services/user.services'
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
 import Purchases from '../../components/Purchases/Purchases'
@@ -17,10 +17,10 @@ const ProfilePage = () => {
     const { user } = useContext(AuthContext)
     const { user_id } = useParams()
     const [infoUser, setInfoUser] = useState({})
-    const [currentSection, setcurrentSection] = useState('Ventas')
     const [isLoading, setIsLoading] = useState(true)
+    const [isOwner, setIsOwner] = useState(true)
 
-    const sectionsList = ['Compras', 'Ventas', 'Favoritos', 'Conversaciones', 'Cartera']
+    // user_id !== user._id && setIsOwner(false)
 
     const profilInfo = {
         firstName: infoUser.firstName,
@@ -43,13 +43,12 @@ const ProfilePage = () => {
 
     const conversations = infoUser.conversations
 
-    const wallet = infoUser.wallet
-
     useEffect(() => {
         loadUser()
-    }, [])
+    }, [user_id])
 
     const loadUser = () => {
+
         userService
             .getUser(user_id)
             .then(({ data }) => {
@@ -59,12 +58,8 @@ const ProfilePage = () => {
             .catch(err => console.log(err))
     }
 
-    const handleInputSection = (component) => {
-        setcurrentSection(component)
-    }
-
     return (
-        <Container className='aaa'>
+        <Container className='profile'>
 
             {
                 isLoading
@@ -75,43 +70,64 @@ const ProfilePage = () => {
 
                     :
 
-                    <Row>
+                    <Tab.Container id="profile-sections" defaultActiveKey="first" >
 
-                        <Col md={{ span: 2 }}>
+                        <Row>
 
-                            <ProfileHeader {...{ profilInfo }} />
+                            <Col sm={3}>
 
-                            <Nav className="flex-column mb-5 mt-5">
+                                <ProfileHeader {...profilInfo} />
 
-                                {
-                                    sectionsList.map((elem, index) => {
-                                        return (
-                                            <Nav.Link
-                                                key={index}
-                                                as='button'
-                                                onClick={() => handleInputSection(elem)}>
-                                                {elem}
-                                            </Nav.Link>
-                                        )
-                                    })
-                                }
+                                <Nav variant="pills" className="flex-column mt-1">
 
-                            </Nav>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="sales">Ventas</Nav.Link>
+                                    </Nav.Item>
 
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="purchases">Compras</Nav.Link>
+                                    </Nav.Item>
 
-                        </Col>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="favourites">Favoritos</Nav.Link>
+                                    </Nav.Item>
 
-                        <Col md={{ span: 8, offset: 2 }}>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="conversations">Conversaciones</Nav.Link>
+                                    </Nav.Item>
 
-                            {currentSection === 'Compras' && <Purchases {...{ purchases }} />}
-                            {currentSection === 'Ventas' && <Sellings {...{ sellings }} />}
-                            {currentSection === 'Favoritos' && <Favourites {...{ favourites }} />}
-                            {currentSection === 'Conversaciones' && <ConversationsList {...{ conversations }} />}
-                            {currentSection === 'Cartera' && <Wallet />}
+                                </Nav>
 
-                        </Col>
+                            </Col>
 
-                    </Row>
+                            <Col sm={9}>
+
+                                <Tab.Content>
+
+                                    <Tab.Pane eventKey="sales">
+                                        <Sellings {...sellings} />
+                                    </Tab.Pane>
+
+                                    <Tab.Pane eventKey="purchases">
+                                        <Purchases {...purchases} />
+                                    </Tab.Pane>
+
+                                    <Tab.Pane eventKey="favourites">
+                                        <Favourites {...favourites} />
+                                    </Tab.Pane>
+
+                                    <Tab.Pane eventKey="conversations">
+                                        <ConversationsList conversations={conversations} />
+                                    </Tab.Pane>
+
+                                </Tab.Content>
+
+                            </Col>
+
+                        </Row>
+
+                    </Tab.Container>
+
             }
 
         </Container >

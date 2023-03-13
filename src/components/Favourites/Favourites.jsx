@@ -2,9 +2,7 @@ import { useState } from "react"
 import { Col, ListGroup, Row } from "react-bootstrap"
 import ProductList from "../ProductList/ProductList"
 
-const Favourites = ({ favourites }) => {
-
-    const { products, sellers } = favourites
+const Favourites = ({ products, sellers }) => {
 
     const [currentSection, setcurrentSection] = useState('products')
 
@@ -37,10 +35,6 @@ const Favourites = ({ favourites }) => {
                 }
 
             </ListGroup>
-
-
-
-
 
             {currentSection === 'products' && <ProductList products={products} />}
             {currentSection === 'sellers' && <h1>hay que hacer la lista de usuarios</h1>}

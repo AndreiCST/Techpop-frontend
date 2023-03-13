@@ -10,7 +10,7 @@ import FormError from '../FormError/FormError'
 
 import './NewProductForm.css'
 
-const NewProductForm = ({ fireFinalActions }) => {
+const NewProductForm = () => {
 
     const { user } = useContext(AuthContext)
 

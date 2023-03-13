@@ -2,9 +2,7 @@ import { useState } from "react"
 import { Col, ListGroup, Row } from "react-bootstrap"
 import ProductList from "../ProductList/ProductList"
 
-const Sellings = ({ sellings }) => {
-
-    const { selling, sold } = sellings
+const Sellings = ({ selling, sold }) => {
 
     const [currentSection, setcurrentSection] = useState('selling')
 
@@ -37,10 +35,6 @@ const Sellings = ({ sellings }) => {
                 }
 
             </ListGroup>
-
-
-
-
 
             {currentSection === 'selling' && <ProductList products={selling} />}
             {currentSection === 'sold' && <ProductList products={sold} />}
