@@ -15,8 +15,6 @@ const ProductPage = () => {
     const { product_id } = useParams()
     const { user } = useContext(AuthContext)
 
-    console.log(user)
-
     useEffect(() => {
         productService
             .getOneProduct(product_id)

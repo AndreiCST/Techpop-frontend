@@ -10,6 +10,7 @@ import Favourites from '../../components/Favourites/Favourites'
 import ConversationsList from '../../components/ConversationsList/ConversationsList'
 import Wallet from '../../components/Wallet/Wallet'
 import { useParams } from 'react-router-dom'
+import Loader from './../../components/Loader/Loader'
 
 const ProfilePage = () => {
 
@@ -17,6 +18,7 @@ const ProfilePage = () => {
     const { user_id } = useParams()
     const [infoUser, setInfoUser] = useState({})
     const [currentSection, setcurrentSection] = useState('Ventas')
+    const [isLoading, setIsLoading] = useState(true)
 
     const sectionsList = ['Compras', 'Ventas', 'Favoritos', 'Conversaciones', 'Cartera']
 
@@ -52,6 +54,7 @@ const ProfilePage = () => {
             .getUser(user_id)
             .then(({ data }) => {
                 setInfoUser(data)
+                setIsLoading(false)
             })
             .catch(err => console.log(err))
     }
@@ -63,43 +66,53 @@ const ProfilePage = () => {
     return (
         <Container className='aaa'>
 
-            <Row>
+            {
+                isLoading
 
-                <Col md={{ span: 2 }}>
+                    ?
 
-                    <ProfileHeader {...{ profilInfo }} />
+                    <Loader />
 
-                    <Nav className="flex-column mb-5 mt-5">
+                    :
 
-                        {
-                            sectionsList.map((elem, index) => {
-                                return (
-                                    <Nav.Link
-                                        key={index}
-                                        as='button'
-                                        onClick={() => handleInputSection(elem)}>
-                                        {elem}
-                                    </Nav.Link>
-                                )
-                            })
-                        }
+                    <Row>
 
-                    </Nav>
+                        <Col md={{ span: 2 }}>
+
+                            <ProfileHeader {...{ profilInfo }} />
+
+                            <Nav className="flex-column mb-5 mt-5">
+
+                                {
+                                    sectionsList.map((elem, index) => {
+                                        return (
+                                            <Nav.Link
+                                                key={index}
+                                                as='button'
+                                                onClick={() => handleInputSection(elem)}>
+                                                {elem}
+                                            </Nav.Link>
+                                        )
+                                    })
+                                }
+
+                            </Nav>
 
 
-                </Col>
+                        </Col>
 
-                <Col md={{ span: 8, offset: 2 }}>
+                        <Col md={{ span: 8, offset: 2 }}>
 
-                    {currentSection === 'Compras' && <Purchases {...{ purchases }} />}
-                    {currentSection === 'Ventas' && <Sellings {...{ sellings }} />}
-                    {currentSection === 'Favoritos' && <Favourites {...{ favourites }} />}
-                    {currentSection === 'Conversaciones' && <ConversationsList {...{ conversations }} />}
-                    {currentSection === 'Cartera' && <Wallet />}
+                            {currentSection === 'Compras' && <Purchases {...{ purchases }} />}
+                            {currentSection === 'Ventas' && <Sellings {...{ sellings }} />}
+                            {currentSection === 'Favoritos' && <Favourites {...{ favourites }} />}
+                            {currentSection === 'Conversaciones' && <ConversationsList {...{ conversations }} />}
+                            {currentSection === 'Cartera' && <Wallet />}
 
-                </Col>
+                        </Col>
 
-            </Row>
+                    </Row>
+            }
 
         </Container >
     )

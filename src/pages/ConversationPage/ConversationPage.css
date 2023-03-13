@@ -1,3 +1,14 @@
-.aab {
-    margin-top: 200px;
+.aa {
+    margin-top: 100px;
+}
+
+.chat {
+    margin-top: 10%;
+    height: 500px;
+}
+
+.messages {
+    height: 70%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }

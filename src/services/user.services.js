@@ -31,8 +31,8 @@ class UserService {
         return this.api.get(`/profile/reduced-info/${user_id}`)
     }
 
-    addMessage(convId, user) {
-        return this.api.put(`/conversations/add-message/${convId}/${user}`)
+    addMessage(convId, user, message) {
+        return this.api.put(`/conversations/add-message/${convId}/${user}`, { message })
     }
 
     getConversationMessages(convId) {

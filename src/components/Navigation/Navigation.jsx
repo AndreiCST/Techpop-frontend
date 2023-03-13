@@ -10,7 +10,7 @@ const Navigation = () => {
     return (
         <Navbar fixed="top" bg={navbarStyle} variant={navbarStyle} expand="md" className='mb-4'>
             <Container>
-                <Navbar.Brand href="#">Coasters App</Navbar.Brand>
+                <Navbar.Brand href="/">Techpop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
