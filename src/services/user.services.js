@@ -43,6 +43,10 @@ class UserService {
         return this.api.get(`/conversations/conversation-messages/${convId}`)
     }
 
+    verifyConv(user_id, seller_id) {
+        return this.api.get(`/conversations/verify-if-exist/${user_id}/${seller_id}`)
+    }
+
     getFavProd(user_id, product_id) {
         return this.api.get(`/favourites/is-favourite-product/${user_id}/${product_id}`)
     }

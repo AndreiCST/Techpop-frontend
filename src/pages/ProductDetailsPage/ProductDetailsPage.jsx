@@ -16,10 +16,12 @@ const ProductPage = () => {
     const [productOwner, setProductOwner] = useState({})
     const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
     const [isOwner, setIsOwner] = useState(false)
+    const [existChat, setExistChat] = useState(false)
 
     const navigate = useNavigate()
 
     useEffect(() => {
+        console.log('llamando ha vrifychat')
 
         productService
             .getOneProduct(product_id)
@@ -29,12 +31,18 @@ const ProductPage = () => {
                 if (user) {
                     isFavProduct()
                 }
-                if (productOwner?.id === user?._id) {
+                if (data?.owner?.id === user?._id) {
                     setIsOwner(true)
                 }
+
             })
             .catch(err => console.log(err))
     }, [])
+
+
+    useEffect(() => {
+        verifyChat()
+    }, [user, productOwner])
 
 
     const isFavProduct = () => {
@@ -66,11 +74,31 @@ const ProductPage = () => {
         }
     }
 
-    const handleConversation = () => {
+    const verifyChat = () => {
+        if (!user || !productOwner) {
+            setExistChat(false)
+            return
+        }
+
         userService
-            .createConv(user._id, productOwner._id)
-            .then(({ data }) => navigate(`/profile/conversations/${data._id}`))
+            .verifyConv(user._id, productOwner._id)
+            .then(response => {
+                console.log('------>', response)
+                if (response.data == 'false') {
+                    setExistChat(false)
+                } else {
+                    setExistChat(true)
+
+                }
+            })
             .catch(err => console.log(err))
+    }
+
+
+    const handleConversation = () => {
+
+        console.log(existChat)
+
     }
 
     const handleEditClick = () => { navigate(`/edit/${product_id}`) }
