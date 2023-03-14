@@ -12,6 +12,7 @@ import ProductsListPage from "../pages/ProductsListPage/ProductsListPage"
 const AppRoutes = () => {
 
     return (
+
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route element={<PrivateRoute />}>
@@ -25,6 +26,7 @@ const AppRoutes = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<p>404</p>} />
         </Routes>
+
     )
 }
 

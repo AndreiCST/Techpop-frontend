@@ -5,7 +5,7 @@ const SignupPage = () => {
 
     return (
 
-        <Container>
+        <Container className='pagePos'>
 
             <Row>
 

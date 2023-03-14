@@ -33,21 +33,23 @@ const ProductsListPage = () => {
 
 
     return (
-        <>
-            <Container>
-                {
-                    isLoading
-                        ?
-                        <Loader />
-                        :
-                        <>
-                            <h1>Listado de Productos</h1>
-                            <hr />
-                            <ProductsList products={products} />
-                        </>
-                }
-            </Container>
-        </>
+        <div className='pagePos'>
+            <h1>qui ira la bara de busqueta</h1>
+            <hr />
+
+            {
+                isLoading
+                    ?
+                    <Loader />
+                    :
+
+                    <Container>
+                        <h1>Listado de Productos</h1>
+                        <ProductsList products={products} />
+                    </Container>
+
+            }
+        </div>
     )
 }
 

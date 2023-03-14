@@ -10,7 +10,7 @@ const NewProduct = () => {
 
     return (
 
-        <Container >
+        <Container className='pagePos'>
             <Row>
                 <Col md={{ offset: 2, span: 8 }}>
                     <NewProductForm />

@@ -31,6 +31,10 @@ class UserService {
         return this.api.get(`/profile/reduced-info/${user_id}`)
     }
 
+    createConv(buyer_id, seller_id) {
+        return this.api.put(`/conversations/create/${buyer_id}/${seller_id}`)
+    }
+
     addMessage(convId, user, message) {
         return this.api.put(`/conversations/add-message/${convId}/${user}`, { message })
     }
@@ -60,7 +64,7 @@ class UserService {
     }
 
     removeFromFavSel(user_id, seller_id) {
-        return this.api.put(`/favourites/addToFavSel/${user_id}/${seller_id}`)
+        return this.api.put(`/favourites/removeFromFavSel/${user_id}/${seller_id}`)
     }
 }
 

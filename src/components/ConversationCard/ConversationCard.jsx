@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Card, Row } from "react-bootstrap"
+import { Button, Card, Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
 import userService from "../../services/user.services"
@@ -25,10 +25,23 @@ const ConversationCard = ({ _id, participants }) => {
     return (
         <>
             <Link to={`/profile/conversations/${_id}`}>
-                <Card>
+                <Card className="d-flex h-100">
 
-                    <Card.Img style={{ height: '20px', width: '20px' }} variant="left" src={convInfo.avatar} />
-                    <Card.Title>{convInfo.firstName} {convInfo.lastName}</Card.Title>
+                    <Row>
+
+                        <Col sm={2}>
+
+                            <Card.Img style={{ height: '20px', width: '20px' }} variant="left" src={convInfo.avatar} />
+
+                        </Col>
+
+                        <Col className="d-flex justify-content-between" sm={{ span: 6, offset: 2 }}>
+                            <Card.Title>{convInfo.firstName} {convInfo.lastName}</Card.Title>
+                            <Button>a</Button>
+                        </Col>
+
+
+                    </Row>
 
                 </Card>
             </Link>

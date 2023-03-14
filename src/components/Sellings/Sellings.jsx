@@ -1,43 +1,24 @@
 import { useState } from "react"
-import { Col, ListGroup, Row } from "react-bootstrap"
+import { Col, ListGroup, Row, Tab, Tabs } from "react-bootstrap"
 import ProductList from "../ProductList/ProductList"
 
 const Sellings = ({ selling, sold }) => {
 
-    const [currentSection, setcurrentSection] = useState('selling')
-
-    const sectionsList = ['selling', 'sold']
-
-    const handleInputSection = (component) => {
-        setcurrentSection(component)
-    }
-
     return (
         <>
+            <Tabs
+                defaultActiveKey="selling"
+                id="uncontrolled-tab-example"
+                className="mb-3"
+            >
+                <Tab eventKey="selling" title="En curso">
+                    <ProductList products={selling} />
+                </Tab>
+                <Tab eventKey="sold" title="Finalizadas">
+                    <ProductList products={sold} />
+                </Tab>
+            </Tabs>
 
-
-            <ListGroup as="ul" className='mt-3'>
-
-                {
-                    sectionsList.map((elem, index) => {
-                        return (
-                            <Col key={index}>
-                                <ListGroup.Item
-                                    as="button"
-                                    onClick={() => handleInputSection(elem)}
-                                >
-                                    {elem}
-                                </ListGroup.Item>
-                            </Col>
-
-                        )
-                    })
-                }
-
-            </ListGroup>
-
-            {currentSection === 'selling' && <ProductList products={selling} />}
-            {currentSection === 'sold' && <ProductList products={sold} />}
         </>
     )
 }

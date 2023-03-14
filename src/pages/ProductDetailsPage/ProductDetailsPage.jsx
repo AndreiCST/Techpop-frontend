@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
 import userService from "../../services/user.services"
 import productService from "../../services/product.services"
-
 import './ProductDetailsPage.css'
-
 
 
 const ProductPage = () => {
@@ -18,6 +16,7 @@ const ProductPage = () => {
     const [productOwner, setProductOwner] = useState({})
     const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
 
+    const navigate = useNavigate()
 
     useEffect(() => {
         productService
@@ -39,7 +38,6 @@ const ProductPage = () => {
             .getFavProd(user._id, product_id)
             .then(data => {
                 setIsFavouriteProducts(data.data)
-                console.log(data.data)
             })
             .catch(err => console.log(err))
     }
@@ -63,10 +61,17 @@ const ProductPage = () => {
         }
     }
 
+    const handleConversation = () => {
+        userService
+            .createConv(user._id, productOwner._id)
+            .then(({ data }) => navigate(`/profile/conversations/${data._id}`))
+            .catch(err => console.log(err))
+    }
+
 
     return (
 
-        <Container className="productDetailsPage">
+        <Container className="pagePos">
 
             <h1 className="mb-4">Detalles de {product.name}</h1>
             <hr />
@@ -107,6 +112,7 @@ const ProductPage = () => {
                     <hr />
 
                     <Button onClick={handleFavClick}>{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
+                    <Button onClick={handleConversation} className="ms-3">Chat</Button>
 
                 </Col>
 

@@ -1,15 +1,15 @@
 import './ProfilePage.css'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from './../../contexts/auth.context'
-import { Col, Container, ListGroup, Nav, Row, Tab } from 'react-bootstrap'
+import { Button, Col, Container, ListGroup, Nav, Row, Tab } from 'react-bootstrap'
 import userService from './../../services/user.services'
-import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
+import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import Purchases from '../../components/Purchases/Purchases'
 import Sellings from '../../components/Sellings/Sellings'
 import Favourites from '../../components/Favourites/Favourites'
 import ConversationsList from '../../components/ConversationsList/ConversationsList'
 import Wallet from '../../components/Wallet/Wallet'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Loader from './../../components/Loader/Loader'
 
 const ProfilePage = () => {
@@ -18,14 +18,13 @@ const ProfilePage = () => {
     const { user_id } = useParams()
     const [infoUser, setInfoUser] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    const [isOwner, setIsOwner] = useState(true)
-
-    // user_id !== user._id && setIsOwner(false)
+    const [isCurrentUser, setIsCurrentUser] = useState()
+    const [isFavouriteSeller, setISFavouriteSeller] = useState()
 
     const profilInfo = {
         firstName: infoUser.firstName,
         lastName: infoUser.lastName,
-        valorations: infoUser.valorations?.allValorations,
+        averageValoration: infoUser.valorations?.avgValoration,
         profilImage: infoUser.avatar
     }
 
@@ -45,6 +44,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         loadUser()
+        isFavSeller()
     }, [user_id])
 
     const loadUser = () => {
@@ -54,12 +54,42 @@ const ProfilePage = () => {
             .then(({ data }) => {
                 setInfoUser(data)
                 setIsLoading(false)
+                if (user_id !== user._id) setIsCurrentUser(false)
+                if (user_id === user._id) setIsCurrentUser(true)
             })
             .catch(err => console.log(err))
     }
 
+    const isFavSeller = () => {
+
+        userService
+            .getFavSel(user._id, user_id)
+            .then(({ data }) => {
+                setISFavouriteSeller(data)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleFavClick = () => {
+        if (isFavouriteSeller) {
+            userService
+                .removeFromFavSel(user._id, user_id)
+                .then(() => {
+                    setISFavouriteSeller(false)
+                })
+                .catch(err => console.log(err))
+        } else {
+            userService
+                .addToFavSel(user._id, user_id)
+                .then(() => {
+                    setISFavouriteSeller(true)
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
     return (
-        <Container className='profile'>
+        <div className='pagePos'>
 
             {
                 isLoading
@@ -70,67 +100,129 @@ const ProfilePage = () => {
 
                     :
 
-                    <Tab.Container id="profile-sections" defaultActiveKey="first" >
+                    <Tab.Container id="profile-sections" defaultActiveKey="sales">
 
                         <Row>
 
-                            <Col sm={3}>
+                            <Col md={3} className='navColumn'>
 
-                                <ProfileHeader {...profilInfo} />
+                                <ProfileCard {...profilInfo} />
 
-                                <Nav variant="pills" className="flex-column mt-1">
-
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="sales">Ventas</Nav.Link>
-                                    </Nav.Item>
+                                <Nav className="flex-column mt-1">
 
                                     <Nav.Item>
-                                        <Nav.Link eventKey="purchases">Compras</Nav.Link>
+                                        <Nav.Link eventKey="sales" className='mt-2 button-67 profileNavBut'>Ventas</Nav.Link>
                                     </Nav.Item>
 
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="favourites">Favoritos</Nav.Link>
-                                    </Nav.Item>
+                                    {
+                                        isCurrentUser
 
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="conversations">Conversaciones</Nav.Link>
-                                    </Nav.Item>
+                                            ?
+
+                                            <div>
+                                                <Nav.Item>
+                                                    <Nav.Link eventKey="purchases" className='mt-2 button-67 profileNavBut'>Compras</Nav.Link>
+                                                </Nav.Item>
+
+                                                <Nav.Item>
+                                                    <Nav.Link eventKey="favourites" className='mt-2 button-67 profileNavBut'>Favoritos</Nav.Link>
+                                                </Nav.Item>
+
+                                                <Nav.Item>
+                                                    <Nav.Link eventKey="conversations" className='mt-2 button-67 profileNavBut'>Conversaciones</Nav.Link>
+                                                </Nav.Item>
+
+                                            </div>
+
+
+                                            :
+
+                                            <h1></h1>
+
+                                    }
 
                                 </Nav>
 
                             </Col>
 
-                            <Col sm={9}>
+                            <Col md={9} >
 
-                                <Tab.Content>
+                                <Row className='sectionColumn pt-2'>
 
-                                    <Tab.Pane eventKey="sales">
-                                        <Sellings {...sellings} />
-                                    </Tab.Pane>
+                                    {
 
-                                    <Tab.Pane eventKey="purchases">
-                                        <Purchases {...purchases} />
-                                    </Tab.Pane>
+                                        isCurrentUser
 
-                                    <Tab.Pane eventKey="favourites">
-                                        <Favourites {...favourites} />
-                                    </Tab.Pane>
+                                            ?
 
-                                    <Tab.Pane eventKey="conversations">
-                                        <ConversationsList conversations={conversations} />
-                                    </Tab.Pane>
+                                            <>
 
-                                </Tab.Content>
+                                                <Col md={12} className='d-flex justify-content-end'>
+
+                                                    <Link to={`/profile/new_product`} className='notDecoration'>
+                                                        <Button className='button-88 transLeft'>+ Añadir producto</Button>
+                                                    </Link>
+
+                                                </Col>
+
+                                                <hr className='mt-3' />
+
+                                            </>
+
+                                            :
+
+                                            <>
+
+                                                <Col md={12} className='d-flex justify-content-end'>
+
+                                                    <Button
+                                                        onClick={handleFavClick}
+                                                        className='button-88 transLeft'
+                                                    >{isFavouriteSeller ? 'quitar' : 'añadir'}</Button>
+
+                                                </Col>
+
+                                                <hr className='mt-3' />
+
+                                            </>
+
+                                    }
+
+                                    <Col md={12} className='pt-3'>
+
+                                        <Tab.Content>
+
+                                            <Tab.Pane eventKey="sales">
+                                                <Sellings {...sellings} />
+                                            </Tab.Pane>
+
+                                            <Tab.Pane eventKey="purchases">
+                                                <Purchases {...purchases} />
+                                            </Tab.Pane>
+
+                                            <Tab.Pane eventKey="favourites">
+                                                <Favourites {...favourites} />
+                                            </Tab.Pane>
+
+                                            <Tab.Pane eventKey="conversations">
+                                                <ConversationsList conversations={conversations} />
+                                            </Tab.Pane>
+
+                                        </Tab.Content>
+
+                                    </Col>
+
+                                </Row>
 
                             </Col>
 
-                        </Row>
+                        </Row >
 
-                    </Tab.Container>
+                    </Tab.Container >
 
             }
 
-        </Container >
+        </div >
     )
 
 

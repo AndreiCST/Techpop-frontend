@@ -1,44 +1,27 @@
-import { useState } from "react"
-import { Col, ListGroup, Row } from "react-bootstrap"
+import { Tab, Tabs } from "react-bootstrap"
 import ProductList from "../ProductList/ProductList"
+import UserList from "../UsersList/UsersList"
 
 const Favourites = ({ products, sellers }) => {
 
-    const [currentSection, setcurrentSection] = useState('products')
-
-    const sectionsList = ['products', 'sellers']
-
-    const handleInputSection = (component) => {
-        setcurrentSection(component)
-    }
-
     return (
-        <>
 
+        <Tabs
+            defaultActiveKey="products"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+        >
 
-            <ListGroup as="ul" className='mt-3'>
+            <Tab eventKey="products" title="Productos">
+                <ProductList products={products} />
+            </Tab>
 
-                {
-                    sectionsList.map((elem, index) => {
-                        return (
-                            <Col key={index}>
-                                <ListGroup.Item
-                                    as="button"
-                                    onClick={() => handleInputSection(elem)}
-                                >
-                                    {elem}
-                                </ListGroup.Item>
-                            </Col>
+            <Tab eventKey="selelrs" title="Vendedores">
+                <UserList sellers={sellers} />
+            </Tab>
 
-                        )
-                    })
-                }
+        </Tabs>
 
-            </ListGroup>
-
-            {currentSection === 'products' && <ProductList products={products} />}
-            {currentSection === 'sellers' && <h1>hay que hacer la lista de usuarios</h1>}
-        </>
     )
 }
 

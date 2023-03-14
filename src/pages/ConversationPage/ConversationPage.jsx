@@ -36,7 +36,6 @@ const ConversationPage = () => {
             return userService
                 .addMessage(conversation_id, user._id, message)
                 .then(() => {
-                    console.log("entrooo???")
                     setMessage('')
                 })
                 .catch(err => console.log(err))
@@ -44,7 +43,7 @@ const ConversationPage = () => {
     }
 
     return (
-        <>
+        <div className='pagePos'>
 
             {
 
@@ -100,7 +99,7 @@ const ConversationPage = () => {
 
             }
 
-        </>
+        </div>
     )
 }
 

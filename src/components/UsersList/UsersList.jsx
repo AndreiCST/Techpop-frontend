@@ -1,18 +1,20 @@
-import { Col, Row } from "react-bootstrap"
-import ProductCard from "../ProductCard/ProductCard"
+import { Row, Col } from "react-bootstrap"
+import UserCard from "../UserCard/UserCard"
 
-import './ProductList.css'
 
-const ProductList = ({ products }) => {
+
+
+
+const UserList = ({ sellers }) => {
 
     return (
         <>
             <Row xs={1} sm={3} md={4} className='mb-5'>
                 {
-                    products?.map(elm => {
+                    sellers?.map(elm => {
                         return (
                             <Col key={elm._id} className='mt-3'>
-                                <ProductCard {...elm} />
+                                <UserCard {...elm} />
                             </Col>
                         )
                     })
@@ -20,8 +22,7 @@ const ProductList = ({ products }) => {
             </Row >
 
         </>
-
     )
 }
 
-export default ProductList
+export default UserList

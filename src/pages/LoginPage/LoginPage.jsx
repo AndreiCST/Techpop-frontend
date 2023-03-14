@@ -5,7 +5,7 @@ const LoginPage = () => {
 
     return (
 
-        <Container>
+        <Container className='pagePos'>
 
             <Row>
 
