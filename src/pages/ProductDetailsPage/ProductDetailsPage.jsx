@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
 import userService from "../../services/user.services"
 import productService from "../../services/product.services"
 
 import './ProductDetailsPage.css'
-
 
 
 const ProductPage = () => {
@@ -17,9 +16,13 @@ const ProductPage = () => {
     const [product, setProduct] = useState([])
     const [productOwner, setProductOwner] = useState({})
     const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
+    const [isOwner, setIsOwner] = useState(false)
+
+    const navigate = useNavigate()
 
 
     useEffect(() => {
+
         productService
             .getOneProduct(product_id)
             .then(({ data }) => {
@@ -27,6 +30,9 @@ const ProductPage = () => {
                 setProductOwner(data.owner)
                 if (user) {
                     isFavProduct()
+                }
+                if (productOwner?.id === user?._id) {
+                    setIsOwner(true)
                 }
             })
             .catch(err => console.log(err))
@@ -61,6 +67,15 @@ const ProductPage = () => {
                 })
                 .catch(err => console.log(err))
         }
+    }
+
+    const handleEditClick = () => { navigate(`/edit/${product_id}`) }
+
+    const handleDeleteClick = () => {
+        productService
+            .deleteProduct(product_id)
+            .then(() => navigate(`/profile/${user._id}`))
+            .catch(err => console.log(err))
     }
 
 
@@ -106,7 +121,25 @@ const ProductPage = () => {
 
                     <hr />
 
-                    <Button onClick={handleFavClick}>{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
+                    <Button onClick={handleFavClick} variant="secondary">{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
+
+                    {
+                        isOwner
+
+                            ?
+                            <Row>
+                                <Col>
+                                    <Button onClick={handleEditClick} className='mt-2' variant="warning">Editar Producto</Button>
+                                </Col>
+                                <Col>
+                                    <Button onClick={handleDeleteClick} className='mt-2' variant="danger">Eliminar Producto</Button>
+                                </Col>
+                            </Row>
+
+                            :
+
+                            <h1></h1>
+                    }
 
                 </Col>
 

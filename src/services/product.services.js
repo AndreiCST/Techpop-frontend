@@ -20,6 +20,14 @@ class ProductsService {
         return this.api.post(`/create-product/${user_id}`, productData)
     }
 
+    updateProduct(product_id, productData) {
+        return this.api.put(`/edit/${product_id}`, productData)
+    }
+
+    deleteProduct(product_id) {
+        return this.api.delete(`/delete/${product_id}`)
+    }
+
 }
 
 const productService = new ProductsService()
