@@ -15,10 +15,12 @@ const ProductPage = () => {
     const [product, setProduct] = useState([])
     const [productOwner, setProductOwner] = useState({})
     const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
+    const [isOwner, setIsOwner] = useState(false)
 
     const navigate = useNavigate()
 
     useEffect(() => {
+
         productService
             .getOneProduct(product_id)
             .then(({ data }) => {
@@ -26,6 +28,9 @@ const ProductPage = () => {
                 setProductOwner(data.owner)
                 if (user) {
                     isFavProduct()
+                }
+                if (productOwner?.id === user?._id) {
+                    setIsOwner(true)
                 }
             })
             .catch(err => console.log(err))
@@ -65,6 +70,15 @@ const ProductPage = () => {
         userService
             .createConv(user._id, productOwner._id)
             .then(({ data }) => navigate(`/profile/conversations/${data._id}`))
+            .catch(err => console.log(err))
+    }
+
+    const handleEditClick = () => { navigate(`/edit/${product_id}`) }
+
+    const handleDeleteClick = () => {
+        productService
+            .deleteProduct(product_id)
+            .then(() => navigate(`/profile/${user._id}`))
             .catch(err => console.log(err))
     }
 
@@ -111,10 +125,28 @@ const ProductPage = () => {
 
                     <hr />
 
-                    <Button onClick={handleFavClick}>{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
                     <Button onClick={handleConversation} className="ms-3">Chat</Button>
+                    <Button onClick={handleFavClick} variant="secondary">{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
 
-                </Col>
+                    {
+                        isOwner
+
+                            ?
+                            <Row>
+                                <Col>
+                                    <Button onClick={handleEditClick} className='mt-2' variant="warning">Editar Producto</Button>
+                                </Col>
+                                <Col>
+                                    <Button onClick={handleDeleteClick} className='mt-2' variant="danger">Eliminar Producto</Button>
+                                </Col>
+                            </Row>
+
+                            :
+
+                            <h1></h1>
+                    }
+
+                </Col >
 
                 <hr />
 
@@ -122,7 +154,7 @@ const ProductPage = () => {
                     <Button as="figure" variant="dark">Volver a la lista</Button>
                 </Link>
 
-            </Row>
+            </Row >
 
         </Container >
     )
