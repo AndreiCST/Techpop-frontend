@@ -3,6 +3,7 @@ import { Button, Card, Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
 import userService from "../../services/user.services"
+import './ConversationCard.css'
 
 
 const ConversationCard = ({ _id, participants }) => {
@@ -22,29 +23,50 @@ const ConversationCard = ({ _id, participants }) => {
             .catch(err => console.log(err))
     }
 
+    const handle = () => {
+        userService
+            .deleteConv(user._id, _id)
+            .catch(err => console.log(err))
+    }
+
     return (
         <>
-            <Link to={`/profile/conversations/${_id}`}>
-                <Card className="d-flex h-100">
 
-                    <Row>
+            <Card className="d-flex h-100 mt-2">
 
-                        <Col sm={2}>
+                <Row>
 
-                            <Card.Img style={{ height: '20px', width: '20px' }} variant="left" src={convInfo.avatar} />
+                    <Col sm={10}>
+                        <Link to={`/profile/conversations/${_id}`} >
 
-                        </Col>
+                            <Row className="align-items-center p-2">
 
-                        <Col className="d-flex justify-content-between" sm={{ span: 6, offset: 2 }}>
-                            <Card.Title>{convInfo.firstName} {convInfo.lastName}</Card.Title>
-                            <Button>a</Button>
-                        </Col>
+                                <Col>
+
+                                    <Card.Img className="rounded-circle convCardImg" variant="left" src={convInfo.avatar} />
+
+                                </Col>
+
+                                <Col>
+
+                                    <Card.Title>{convInfo.firstName} {convInfo.lastName}</Card.Title>
+
+                                </Col>
+
+                            </Row>
+
+                        </Link>
+                    </Col>
 
 
-                    </Row>
+                    <Col className="d-flex align-items-center" sm={2}>
+                        <Button onClick={handle}>Borrar</Button>
+                    </Col>
 
-                </Card>
-            </Link>
+
+                </Row>
+
+            </Card>
         </>
     )
 }

@@ -39,6 +39,10 @@ class UserService {
         return this.api.put(`/conversations/create/${buyer_id}/${seller_id}`)
     }
 
+    deleteConv(user_id, conversation_id) {
+        return this.api.delete(`/conversations/delete/${user_id}/${conversation_id}`)
+    }
+
     addMessage(convId, user, message) {
         return this.api.put(`/conversations/add-message/${convId}/${user}`, { message })
     }

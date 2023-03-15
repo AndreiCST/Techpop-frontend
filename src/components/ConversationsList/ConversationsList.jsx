@@ -5,7 +5,7 @@ const ConversationsList = ({ conversations }) => {
 
     return (
 
-        <Row>
+        <Row className="ps-5 pe-5">
 
             {
                 conversations.map((conversation, index) => {

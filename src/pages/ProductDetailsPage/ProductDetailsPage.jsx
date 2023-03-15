@@ -75,7 +75,7 @@ const ProductPage = () => {
         userService
             .verifyConv(user._id, productOwner._id)
             .then(({ data }) => {
-                console.log(data)
+
                 if (data !== 'false') {
                     navigate(`/profile/conversations/${data}`)
                 } else {

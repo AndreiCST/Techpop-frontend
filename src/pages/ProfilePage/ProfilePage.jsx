@@ -20,6 +20,8 @@ const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [isCurrentUser, setIsCurrentUser] = useState()
     const [isFavouriteSeller, setISFavouriteSeller] = useState()
+    const [tab, setTab] = useState('sales')
+    const [animation, setAnimation] = useState('mt-2 button-67 profileNavBut')
 
     const profilInfo = {
         firstName: infoUser.firstName,
@@ -88,8 +90,22 @@ const ProfilePage = () => {
         }
     }
 
+    const handleBtnAnimation = () => {
+
+
+        setAnimation('mt-2 button-67 float profileNavBut')
+
+        setTimeout(() => {
+            setAnimation('mt-2 button-67 profileNavBut')
+        }, 100);
+    }
+
+    const changeTab = () => {
+        setTab('sales')
+    }
+
     return (
-        <Container fluid className='profile'>
+        <Container>
 
             {
                 isLoading
@@ -104,14 +120,14 @@ const ProfilePage = () => {
 
                         <Row className='h-100'>
 
-                            <Col md={3} className='navColumn'>
+                            <Col md={3} className='navColumn pb-4'>
 
                                 <ProfileCard {...profilInfo} />
 
                                 <Nav className="flex-column mt-1">
 
                                     <Nav.Item>
-                                        <Nav.Link eventKey="sales" className='mt-2 button-67 profileNavBut'>Ventas</Nav.Link>
+                                        <Nav.Link eventKey="sales" className={animation} onClick={handleBtnAnimation}>Ventas</Nav.Link>
                                     </Nav.Item>
 
                                     {
@@ -121,15 +137,15 @@ const ProfilePage = () => {
 
                                             <div>
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="purchases" className='mt-2 button-67 profileNavBut'>Compras</Nav.Link>
+                                                    <Nav.Link eventKey="purchases" className={animation} onClick={handleBtnAnimation}>Compras</Nav.Link>
                                                 </Nav.Item>
 
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="favourites" className='mt-2 button-67 profileNavBut'>Favoritos</Nav.Link>
+                                                    <Nav.Link eventKey="favourites" className={animation} onClick={handleBtnAnimation}>Favoritos</Nav.Link>
                                                 </Nav.Item>
 
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="conversations" className='mt-2 button-67 profileNavBut'>Conversaciones</Nav.Link>
+                                                    <Nav.Link eventKey="conversations" className={animation} onClick={handleBtnAnimation}>Conversaciones</Nav.Link>
                                                 </Nav.Item>
 
                                             </div>
@@ -160,7 +176,7 @@ const ProfilePage = () => {
                                                 <Col md={12} className='d-flex justify-content-end'>
 
                                                     <Link to={`/profile/new_product`} className='notDecoration'>
-                                                        <Button className='button-88 transLeft'>+ Añadir producto</Button>
+                                                        <Button className='button-88 float'>+ Añadir producto</Button>
                                                     </Link>
 
                                                 </Col>

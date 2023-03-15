@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const UserCard = ({ _id, avatar, firstName, LastName, valorations }) => {
-    console.log(valorations)
+
     return (
 
         <Link to={`/profile/${_id}`} className='notDecoration'>
