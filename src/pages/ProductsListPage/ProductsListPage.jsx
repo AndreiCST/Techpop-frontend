@@ -14,20 +14,25 @@ const ProductsListPage = () => {
     const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [searchString, setSearchString] = useState('')
+    const [prodructsLength, setProdructsLength] = useState(0)
+    const [empySearch, setEmpySearch] = useState(true)
 
     const { user } = useContext(AuthContext)
-
-    const empySearch = searchString !== ''
 
     useEffect(() => {
         loadProducts()
     }, [])
+
+    useEffect(() => {
+        setEmpySearch(products.length !== prodructsLength)
+    }, [products])
 
     const loadProducts = () => {
 
         productService
             .getProducts()
             .then(({ data }) => {
+                setProdructsLength(data.length)
                 setProducts(data)
                 setIsLoading(false)
             })
