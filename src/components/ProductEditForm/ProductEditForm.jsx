@@ -152,7 +152,7 @@ const EditProductForm = ({ product }) => {
                 </Row>
 
 
-                {/* {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>} */}
+                {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
                 <Button variant="dark" type="submit">Editar Producto</Button>
 

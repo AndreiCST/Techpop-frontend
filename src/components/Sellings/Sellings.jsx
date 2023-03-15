@@ -4,6 +4,9 @@ import ProductList from "../ProductList/ProductList"
 
 const Sellings = ({ selling, sold }) => {
 
+    const activeSellings = selling.filter(elem => elem.activeProduct === true)
+    const activeSold = sold.filter(elem => elem.activeProduct === true)
+
     return (
         <>
             <Tabs
@@ -12,10 +15,10 @@ const Sellings = ({ selling, sold }) => {
                 className="mb-3"
             >
                 <Tab eventKey="selling" title="En curso">
-                    <ProductList products={selling} />
+                    <ProductList products={activeSellings} />
                 </Tab>
                 <Tab eventKey="sold" title="Finalizadas">
-                    <ProductList products={sold} />
+                    <ProductList products={activeSold} />
                 </Tab>
             </Tabs>
 
