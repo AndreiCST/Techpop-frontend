@@ -175,7 +175,7 @@ const ProductPage = () => {
 
                 <hr />
 
-                <Link to="/">
+                <Link to="/search">
                     <Button as="figure" variant="dark">Volver a la lista</Button>
                 </Link>
 
