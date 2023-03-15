@@ -29,12 +29,12 @@ const ProductPage = () => {
                 if (user) {
                     isFavProduct()
                 }
-                if (productOwner?.id === user?._id) {
+                if (data?.owner?._id === user?._id) {
                     setIsOwner(true)
                 }
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [user])
 
 
     const isFavProduct = () => {
@@ -132,6 +132,7 @@ const ProductPage = () => {
                         isOwner
 
                             ?
+
                             <Row>
                                 <Col>
                                     <Button onClick={handleEditClick} className='mt-2' variant="warning">Editar Producto</Button>
