@@ -9,16 +9,16 @@ import { useEffect, useState } from "react"
 
 const Favourites = ({ products, sellers }) => {
 
+    const activSellers = sellers.filter(elem => elem.activeUser === true)
+    const activeProducts = products.filter(elem => elem.activeProduct === true)
+
     const [existProducts, setExistProducts] = useState(true)
     const [existSellers, setExistSellers] = useState(true)
 
     useEffect(() => {
-        if (products.length === 0) setExistProducts(false)
-        if (sellers.length === 0) setExistSellers(false)
+        if (activeProducts.length === 0) setExistProducts(false)
+        if (activSellers.length === 0) setExistSellers(false)
     }, [products, sellers])
-
-
-    console.log(existSellers)
 
     return (
 
@@ -35,7 +35,7 @@ const Favourites = ({ products, sellers }) => {
 
                         ?
 
-                        <ProductList products={products} />
+                        <ProductList products={activeProducts} />
 
                         :
 
@@ -62,7 +62,7 @@ const Favourites = ({ products, sellers }) => {
 
                         ?
 
-                        <UserList sellers={sellers} />
+                        <UserList sellers={activSellers} />
 
                         :
 

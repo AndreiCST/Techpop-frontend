@@ -20,8 +20,9 @@ const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [isCurrentUser, setIsCurrentUser] = useState()
     const [isFavouriteSeller, setISFavouriteSeller] = useState()
-    const [tab, setTab] = useState('sales')
+    const [key, setKey] = useState('sales')
     const [animation, setAnimation] = useState('mt-2 button-67 profileNavBut')
+    const { logout } = useContext(AuthContext)
 
     const profilInfo = {
         firstName: infoUser.firstName,
@@ -47,7 +48,8 @@ const ProfilePage = () => {
     useEffect(() => {
         loadUser()
         isFavSeller()
-    }, [user_id])
+        setKey('sales')
+    }, [user_id, isCurrentUser])
 
     const loadUser = () => {
 
@@ -100,8 +102,14 @@ const ProfilePage = () => {
         }, 100);
     }
 
-    const changeTab = () => {
-        setTab('sales')
+    const handleDeleteButton = () => {
+
+        logout()
+
+        userService
+            .deleteUser(infoUser._id)
+            .then(() => console.log('el usuario se ha borrado'))
+            .catch(err => console.log(err))
     }
 
     return (
@@ -116,7 +124,7 @@ const ProfilePage = () => {
 
                     :
 
-                    <Tab.Container id="profile-sections" defaultActiveKey="sales">
+                    <Tab.Container id="profile-sections" activeKey={key}>
 
                         <Row className='h-100'>
 
@@ -127,7 +135,7 @@ const ProfilePage = () => {
                                 <Nav className="flex-column mt-1">
 
                                     <Nav.Item>
-                                        <Nav.Link eventKey="sales" className={animation} onClick={handleBtnAnimation}>Ventas</Nav.Link>
+                                        <Nav.Link eventKey="sales" className={animation} onClick={() => setKey('sales')}>Ventas</Nav.Link>
                                     </Nav.Item>
 
                                     {
@@ -137,22 +145,26 @@ const ProfilePage = () => {
 
                                             <div>
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="purchases" className={animation} onClick={handleBtnAnimation}>Compras</Nav.Link>
+                                                    <Nav.Link eventKey="purchases" className={animation} onClick={() => setKey('purchases')}>Compras</Nav.Link>
                                                 </Nav.Item>
 
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="favourites" className={animation} onClick={handleBtnAnimation}>Favoritos</Nav.Link>
+                                                    <Nav.Link eventKey="favourites" className={animation} onClick={() => setKey('favourites')}>Favoritos</Nav.Link>
                                                 </Nav.Item>
 
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="conversations" className={animation} onClick={handleBtnAnimation}>Conversaciones</Nav.Link>
+                                                    <Nav.Link eventKey="conversations" className={animation} onClick={() => setKey('conversations')}>Conversaciones</Nav.Link>
                                                 </Nav.Item>
 
-                                                {/* <Nav.Item> */}
-                                                <Link to={`/profile/edit/${user_id}`} className='notDecoration'>
-                                                    <Button className='mt-2 button-67 profileNavBut'>Editar Perfil</Button>
-                                                </Link>
-                                                {/* </Nav.Item> */}
+                                                <Nav.Item>
+                                                    <Link to={`/profile/edit/${user_id}`} className='notDecoration mt-2 button-67 profileNavBut'>
+                                                        Editar Perfil
+                                                    </Link>
+                                                </Nav.Item>
+
+                                                <Nav.Item>
+                                                    <Nav.Link className={animation} onClick={handleDeleteButton}>Eliminar perfil</Nav.Link>
+                                                </Nav.Item>
                                             </div>
 
 
