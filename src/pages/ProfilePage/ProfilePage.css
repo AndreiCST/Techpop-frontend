@@ -5,13 +5,14 @@ hr {
 .navColumn {
     height: 100%;
     background-color: #F5F5FA;
-    padding-left: 2%;
+    padding-bottom: 1rem;
 }
 
 .sectionColumn {
     border: solid lightgrey 2px;
-    border-radius: 20px;
     margin-right: 2%;
+    border-radius: 5px;
+    height: 100%;
 }
 
 .float {

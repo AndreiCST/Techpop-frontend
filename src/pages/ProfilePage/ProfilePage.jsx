@@ -1,7 +1,7 @@
 import './ProfilePage.css'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from './../../contexts/auth.context'
-import { Button, Col, Container, ListGroup, Nav, Row, Tab } from 'react-bootstrap'
+import { Button, Col, Container, Nav, Row, Tab, Tabs } from 'react-bootstrap'
 import userService from './../../services/user.services'
 import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import Purchases from '../../components/Purchases/Purchases'
@@ -89,7 +89,7 @@ const ProfilePage = () => {
     }
 
     return (
-        <div className='pagePos'>
+        <Container fluid>
 
             {
                 isLoading
@@ -222,7 +222,7 @@ const ProfilePage = () => {
 
             }
 
-        </div >
+        </Container >
     )
 
 
