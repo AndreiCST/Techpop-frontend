@@ -148,6 +148,11 @@ const ProfilePage = () => {
                                                     <Nav.Link eventKey="conversations" className={animation} onClick={handleBtnAnimation}>Conversaciones</Nav.Link>
                                                 </Nav.Item>
 
+                                                {/* <Nav.Item> */}
+                                                <Link to={`/profile/edit/${user_id}`} className='notDecoration'>
+                                                    <Button className='mt-2 button-67 profileNavBut'>Editar Perfil</Button>
+                                                </Link>
+                                                {/* </Nav.Item> */}
                                             </div>
 
 

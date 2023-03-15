@@ -9,6 +9,7 @@ import NewProductPage from './../pages/NewProductPage/NewProductPage'
 import ConversationPage from "../pages/ConversationPage/ConversationPage"
 import ProductsListPage from "../pages/ProductsListPage/ProductsListPage"
 import EditProductPage from "../pages/EditProductPage/EditProductPage"
+import UserEditPage from '../pages/UserEditPage/UserEditPage'
 
 
 const AppRoutes = () => {
@@ -20,8 +21,9 @@ const AppRoutes = () => {
             <Route element={<PrivateRoute />}>
                 <Route path="/profile/:user_id" element={<ProfilePage />} />
                 <Route path='/profile/new_product' element={<NewProductPage />} />
+                <Route path='/profile/edit/:user_id' element={<UserEditPage />} />
                 <Route path='/profile/conversations/:conversation_id' element={<ConversationPage />} />
-                <Route path='/edit/:product_id' element={<EditProductPage />} />
+                <Route path='/product/edit/:product_id' element={<EditProductPage />} />
             </Route>
             <Route path="/search" element={<ProductsListPage />} />
             <Route path="/:product_id" element={<ProductDetailsPage />} />

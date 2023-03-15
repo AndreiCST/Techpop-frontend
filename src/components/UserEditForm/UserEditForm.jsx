@@ -1,81 +1,64 @@
-import { useState, useContext } from 'react'
-import { useNavigate, Link, useParams } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Col, Row, Form, Button } from 'react-bootstrap'
 import { AuthContext } from '../../contexts/auth.context'
 import userService from '../../services/user.services'
+import authService from '../../services/auth.services'
 import uploadServices from '../../services/upload.services'
 import FormError from '../FormError/FormError.jsx'
-import './ProductEditForm.css'
 
 import './UserEditForm.css'
 
 
-const UserEditForm = () => {
+const UserEditForm = ({ user, setUser }) => {
 
-    const { user } = useContext(AuthContext)
     const { refreshToken } = useContext(AuthContext)
 
-    const [userData, setUserData] = useState({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        // password: user.password,
-        // avatar: user.avatar
-    })
-
-    // const [loadingImage, setLoadingImage] = useState(false)
+    const [loadingImage, setLoadingImage] = useState(false)
     // const [errors, setErrors] = useState([])
 
     const navigate = useNavigate()
 
     function handleInputChange(e) {
         const { value, name } = e.target
-        setProductData({ ...userData, [name]: value })
+        setUser({ ...user, [name]: value })
     }
 
-    // const handleImageChange = e => {
-    //     const { name, value, files } = e.target
-    //     const newImages = [...productData.images]
+    const handleFileUpload = e => {
 
-    //     const file = files[0]
-    //     const reader = new FileReader()
+        setLoadingImage(true)
 
-    //     reader.onloadend = () => {
-    //         newImages[value] = reader.result
-    //         setProductData({ ...productData, images: newImages })
+        const formData = new FormData()
+        formData.append('imageData', e.target.files[0])
 
-    //         const formData = new FormData()
-    //         formData.append('imageData', file)
-
-    //         uploadServices.uploadimage(formData)
-    //             .then(res => {
-    //                 console.log('Image uploaded successfully!')
-    //             })
-    //             .catch(err => {
-    //                 console.error(err)
-    //             })
-    //     }
-
-    //     reader.readAsDataURL(file)
-    // }
+        uploadServices
+            .uploadimage(formData)
+            .then(res => {
+                setUser({ ...user, avatar: res.data[0] })
+                setLoadingImage(false)
+            })
+            .catch(err => console.log(err))
+    }
 
     const handleFormSubmit = e => {
 
         e.preventDefault()
 
         userService
-            .getUserAndUpdate(user._id, userData)
+            .getUserAndUpdate(user._id, { firstName: user.firstName, lastName: user.lastName, email: user.email, avatar: user.avatar })
             .then(() => {
                 refreshToken()
                 navigate(`/profile/${user._id}`)
+                console.log(user.avatar)
             })
-            .catch(err => setErrors(err.response.data.errorMessages))
+            .catch(err => console.log(err))
+        // .catch(err => setErrors(err.response.data.errorMessages))
     }
 
     return (
 
         <>
-            <h1>Edit Profile</h1>
+            <h1>Editar Perfil</h1>
             <hr />
 
             <Form onSubmit={handleFormSubmit}>
@@ -98,15 +81,10 @@ const UserEditForm = () => {
                     <Form.Control type="email" value={user.email} onChange={handleInputChange} name="email" />
                 </Form.Group>
 
-                {/* <Form.Group className="mb-3" controlId="image">
+                <Form.Group className="mb-3" controlId="image">
                     <Form.Label>Imagen (URL)</Form.Label>
-                    <Form.Control type="file" value={user.avatar} onChange={handleFileUpload} />
-                </Form.Group> */}
-
-                {/* <Form.Group className="mb-3" controlId="password">
-                    <Form.Label>Contraseña</Form.Label>
-                    <Form.Control type="password" value={user.password} onChange={handleInputChange} name="password" />
-                </Form.Group> */}
+                    <Form.Control type="file" onChange={handleFileUpload} />
+                </Form.Group>
 
                 {/* {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>} */}
 

@@ -22,7 +22,6 @@ const EditProductForm = ({ product }) => {
     const { user } = useContext(AuthContext)
 
     const { product_id } = useParams()
-    console.log(product_id)
 
     const [errors, setErrors] = useState([])
     // const [loadingImage, setLoadingImage] = useState(false)

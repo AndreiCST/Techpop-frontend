@@ -86,7 +86,7 @@ const ProductPage = () => {
             .catch(err => console.log(err))
     }
 
-    const handleEditClick = () => { navigate(`/edit/${product_id}`) }
+    const handleEditClick = () => { navigate(`/product/edit/${product_id}`) }
 
     const handleDeleteClick = () => {
         productService
