@@ -9,7 +9,8 @@ const Navigation = () => {
     const { user, logout } = useContext(AuthContext)
 
     return (
-        <Navbar expand="md" className='mb-4 navbar'>
+
+        <Navbar expand="md" className='navbar'>
             <Container>
                 <Navbar.Brand href="/">Techpop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

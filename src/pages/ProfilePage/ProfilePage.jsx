@@ -89,7 +89,7 @@ const ProfilePage = () => {
     }
 
     return (
-        <Container fluid>
+        <Container fluid className='profile'>
 
             {
                 isLoading
@@ -102,7 +102,7 @@ const ProfilePage = () => {
 
                     <Tab.Container id="profile-sections" defaultActiveKey="sales">
 
-                        <Row>
+                        <Row className='h-100'>
 
                             <Col md={3} className='navColumn'>
 

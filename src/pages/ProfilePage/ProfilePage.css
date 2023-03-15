@@ -1,18 +1,19 @@
+.profile {}
+
 hr {
-    border: 1px solid lightgrey;
+    border: 1px solid transparent;
 }
 
 .navColumn {
     height: 100%;
     background-color: #F5F5FA;
-    padding-bottom: 1rem;
 }
 
 .sectionColumn {
     border: solid lightgrey 2px;
-    margin-right: 2%;
     border-radius: 5px;
     height: 100%;
+    overflow-y: auto;
 }
 
 .float {
@@ -85,7 +86,7 @@ hr {
     font-size: 1rem;
     justify-content: center;
     line-height: 1.5rem;
-    padding: 15px;
+    padding: 10px;
     position: relative;
     text-align: left;
     transition: .2s;

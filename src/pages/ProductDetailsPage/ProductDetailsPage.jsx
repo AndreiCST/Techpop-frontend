@@ -16,13 +16,15 @@ const ProductPage = () => {
     const [productOwner, setProductOwner] = useState({})
     const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
     const [isOwner, setIsOwner] = useState(false)
-    const [existChat, setExistChat] = useState(false)
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log('llamando ha vrifychat')
+        loadProduct()
+    }, [])
 
+
+    const loadProduct = () => {
         productService
             .getOneProduct(product_id)
             .then(({ data }) => {
@@ -37,13 +39,7 @@ const ProductPage = () => {
 
             })
             .catch(err => console.log(err))
-    }, [user])
-
-
-    useEffect(() => {
-        verifyChat()
-    }, [user, productOwner])
-
+    }
 
     const isFavProduct = () => {
 
@@ -74,31 +70,20 @@ const ProductPage = () => {
         }
     }
 
-    const verifyChat = () => {
-        if (!user || !productOwner) {
-            setExistChat(false)
-            return
-        }
+    const handleConversation = () => {
 
         userService
             .verifyConv(user._id, productOwner._id)
-            .then(response => {
-                console.log('------>', response)
-                if (response.data == 'false') {
-                    setExistChat(false)
+            .then(({ data }) => {
+                console.log(data)
+                if (data !== 'false') {
+                    navigate(`/profile/conversations/${data}`)
                 } else {
-                    setExistChat(true)
-
+                    userService.createConv(user._id, productOwner._id)
+                    navigate(`/profile/${user._id}`)
                 }
             })
             .catch(err => console.log(err))
-    }
-
-
-    const handleConversation = () => {
-
-        console.log(existChat)
-
     }
 
     const handleEditClick = () => { navigate(`/edit/${product_id}`) }
@@ -153,7 +138,18 @@ const ProductPage = () => {
 
                     <hr />
 
-                    <Button onClick={handleConversation} className="ms-3">Chat</Button>
+                    {
+                        !isOwner
+
+                            ?
+
+                            <Button onClick={handleConversation} className="ms-3">Chat</Button>
+
+                            :
+
+                            <h1></h1>
+                    }
+
                     <Button onClick={handleFavClick} variant="secondary">{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
 
                     {

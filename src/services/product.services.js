@@ -13,7 +13,7 @@ class ProductsService {
     }
 
     getSearchString(searchString) {
-        return this.api.get(`/${searchString}`)
+        return this.api.get(`/search/${searchString}`)
     }
 
     getOneProduct(product_id) {
