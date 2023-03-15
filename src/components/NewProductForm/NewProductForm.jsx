@@ -99,6 +99,7 @@ const NewProductForm = () => {
                         <Form.Label>Categoria:</Form.Label>
                         <Form.Select aria-label="Default select example" value={productData.category} onChange={handleInputChange} name="category">
                             <option>Seleccionar</option>
+
                             <option value="Informatica">Informatica</option>
                             <option value="Electrodomesticos">Electrodomesticos</option>
                             <option value="Telefonia">Telefonia</option>

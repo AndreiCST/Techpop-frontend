@@ -29,7 +29,7 @@ class ProductsService {
     }
 
     deleteProduct(product_id) {
-        return this.api.delete(`/delete/${product_id}`)
+        return this.api.put(`/delete/${product_id}`)
     }
 
 }

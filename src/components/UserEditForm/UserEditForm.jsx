@@ -15,7 +15,7 @@ const UserEditForm = ({ user, setUser }) => {
     const { refreshToken } = useContext(AuthContext)
 
     const [loadingImage, setLoadingImage] = useState(false)
-    // const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState([])
 
     const navigate = useNavigate()
 
@@ -51,8 +51,8 @@ const UserEditForm = ({ user, setUser }) => {
                 navigate(`/profile/${user._id}`)
                 console.log(user.avatar)
             })
-            .catch(err => console.log(err))
-        // .catch(err => setErrors(err.response.data.errorMessages))
+            // .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
     return (
@@ -86,7 +86,7 @@ const UserEditForm = ({ user, setUser }) => {
                     <Form.Control type="file" onChange={handleFileUpload} />
                 </Form.Group>
 
-                {/* {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>} */}
+                {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
                 <div className="d-grid">
                     <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Cargando Avatar...' : 'Editar perfil'}</Button>

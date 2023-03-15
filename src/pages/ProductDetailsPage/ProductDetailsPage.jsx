@@ -89,11 +89,19 @@ const ProductPage = () => {
     const handleEditClick = () => { navigate(`/product/edit/${product_id}`) }
 
     const handleDeleteClick = () => {
+
         productService
             .deleteProduct(product_id)
             .then(() => navigate(`/profile/${user._id}`))
             .catch(err => console.log(err))
     }
+
+    // const handleDeleteClick = () => {
+    //     productService
+    //         .deleteProduct(product_id)
+    //         .then(() => navigate(`/profile/${user._id}`))
+    //         .catch(err => console.log(err))
+    // }
 
 
     return (
