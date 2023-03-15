@@ -23,8 +23,8 @@ class UserService {
         return this.api.get(`/profile/all-info/${user_id}`)
     }
 
-    getUserAndUpdate(user_id) {
-        return this.api.put(`/edit/${user_id}`)
+    getUserAndUpdate(user_id, data) {
+        return this.api.put(`/profile/edit/${user_id}`, data)
     }
 
     getConvInfo(user_id) {
