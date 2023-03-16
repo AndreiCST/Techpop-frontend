@@ -4,9 +4,9 @@
 }
 
 .product img {
-    height: 15rem;
+    height: 18rem;
     border-radius: 15px;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .price {
