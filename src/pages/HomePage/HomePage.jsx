@@ -41,7 +41,7 @@ const HomePage = () => {
                                         className="d-block w-100"
                                         src={`${elm}`}
                                         alt={`Slide ${index}`}
-                                        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                                        style={{ objectFit: 'fit', width: '100%', height: '100%' }}
                                     />
                                 </Carousel.Item>
                             )

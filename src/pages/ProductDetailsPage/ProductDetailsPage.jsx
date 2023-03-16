@@ -123,8 +123,8 @@ const ProductPage = () => {
             <Row>
 
                 <Col md={{ span: 4 }}>
-                    <Carousel>
 
+                    <Carousel>
                         {
                             product?.images?.map((elm, index) => {
                                 return (
@@ -133,6 +133,7 @@ const ProductPage = () => {
                                             className="d-block w-100"
                                             src={elm}
                                             alt={`Slide ${elm._id}`}
+                                            style={{ objectFit: 'fit', width: '100%', height: '100%' }}
                                         />
                                     </Carousel.Item>
                                 )

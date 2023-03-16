@@ -24,8 +24,8 @@ const ProductCard = ({ _id, name, images, price, buyRequest, owner }) => {
 
     return (
 
-        <Link to={`/${_id}`} className='notDecoration' >
-            <Card className={haveBuyer}>
+        <Link to={`/${_id}`} className='notDecoration h-100' >
+            <Card className={haveBuyer} >
                 <Card.Img variant="top" src={images[0]} className='prodImg p-2' />
                 <Card.Body>
                     <Card.Title className="mb-2 d-flex price">{price} €</Card.Title>
