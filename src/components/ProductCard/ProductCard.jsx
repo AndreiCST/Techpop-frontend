@@ -12,7 +12,9 @@ const ProductCard = ({ _id, name, images, price, buyRequest, owner }) => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        user._id === owner && haveNotification()
+        if (user) {
+            user._id === owner && haveNotification()
+        }
     })
 
     const haveNotification = () => {

@@ -5,6 +5,7 @@ import { AuthContext } from '../../contexts/auth.context'
 import productService from '../../services/product.services'
 import userSerice from '../../services/user.services'
 import uploadServices from '../../services/upload.services'
+import { CATEGORIES, SUBCATEGORIES, STATEOFPRODUCT } from './../../consts'
 
 import FormError from '../FormError/FormError'
 
@@ -99,12 +100,13 @@ const NewProductForm = () => {
                         <Form.Label>Categoria:</Form.Label>
                         <Form.Select aria-label="Default select example" value={productData.category} onChange={handleInputChange} name="category">
                             <option>Seleccionar</option>
-
-                            <option value="Informatica">Informatica</option>
-                            <option value="Electrodomesticos">Electrodomesticos</option>
-                            <option value="Telefonia">Telefonia</option>
-                            <option value="Consola">Consola</option>
-                            <option value="Otros">Otros</option>
+                            {
+                                CATEGORIES.map(elm => {
+                                    return (
+                                        <option value={elm} key={elm}>{elm}</option>
+                                    )
+                                })
+                            }
                         </Form.Select>
                     </Form.Group>
 
@@ -112,10 +114,13 @@ const NewProductForm = () => {
                         <Form.Label>Subategoria:</Form.Label>
                         <Form.Select aria-label="Default select example" value={productData.subcategory} onChange={handleInputChange} name="subcategory">
                             <option>Seleccionar</option>
-                            <option value="Producto">Producto</option>
-                            <option value="Accesorio">Accesorio</option>
-                            <option value="Videojuego">Videojuego</option>
-                            <option value="Otros">Otros</option>
+                            {
+                                SUBCATEGORIES.map(elm => {
+                                    return (
+                                        <option value={elm} key={elm}>{elm}</option>
+                                    )
+                                })
+                            }
                         </Form.Select>
                     </Form.Group>
 
@@ -123,10 +128,13 @@ const NewProductForm = () => {
                         <Form.Label>Estado del Producto:</Form.Label>
                         <Form.Select aria-label="Default select example" value={productData.stateOfProduct} onChange={handleInputChange} name="stateOfProduct">
                             <option>Seleccionar</option>
-                            <option value="NEW">Nuevo</option>
-                            <option value="ALMOSTNEW">Casi Nuevo</option>
-                            <option value="USED">Usado</option>
-                            <option value="VERYUSED">Muy Usado</option>
+                            {
+                                STATEOFPRODUCT.map(elm => {
+                                    return (
+                                        <option value={elm} key={elm}>{elm}</option>
+                                    )
+                                })
+                            }
                         </Form.Select>
                     </Form.Group>
                 </Row>
