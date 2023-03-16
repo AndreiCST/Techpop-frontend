@@ -60,7 +60,7 @@ const ProductsListPage = () => {
 
         <div className='pagePos'>
 
-            <Form className="d-flex" onSubmit={handleSearch}>
+            <Form className="d-flex mt-5" onSubmit={handleSearch}>
                 <Form.Control
                     type="search"
                     placeholder="Search"
@@ -79,7 +79,7 @@ const ProductsListPage = () => {
                     :
 
                     <Container>
-                        <h1>Listado de Productos</h1>
+                        <h1>Lista de Productos</h1>
                         <hr />
                         <ProductsList products={products} />
                     </Container>
