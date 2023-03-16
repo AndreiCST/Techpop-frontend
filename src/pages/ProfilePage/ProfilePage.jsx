@@ -243,7 +243,7 @@ const ProfilePage = () => {
                                             </Tab.Pane>
 
                                             <Tab.Pane eventKey="purchases">
-                                                <Purchases {...purchases} />
+                                                <Purchases purchases={purchases} />
                                             </Tab.Pane>
 
                                             <Tab.Pane eventKey="favourites">

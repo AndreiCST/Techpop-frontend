@@ -7,7 +7,7 @@ import { AuthContext } from '../../contexts/auth.context'
 
 
 const ProductCard = ({ _id, name, images, price, buyRequest, owner }) => {
-
+    console.log(buyRequest)
     const [haveBuyer, setHaveBuyer] = useState('h-100 product')
     const { user } = useContext(AuthContext)
 

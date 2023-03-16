@@ -4,6 +4,7 @@ import purchasesImg from './../../assets/imagenes/purchases-placeholder.png'
 import './Purchases.css'
 
 const Purchases = ({ purchases }) => {
+
     return (
 
         <>

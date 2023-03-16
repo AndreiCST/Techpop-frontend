@@ -96,10 +96,6 @@ const ProductPage = () => {
             .catch(err => console.log(err))
     }
 
-    const handlePurchase = () => {
-
-    }
-
     return (
 
         <Container className="pt-5">
@@ -170,13 +166,14 @@ const ProductPage = () => {
                     <hr />
 
                     {
-                        !isOwner
+                        !isOwner && product.inSale === true
 
                             ?
 
                             <>
                                 <Button onClick={handleConversation} className="ms-3">Chat</Button>
-                                <Button onClick={handlePurchase} className="ms-3">Comprar</Button>
+
+                                <Button onClick={handleFavClick} variant="secondary">{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
                             </>
 
                             :
@@ -184,10 +181,10 @@ const ProductPage = () => {
                             <h1></h1>
                     }
 
-                    <Button onClick={handleFavClick} variant="secondary">{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
+
 
                     {
-                        isOwner
+                        isOwner && product.inSale === true
 
                             ?
 

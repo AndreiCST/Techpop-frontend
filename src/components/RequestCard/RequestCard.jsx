@@ -1,15 +1,29 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button, Card, Col, Row } from "react-bootstrap"
+import { Navigate } from "react-router-dom"
+import { AuthContext } from "../../contexts/auth.context"
 import transactionService from "../../services/transactions.services"
 import ProductCard from "../ProductCard/ProductCard"
 import './RequestCard.css'
 
 const RequestCard = ({ _id, buyer, seller, product }) => {
-    console.log(seller)
+
+    const { user } = useContext(AuthContext)
+
+    const navigate = Navigate()
+
     const handleBtnSell = () => {
         transactionService
             .acceptTrans(_id, product._id, buyer._id, seller)
-            .then(() => console.log('solicitud rechazada'))
+            .then(() => navigate(`/profile/${user._id}`))
+            .catch(err => console.log(err))
+    }
+
+    const handleBtnReject = () => {
+
+        transactionService
+            .rejectTrans(_id, product._id)
+            .then(() => navigate(`/profile/${user._id}`))
             .catch(err => console.log(err))
     }
 
@@ -24,7 +38,7 @@ const RequestCard = ({ _id, buyer, seller, product }) => {
                 <Col>
                     <Card.Title className="mb-5">{buyer?.firstName} {buyer?.lastName} quiere comprar tu producto</Card.Title>
                     <Button onClick={handleBtnSell}>Aceptar</Button>
-                    <Button className="ms-5">Rechazar</Button>
+                    <Button onClick={handleBtnReject} className="ms-5">Rechazar</Button>
                 </Col>
 
             </Row>
