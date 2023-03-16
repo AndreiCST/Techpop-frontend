@@ -10,7 +10,7 @@ const Navigation = () => {
 
     return (
 
-        <Navbar expand="md" className='navbar'>
+        <Navbar sticky="top" expand="md" className='navbar'>
             <Container>
                 <Navbar.Brand href="/">Techpop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

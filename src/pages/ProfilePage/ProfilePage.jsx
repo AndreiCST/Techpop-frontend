@@ -129,7 +129,7 @@ const ProfilePage = () => {
 
                         <Row className='h-100'>
 
-                            <Col md={3} className='navColumn pb-4'>
+                            <Col md={3} className='navColumn pb-4 aaa'>
 
                                 <ProfileCard {...profilInfo} />
 
@@ -193,7 +193,7 @@ const ProfilePage = () => {
 
                             <Col md={9} >
 
-                                <Row className='sectionColumn pt-2'>
+                                <Row className='sectionColumn'>
 
                                     {
 
@@ -211,7 +211,7 @@ const ProfilePage = () => {
 
                                                 </Col>
 
-                                                <hr className='mt-3' />
+                                                <hr />
 
                                             </>
 
@@ -228,7 +228,7 @@ const ProfilePage = () => {
 
                                                 </Col>
 
-                                                <hr className='mt-3' />
+                                                <hr />
 
                                             </>
 

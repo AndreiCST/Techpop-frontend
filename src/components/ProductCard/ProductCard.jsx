@@ -6,8 +6,8 @@ import { AuthContext } from '../../contexts/auth.context'
 
 
 
-const ProductCard = ({ _id, name, images, price, buyRequest, owner }) => {
-    console.log(buyRequest)
+const ProductCard = ({ _id, name, images, price, buyRequest, owner, inSale }) => {
+
     const [haveBuyer, setHaveBuyer] = useState('h-100 product')
     const { user } = useContext(AuthContext)
 
@@ -18,7 +18,9 @@ const ProductCard = ({ _id, name, images, price, buyRequest, owner }) => {
     }, [])
 
     const haveNotification = () => {
-        buyRequest.length > 0 && setHaveBuyer('h-100 product notification')
+
+        if (buyRequest.length > 0 && inSale === true) setHaveBuyer('h-100 product notification')
+
     }
 
 
