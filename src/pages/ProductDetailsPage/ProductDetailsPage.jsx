@@ -106,13 +106,26 @@ const ProductPage = () => {
 
             <Row>
 
-                <Col>
+                <Col md={10}>
                     <h1 className="mb-4">{product.name}</h1>
                 </Col>
 
-                <Col>
-                    <Link to={`/buy-requests/${product_id}`}>Solicitudes de compra</Link>
-                </Col>
+
+                {
+                    isOwner
+
+                        ?
+
+                        <Col md={2}>
+
+                            <Link to={`/buy-requests/${product_id}`}>Solicitudes de compra</Link>
+
+                        </Col>
+
+                        :
+
+                        <h1></h1>
+                }
 
             </Row>
 

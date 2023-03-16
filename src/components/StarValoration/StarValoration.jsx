@@ -5,12 +5,12 @@ import fullStar from './../../assets/imagenes/star-icon-2.png'
 import './StarValoration.css'
 
 const StarValoration = ({ stars }) => {
-
     let starsArray = []
+    let num = stars ? stars : 0
 
     const createStars = () => {
 
-        [...Array(Math.floor(stars)).keys()].forEach(() => starsArray.push(fullStar))
+        [...Array(Math.floor(num)).keys()].forEach(() => starsArray.push(fullStar))
 
         while (starsArray.length < 5) { starsArray.push(emptyStar) }
 

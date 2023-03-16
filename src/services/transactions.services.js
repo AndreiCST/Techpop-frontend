@@ -19,8 +19,8 @@ class TransactionsService {
         })
     }
 
-    getTransaction(transaction_id) {
-        return this.api.get(`/get-transaction/${transaction_id}`)
+    getTransactions(transactions) {
+        return this.api.post(`/get-transactions`, { transactions })
     }
 
     startTrans(product_id, buyer_id, seller_id) {
