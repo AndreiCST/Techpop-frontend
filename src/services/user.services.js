@@ -39,8 +39,8 @@ class UserService {
         return this.api.get(`/profile/reduced-info/${user_id}`)
     }
 
-    createConv(buyer_id, seller_id) {
-        return this.api.put(`/conversations/create/${buyer_id}/${seller_id}`)
+    createConv(buyer_id, seller_id, product_id) {
+        return this.api.put(`/conversations/create/${buyer_id}/${seller_id}/${product_id}`)
     }
 
     deleteConv(user_id, conversation_id) {

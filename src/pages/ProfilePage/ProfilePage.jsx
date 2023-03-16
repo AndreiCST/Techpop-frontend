@@ -112,6 +112,7 @@ const ProfilePage = () => {
             .catch(err => console.log(err))
     }
 
+
     return (
         <Container>
 
@@ -135,7 +136,10 @@ const ProfilePage = () => {
                                 <Nav className="flex-column mt-1">
 
                                     <Nav.Item>
-                                        <Nav.Link eventKey="sales" className={animation} onClick={() => setKey('sales')}>Ventas</Nav.Link>
+                                        <Nav.Link eventKey="sales" className={animation} onClick={() => {
+                                            setKey('sales')
+                                            handleBtnAnimation()
+                                        }}>Ventas</Nav.Link>
                                     </Nav.Item>
 
                                     {
@@ -145,15 +149,24 @@ const ProfilePage = () => {
 
                                             <div>
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="purchases" className={animation} onClick={() => setKey('purchases')}>Compras</Nav.Link>
+                                                    <Nav.Link eventKey="purchases" className={animation} onClick={() => {
+                                                        setKey('purchases')
+                                                        handleBtnAnimation()
+                                                    }}>Compras</Nav.Link>
                                                 </Nav.Item>
 
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="favourites" className={animation} onClick={() => setKey('favourites')}>Favoritos</Nav.Link>
+                                                    <Nav.Link eventKey="favourites" className={animation} onClick={() => {
+                                                        setKey('favourites')
+                                                        handleBtnAnimation()
+                                                    }}>Favoritos</Nav.Link>
                                                 </Nav.Item>
 
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="conversations" className={animation} onClick={() => setKey('conversations')}>Conversaciones</Nav.Link>
+                                                    <Nav.Link eventKey="conversations" className={animation} onClick={() => {
+                                                        setKey('conversations')
+                                                        handleBtnAnimation()
+                                                    }}>Conversaciones</Nav.Link>
                                                 </Nav.Item>
 
                                                 <Nav.Item>

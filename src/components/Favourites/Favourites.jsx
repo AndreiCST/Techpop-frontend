@@ -12,13 +12,6 @@ const Favourites = ({ products, sellers }) => {
     const activSellers = sellers.filter(elem => elem.activeUser === true)
     const activeProducts = products.filter(elem => elem.activeProduct === true)
 
-    const [existProducts, setExistProducts] = useState(true)
-    const [existSellers, setExistSellers] = useState(true)
-
-    useEffect(() => {
-        if (activeProducts.length === 0) setExistProducts(false)
-        if (activSellers.length === 0) setExistSellers(false)
-    }, [products, sellers])
 
     return (
 
@@ -31,7 +24,7 @@ const Favourites = ({ products, sellers }) => {
             <Tab eventKey="products" title="Productos">
 
                 {
-                    existProducts
+                    activeProducts.length > 0
 
                         ?
 
@@ -58,7 +51,7 @@ const Favourites = ({ products, sellers }) => {
             <Tab eventKey="sellers" title="Vendedores">
 
                 {
-                    existSellers
+                    activSellers.length > 0
 
                         ?
 

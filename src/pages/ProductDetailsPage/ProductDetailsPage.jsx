@@ -79,7 +79,7 @@ const ProductPage = () => {
                 if (data !== 'false') {
                     navigate(`/profile/conversations/${data}`)
                 } else {
-                    userService.createConv(user._id, productOwner._id)
+                    userService.createConv(user._id, productOwner._id, product._id)
                     navigate(`/profile/${user._id}`)
                 }
             })
@@ -96,19 +96,37 @@ const ProductPage = () => {
             .catch(err => console.log(err))
     }
 
-    // const handleDeleteClick = () => {
-    //     productService
-    //         .deleteProduct(product_id)
-    //         .then(() => navigate(`/profile/${user._id}`))
-    //         .catch(err => console.log(err))
-    // }
+    const handlePurchase = () => {
 
+    }
 
     return (
 
-        <Container className="pagePos">
+        <Container className="pt-5">
 
-            <h1 className="mb-4">Detalles de {product.name}</h1>
+
+            <Row>
+                <Col>
+                    <h1 className="mb-4">Detalles de {product.name}</h1>
+                </Col>
+
+                {
+                    isOwner
+
+                        ?
+
+                        <Col md={{ span: 2, offset: 10 }}>
+                            <Button>Solicitudes</Button>
+                        </Col>
+
+                        :
+
+                        <h1></h1>
+                }
+
+
+            </Row>
+
             <hr />
 
             <Row>
@@ -151,7 +169,10 @@ const ProductPage = () => {
 
                             ?
 
-                            <Button onClick={handleConversation} className="ms-3">Chat</Button>
+                            <>
+                                <Button onClick={handleConversation} className="ms-3">Chat</Button>
+                                <Button onClick={handlePurchase} className="ms-3">Comprar</Button>
+                            </>
 
                             :
 

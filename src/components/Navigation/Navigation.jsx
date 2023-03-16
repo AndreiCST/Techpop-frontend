@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import './Navigation.css'
@@ -14,8 +14,13 @@ const Navigation = () => {
             <Container>
                 <Navbar.Brand href="/">Techpop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
                 <Navbar.Collapse id="basic-navbar-nav">
+
                     <Nav className="me-auto">
+
+
+
 
                         <Link to="/" className='notDecoration'>
                             <Nav.Link as="span" className='navBtn'>Inicio</Nav.Link>
@@ -24,6 +29,11 @@ const Navigation = () => {
                         <Link to="/search" className='notDecoration'>
                             <Nav.Link as="span" className='navBtn'>Buscar</Nav.Link>
                         </Link>
+
+
+                    </Nav>
+
+                    <Nav className="ml-auto">
 
                         {
                             user
@@ -56,8 +66,10 @@ const Navigation = () => {
                         }
 
                     </Nav>
+
                 </Navbar.Collapse>
-            </Container>
+
+            </Container >
         </Navbar >
 
     )

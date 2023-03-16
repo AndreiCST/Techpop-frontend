@@ -1,4 +1,5 @@
 import { Card } from "react-bootstrap"
+import StarValoration from "../StarValoration/StarValoration"
 import './ProfileCard.css'
 
 const ProfileHeader = ({ firstName, lastName, averageValoration, profilImage }) => {
@@ -14,7 +15,7 @@ const ProfileHeader = ({ firstName, lastName, averageValoration, profilImage }) 
             <Card.Body>
 
                 <Card.Title>{`${firstName} ${lastName}`}</Card.Title>
-                <Card.Text>{averageValoration}</Card.Text>
+                <StarValoration stars={averageValoration} />
 
             </Card.Body>
 

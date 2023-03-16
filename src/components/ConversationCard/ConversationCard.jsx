@@ -3,17 +3,20 @@ import { Button, Card, Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
 import userService from "../../services/user.services"
+import productService from '../../services/product.services'
 import './ConversationCard.css'
 
 
-const ConversationCard = ({ _id, participants }) => {
+const ConversationCard = ({ _id, participants, product }) => {
 
     const [convInfo, setconvInfo] = useState({})
+    const [prodImg, setProdImg] = useState('')
     const { user } = useContext(AuthContext)
     const participant = participants[0] !== user._id ? participants[0] : participants[1]
 
     useEffect(() => {
         loadConvInfo()
+        laodProdImg()
     }, [])
 
     const loadConvInfo = () => {
@@ -26,6 +29,13 @@ const ConversationCard = ({ _id, participants }) => {
     const handle = () => {
         userService
             .deleteConv(user._id, _id)
+            .catch(err => console.log(err))
+    }
+
+    const laodProdImg = () => {
+        productService
+            .getOneProduct(product)
+            .then(({ data }) => setProdImg(data.images[0]))
             .catch(err => console.log(err))
     }
 
@@ -43,7 +53,7 @@ const ConversationCard = ({ _id, participants }) => {
 
                                 <Col>
 
-                                    <Card.Img className="rounded-circle convCardImg" variant="left" src={convInfo.avatar} />
+                                    <Card.Img className="rounded-circle convCardImg" variant="left" src={prodImg} />
 
                                 </Col>
 
