@@ -27,8 +27,8 @@ class TransactionsService {
         return this.api.post(`/start/${product_id}/${buyer_id}/${seller_id}`)
     }
 
-    rejectTrans(transaction_id) {
-        return this.api.put(`/reject/${transaction_id}`)
+    rejectTrans(transaction_id, product_id) {
+        return this.api.put(`/reject/${transaction_id}/${product_id}`)
     }
 
     acceptTrans(transaction_id, product_id, buyer_id, seller_id) {
