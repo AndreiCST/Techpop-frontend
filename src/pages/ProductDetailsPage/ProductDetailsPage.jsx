@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/auth.context"
+import StarValoration from "../../components/StarValoration/StarValoration"
 import userService from "../../services/user.services"
 import productService from "../../services/product.services"
 import './ProductDetailsPage.css'
@@ -146,8 +147,8 @@ const ProductPage = () => {
                     <ListGroup>
                         <ListGroup.Item>Precio: {product.price}</ListGroup.Item>
                         <ListGroup.Item>
-                            Owner: <Link to={`/profile/${productOwner._id}`}>{productOwner.firstName} {productOwner.lastName}</Link> |
-                            Valoration Avg: {productOwner.valorations?.avgValoration}
+                            <Link to={`/profile/${productOwner._id}`}>{productOwner.firstName} {productOwner.lastName}</Link>
+                            <StarValoration stars={productOwner.valorations?.avgValoration} />
                         </ListGroup.Item>
                         <ListGroup.Item>State: {product.stateOfProduct}</ListGroup.Item>
                     </ListGroup>
