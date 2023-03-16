@@ -6,18 +6,22 @@ import userService from '../../services/user.services'
 import Loader from './../../components/Loader/Loader'
 import { Form, Button, Card, Col, Container, Row } from 'react-bootstrap'
 import ChatMessages from './../../components/ChatMessages/ChatMessages'
+import transactionService from '../../services/transactions.services'
 
 const ConversationPage = () => {
 
     const { user } = useContext(AuthContext)
     const [convInfo, setConvInfo] = useState([])
+    const [update, setUpdate] = useState(convInfo)
     const [message, setMessage] = useState("")
     const [isLoading, setIsLoading] = useState(true)
     const { conversation_id } = useParams()
 
+    let participant = convInfo.participants?.filter(elem => elem !== user._id)
+
     useEffect(() => {
         loadConvInfo()
-    }, [convInfo])
+    }, [update])
 
     const loadConvInfo = () => {
         userService
@@ -35,11 +39,20 @@ const ConversationPage = () => {
         if (message.trim() !== '') {
             return userService
                 .addMessage(conversation_id, user._id, message)
-                .then(() => {
+                .then(({ data }) => {
+                    setUpdate(data)
                     setMessage('')
                 })
                 .catch(err => console.log(err))
         }
+    }
+
+    const handleBuyRequest = () => {
+
+        transactionService
+            .startTrans(convInfo.product, user._id, ...participant)
+            .then(() => console.log('transacion creada'))
+            .catch(err => console.log(err))
     }
 
     return (
@@ -57,7 +70,11 @@ const ConversationPage = () => {
 
                     <Container>
 
-                        <Row className='chat' >
+                        <Row className='chat pt-5' >
+
+                            <Col md={12} className='d-flex justify-content-end'>
+                                <Button onClick={handleBuyRequest} >Comprar</Button>
+                            </Col>
 
                             <Col md={{ span: 9, offset: 1 }} className='messages'>
                                 {

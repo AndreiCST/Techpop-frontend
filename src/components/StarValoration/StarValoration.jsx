@@ -10,7 +10,7 @@ const StarValoration = ({ stars }) => {
 
     const createStars = () => {
 
-        [...Array(stars).keys()].forEach(() => starsArray.push(fullStar))
+        [...Array(Math.floor(stars)).keys()].forEach(() => starsArray.push(fullStar))
 
         while (starsArray.length < 5) { starsArray.push(emptyStar) }
 

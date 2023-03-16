@@ -23,7 +23,6 @@ const ProductPage = () => {
         loadProduct()
     }, [])
 
-
     const loadProduct = () => {
         productService
             .getOneProduct(product_id)
@@ -73,7 +72,7 @@ const ProductPage = () => {
     const handleConversation = () => {
 
         userService
-            .verifyConv(user._id, productOwner._id)
+            .verifyConv(user._id, productOwner._id, product._id)
             .then(({ data }) => {
 
                 if (data !== 'false') {
@@ -104,28 +103,19 @@ const ProductPage = () => {
 
         <Container className="pt-5">
 
-
             <Row>
+
                 <Col>
-                    <h1 className="mb-4">Detalles de {product.name}</h1>
+                    <h1 className="mb-4">{product.name}</h1>
                 </Col>
 
-                {
-                    isOwner
-
-                        ?
-
-                        <Col md={{ span: 2, offset: 10 }}>
-                            <Button>Solicitudes</Button>
-                        </Col>
-
-                        :
-
-                        <h1></h1>
-                }
-
+                <Col>
+                    <Link to={`/buy-requests/${product_id}`}>Solicitudes de compra</Link>
+                </Col>
 
             </Row>
+
+
 
             <hr />
 

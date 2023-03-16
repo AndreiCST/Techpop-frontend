@@ -6,6 +6,21 @@ class TransactionsService {
         this.api = axios.create({
             baseURL: `${process.env.REACT_APP_API_URL}/transactions`
         })
+
+        this.api.interceptors.request.use((config) => {
+
+            const storedToken = localStorage.getItem("authToken");
+
+            if (storedToken) {
+                config.headers = { Authorization: `Bearer ${storedToken}` }
+            }
+
+            return config
+        })
+    }
+
+    getTransaction(transaction_id) {
+        return this.api.get(`/get-transaction/${transaction_id}`)
     }
 
     startTrans(product_id, buyer_id, seller_id) {

@@ -10,6 +10,7 @@ import ConversationPage from "../pages/ConversationPage/ConversationPage"
 import ProductsListPage from "../pages/ProductsListPage/ProductsListPage"
 import EditProductPage from "../pages/EditProductPage/EditProductPage"
 import UserEditPage from '../pages/UserEditPage/UserEditPage'
+import ProductRequests from "../pages/ProductRequests/ProductRequests"
 
 
 const AppRoutes = () => {
@@ -24,6 +25,7 @@ const AppRoutes = () => {
                 <Route path='/profile/edit/:user_id' element={<UserEditPage />} />
                 <Route path='/profile/conversations/:conversation_id' element={<ConversationPage />} />
                 <Route path='/product/edit/:product_id' element={<EditProductPage />} />
+                <Route path='/buy-requests/:product_id' element={<ProductRequests />} />
             </Route>
             <Route path="/search" element={<ProductsListPage />} />
             <Route path="/:product_id" element={<ProductDetailsPage />} />
