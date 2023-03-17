@@ -4,7 +4,7 @@
 }
 
 .product img {
-    height: 18rem;
+    /* height: 13rem; */
     border-radius: 15px;
     object-fit: fill;
 }
