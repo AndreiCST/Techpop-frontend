@@ -4,8 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import valorationService from "../../services/valoration.services"
 import productService from "../../services/product.services"
 import FormError from "../../components/FormError/FormError"
-import './ValorationPage.css'
 import { AuthContext } from "../../contexts/auth.context"
+
+
+import './ValorationPage.css'
 
 
 const ValorationFormPage = () => {
@@ -50,7 +52,10 @@ const ValorationFormPage = () => {
 
     return (
         <>
-            <Form onSubmit={handleFormSubmit}>
+            <h1 className='mt-5'>Tu valoracion nos importa</h1>
+            <hr />
+
+            <Form onSubmit={handleFormSubmit} md={{ span: 8, offset: 2 }} className='mt-3'>
 
                 <Form.Group className="mb-3" controlId="stars">
                     <Form.Label>Valoracion:</Form.Label>
