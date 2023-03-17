@@ -1,8 +1,9 @@
 import { Card } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import StarValoration from "../StarValoration/StarValoration"
 import './ProfileCard.css'
 
-const ProfileHeader = ({ firstName, lastName, averageValoration, profilImage }) => {
+const ProfileHeader = ({ id, firstName, lastName, averageValoration, profilImage }) => {
 
     return (
 
@@ -15,7 +16,9 @@ const ProfileHeader = ({ firstName, lastName, averageValoration, profilImage }) 
             <Card.Body>
 
                 <Card.Title>{`${firstName} ${lastName}`}</Card.Title>
-                <StarValoration stars={averageValoration} />
+                <Link to={`/valorations/${id}`}>
+                    <StarValoration stars={averageValoration} />
+                </Link>
 
             </Card.Body>
 

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Router, Routes } from "react-router-dom"
 import SignupPage from "../pages/SignupPage/SignupPage"
 import LoginPage from "../pages/LoginPage/LoginPage"
 import HomePage from '../pages/HomePage/HomePage'
@@ -11,6 +11,7 @@ import ProductsListPage from "../pages/ProductsListPage/ProductsListPage"
 import EditProductPage from "../pages/EditProductPage/EditProductPage"
 import UserEditPage from '../pages/UserEditPage/UserEditPage'
 import ProductRequests from "../pages/ProductRequests/ProductRequests"
+import Valorations from "../components/Valorations/Valorations"
 
 
 const AppRoutes = () => {
@@ -26,13 +27,15 @@ const AppRoutes = () => {
                 <Route path='/profile/conversations/:conversation_id' element={<ConversationPage />} />
                 <Route path='/product/edit/:product_id' element={<EditProductPage />} />
                 <Route path='/buy-requests/:product_id' element={<ProductRequests />} />
-            </Route>
+                <Route path="/valorations/:user_id" element={<Valorations />} />
+                <Route path="/create-valoration/:product_id" element={<ValorationFormPage />} />
+            </Route >
             <Route path="/search" element={<ProductsListPage />} />
             <Route path="/:product_id" element={<ProductDetailsPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<p>404</p>} />
-        </Routes>
+        </Routes >
 
     )
 }

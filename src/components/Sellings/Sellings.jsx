@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { Col, ListGroup, Row, Tab, Tabs } from "react-bootstrap"
+import { Card, Col, ListGroup, Row, Tab, Tabs } from "react-bootstrap"
 import ProductList from "../ProductList/ProductList"
+import productImg from './../../assets/imagenes/placeholderSelling.png'
 
 const Sellings = ({ selling, sold }) => {
 
@@ -15,10 +16,59 @@ const Sellings = ({ selling, sold }) => {
                 className="mb-3"
             >
                 <Tab eventKey="selling" title="En curso">
-                    <ProductList products={activeSellings} />
+
+                    {
+                        activeSellings.length > 0
+
+                            ?
+
+                            <ProductList products={activeSellings} />
+
+                            :
+
+                            <Row className="m-2">
+                                <Col sm={{ span: 6, offset: 3 }}>
+                                    <Card className="favouritesPlaceholder">
+
+                                        <Card.Img src={productImg} />
+                                        <Card.Text className="mt-5">Aqui apareceran los productos que tienes en venta</Card.Text>
+
+                                    </Card>
+                                </Col>
+                            </Row>
+
+                    }
+
                 </Tab>
                 <Tab eventKey="sold" title="Finalizadas">
-                    <ProductList products={activeSold} />
+
+
+
+
+
+                    {
+                        activeSold.length > 0
+
+                            ?
+
+                            <ProductList products={activeSold} />
+
+                            :
+
+                            <Row className="m-2">
+                                <Col sm={{ span: 6, offset: 3 }}>
+                                    <Card className="favouritesPlaceholder">
+
+                                        <Card.Img src={productImg} />
+                                        <Card.Text className="mt-5">Aqui apareceran los productos que hayas vendido</Card.Text>
+
+                                    </Card>
+                                </Col>
+                            </Row>
+
+                    }
+
+
                 </Tab>
             </Tabs>
 

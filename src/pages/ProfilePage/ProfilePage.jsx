@@ -25,6 +25,7 @@ const ProfilePage = () => {
     const { logout } = useContext(AuthContext)
 
     const profilInfo = {
+        id: infoUser._id,
         firstName: infoUser.firstName,
         lastName: infoUser.lastName,
         averageValoration: infoUser.valorations?.avgValoration,

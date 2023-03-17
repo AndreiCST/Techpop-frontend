@@ -161,6 +161,19 @@ const ProductPage = () => {
                             <StarValoration stars={productOwner.valorations?.avgValoration} />
                         </ListGroup.Item>
                         <ListGroup.Item>State: {product.stateOfProduct}</ListGroup.Item>
+                        <>
+
+                            {
+
+                                <Link to={`/create-valoration/${product_id}`}>
+
+                                    <Button>Valorar</Button>
+
+                                </Link>
+
+                            }
+
+                        </>
                     </ListGroup>
 
                     <hr />

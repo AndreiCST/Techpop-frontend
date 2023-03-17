@@ -9,7 +9,7 @@ const Purchases = ({ purchases }) => {
 
         <>
             {
-                purchases
+                purchases.length > 0
 
                     ?
 
