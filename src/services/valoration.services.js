@@ -20,7 +20,7 @@ class ValorationService {
     }
 
     saveValoration(product_id, user_id, reviewer_id, valorationData) {
-        return this.api.put(`/create/${product_id}/${user_id}/${reviewer_id}`, valorationData)
+        return this.api.put(`/valorations/create/${product_id}/${user_id}/${reviewer_id}`, valorationData)
     }
 }
 

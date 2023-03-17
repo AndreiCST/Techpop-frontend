@@ -1,21 +1,23 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import { useNavigate, useParams } from 'react-router-dom'
 import valorationService from "../../services/valoration.services"
 import productService from "../../services/product.services"
-import FormError from "../FormError/FormError"
+import FormError from "../../components/FormError/FormError"
+import { AuthContext } from "../../contexts/auth.context"
 
-import './ValororationForm.css'
+
+import './ValorationPage.css'
 
 
-const ValororationFormPage = () => {
+const ValorationFormPage = () => {
 
     const [valorationData, setValorationData] = useState({ stars: '', description: '' })
-    const [productInfo, setProductInfo] = useState({ owner: '' })
+    const [productInfo, setProductInfo] = useState()
     const [errors, setErrors] = useState([])
 
-    const { user_id } = useContext(AuthContext)
-    const { product_id } = useParams(product_id)
+    const { user } = useContext(AuthContext)
+    const { product_id } = useParams()
 
     const navigate = useNavigate()
 
@@ -41,7 +43,7 @@ const ValororationFormPage = () => {
         e.preventDefault()
 
         valorationService
-            .saveValoration(product_id, productInfo, user_id, valorationData)
+            .saveValoration(product_id, productInfo, user._id, valorationData)
             .then(() => navigate(`/profile/${user._id}`))
             .catch(err => console.log(err))
 
@@ -50,7 +52,10 @@ const ValororationFormPage = () => {
 
     return (
         <>
-            <Form onSubmit={handleFormSubmit}>
+            <h1 className='mt-5'>Tu valoracion nos importa</h1>
+            <hr />
+
+            <Form onSubmit={handleFormSubmit} md={{ span: 8, offset: 2 }} className='mt-3'>
 
                 <Form.Group className="mb-3" controlId="stars">
                     <Form.Label>Valoracion:</Form.Label>
@@ -74,4 +79,4 @@ const ValororationFormPage = () => {
     )
 }
 
-export default ValororationFormPage
+export default ValorationFormPage

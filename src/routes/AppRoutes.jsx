@@ -12,6 +12,7 @@ import EditProductPage from "../pages/EditProductPage/EditProductPage"
 import UserEditPage from '../pages/UserEditPage/UserEditPage'
 import ProductRequests from "../pages/ProductRequests/ProductRequests"
 import Valorations from "../components/Valorations/Valorations"
+import ValorationFormPage from "../pages/ValorationPage/ValorationPage"
 
 
 const AppRoutes = () => {
