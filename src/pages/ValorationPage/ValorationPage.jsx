@@ -1,21 +1,21 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import { useNavigate, useParams } from 'react-router-dom'
 import valorationService from "../../services/valoration.services"
 import productService from "../../services/product.services"
-import FormError from "../FormError/FormError"
+import FormError from "../../components/FormError/FormError"
+import './ValorationPage.css'
+import { AuthContext } from "../../contexts/auth.context"
 
-import './ValororationForm.css'
 
-
-const ValororationFormPage = () => {
+const ValorationFormPage = () => {
 
     const [valorationData, setValorationData] = useState({ stars: '', description: '' })
-    const [productInfo, setProductInfo] = useState({ owner: '' })
+    const [productInfo, setProductInfo] = useState()
     const [errors, setErrors] = useState([])
 
-    const { user_id } = useContext(AuthContext)
-    const { product_id } = useParams(product_id)
+    const { user } = useContext(AuthContext)
+    const { product_id } = useParams()
 
     const navigate = useNavigate()
 
@@ -41,7 +41,7 @@ const ValororationFormPage = () => {
         e.preventDefault()
 
         valorationService
-            .saveValoration(product_id, productInfo, user_id, valorationData)
+            .saveValoration(product_id, productInfo, user._id, valorationData)
             .then(() => navigate(`/profile/${user._id}`))
             .catch(err => console.log(err))
 
@@ -74,4 +74,4 @@ const ValororationFormPage = () => {
     )
 }
 
-export default ValororationFormPage
+export default ValorationFormPage

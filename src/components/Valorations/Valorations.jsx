@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import userService from "../../services/user.services"
 import ValorationCard from "../ValorationCard/ValorationCard"
+import './Valorations.css'
 
 const Valorations = () => {
     const { user_id } = useParams()
@@ -21,13 +22,14 @@ const Valorations = () => {
 
     return (
 
-        <Row>
+        <Row className="valorations pt-5">
 
             {
                 valorations.map((elem, index) => {
+
                     return (
-                        <Col md={{ span: 8, offset: 2 }}>
-                            <ValorationCard {...elem} />
+                        <Col key={index} md={{ span: 8, offset: 2 }}>
+                            <ValorationCard valoration={elem} />
                         </Col>
                     )
 

@@ -1,12 +1,43 @@
-import { Card } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import { Card, Col, Row } from "react-bootstrap"
+import valorationService from "../../services/valoration.services"
 import StarValoration from "../StarValoration/StarValoration"
 
-const ValorationCard = ({ stars, description, product }) => {
+const ValorationCard = ({ valoration }) => {
+
+    const [valorationInfo, setValorationInfo] = useState()
+
+    useEffect(() => {
+        loadValoration()
+    }, [])
+
+
+    const loadValoration = () => {
+
+        valorationService
+            .getValorationInfo(valoration)
+            .then(({ data }) => setValorationInfo(data))
+            .catch(err => console.log(err))
+    }
+
     return (
-        <Card>
-            <StarValoration stars={stars} />
-            <Card.Text className="mt-3">{description}</Card.Text>
-        </Card>
+        <Card className="p-2">
+            <Row>
+
+                <Col md={{ span: 8, offset: 2 }}>
+
+                    <StarValoration stars={valorationInfo?.stars} />
+
+                </Col>
+
+                <Col md={{ span: 8, offset: 2 }}>
+
+                    <Card.Text className="mt-3">{valorationInfo?.description}</Card.Text>
+
+                </Col>
+
+            </Row>
+        </Card >
     )
 }
 

@@ -165,7 +165,7 @@ const ProductPage = () => {
 
                             {
 
-                                <Link to={`/create-valoration/${product_id}`}>
+                                <Link to={`/create-valoration/${product._id}`}>
 
                                     <Button>Valorar</Button>
 
