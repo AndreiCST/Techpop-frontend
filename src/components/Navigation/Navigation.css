@@ -1,3 +1,13 @@
+.brand {
+    color: white;
+    -webkit-text-stroke: 1.5px black;
+    font-size: 2.5rem;
+}
+
+.brand img {
+    height: 4rem;
+}
+
 .navbar {
     background-color: #97b2c9;
     border-bottom: 3px solid #7f87b8;
@@ -9,4 +19,5 @@
     font-family: sans-serif;
     font-weight: 550;
     text-indent: 20px;
+    font-size: 1.2rem;
 }

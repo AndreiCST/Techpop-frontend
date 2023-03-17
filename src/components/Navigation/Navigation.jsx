@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
+import logo from './../../assets/imagenes/logo.jpg'
 import './Navigation.css'
 
 const Navigation = () => {
@@ -12,7 +13,7 @@ const Navigation = () => {
 
         <Navbar sticky="top" expand="md" className='navbar'>
             <Container>
-                <Navbar.Brand href="/">Techpop</Navbar.Brand>
+                <Navbar.Brand href="/" className='brand me-5' > <img src={logo} alt="" /> Techpop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                 <Navbar.Collapse id="basic-navbar-nav">
