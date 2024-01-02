@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
 
 .App {
-  text-align: center;
-  background: rgb(0, 255, 239);
-  background: linear-gradient(45deg, rgba(0, 255, 239, 0.01) 0%, rgba(96, 125, 139, 0.01) 44%);
-  font-family: 'Racing Sans One', cursive;
+	text-align: center;
+	background: rgb(0, 255, 239);
+	background: linear-gradient(
+		45deg,
+		rgba(0, 255, 239, 0.01) 0%,
+		rgba(96, 125, 139, 0.01) 44%
+	);
+	font-family: 'Racing Sans One', cursive;
 }
 
-.notDecoration {
-  text-decoration: none;
+.not-decoration {
+	text-decoration: none;
 }

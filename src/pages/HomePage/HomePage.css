@@ -1,3 +1,16 @@
-.homeImage {
-    height: 40rem;
+.carousel {
+	background-color: #b0c8dc5c;
+	height: 55vh;
+	overflow: hidden;
+	padding-top: 20px;
+}
+
+.carousel img {
+	width: 50%;
+}
+
+.main {
+	height: 100vh;
+	background-color: #b0c8dc5c;
+	padding-top: 50px;
 }

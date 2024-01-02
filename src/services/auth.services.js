@@ -1,39 +1,37 @@
 import axios from 'axios'
 
 class AuthService {
+	constructor() {
+		this.api = axios.create({
+			baseURL: `${process.env.REACT_APP_API_URL}/auth`,
+		})
 
-    constructor() {
-        this.api = axios.create({
-            baseURL: `${process.env.REACT_APP_API_URL}/auth`
-        })
+		this.api.interceptors.request.use((config) => {
+			const storedToken = localStorage.getItem('authToken')
 
-        this.api.interceptors.request.use((config) => {
+			if (storedToken) {
+				config.headers = { Authorization: `Bearer ${storedToken}` }
+			}
 
-            const storedToken = localStorage.getItem("authToken");
+			return config
+		})
+	}
 
-            if (storedToken) {
-                config.headers = { Authorization: `Bearer ${storedToken}` }
-            }
+	signup(userData) {
+		return this.api.post('/signup', userData)
+	}
 
-            return config
-        })
-    }
+	login(userData) {
+		return this.api.post('/login', userData)
+	}
 
-    signup(userData) {
-        return this.api.post('/signup', userData)
-    }
+	verify = (token) => {
+		return this.api.get('/verify', { headers: { Authorization: `Bearer ${token}` } })
+	}
 
-    login(userData) {
-        return this.api.post('/login', userData)
-    }
-
-    verify = token => {
-        return this.api.get('/verify', { headers: { Authorization: `Bearer ${token}` } })
-    }
-
-    updateToken = () => {
-        return this.api.get('/updateToken')
-    }
+	updateToken = () => {
+		return this.api.get('/updateToken')
+	}
 }
 
 const authService = new AuthService()

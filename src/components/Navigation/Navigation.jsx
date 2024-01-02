@@ -1,79 +1,62 @@
-import { useContext } from 'react'
-import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '../../contexts/auth.context'
-import logo from './../../assets/imagenes/logo.jpg'
 import './Navigation.css'
+import logo from './../../assets/imagenes/logo.jpg'
+import { Link } from 'react-router-dom'
+import { Col, Nav, Navbar, Row } from 'react-bootstrap'
+import { useContext } from 'react'
+import { AuthContext } from '../../contexts/auth.context'
 
 const Navigation = () => {
-    const navbarStyle = 'dark'
-    const { user, logout } = useContext(AuthContext)
+	const { user, logout } = useContext(AuthContext)
 
-    return (
+	return (
+		<Navbar sticky='top' expand='md' className='p-0'>
+			<Row className='navbar'>
+				<Col xs={{ span: 4, offset: 0 }} className=''>
+					<Navbar.Brand href='/' className='brand'>
+						<img src={logo} alt='' /> Techpop
+					</Navbar.Brand>
+				</Col>
+				<Col xs={{ span: 2, offset: 6 }} md={{ span: 4, offset: 4 }} className=''>
+					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 
-        <Navbar sticky="top" expand="md" className='navbar'>
-            <Container>
-                <Navbar.Brand href="/" className='brand me-5' > <img src={logo} alt="" /> Techpop</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+					<Navbar.Collapse id='basic-navbar-nav'>
+						<div className='nav-buttons d-flex flex-row justify-content-around '>
+							<Link to='/' className='not-decoration nav-button'>
+								Inicio
+							</Link>
+							<Link to='/search' className='not-decoration nav-button'>
+								Buscar
+							</Link>
 
-                <Navbar.Collapse id="basic-navbar-nav">
-
-                    <Nav className="me-auto">
-
-
-
-
-                        <Link to="/" className='notDecoration'>
-                            <Nav.Link as="span" className='navBtn'>Inicio</Nav.Link>
-                        </Link>
-
-                        <Link to="/search" className='notDecoration'>
-                            <Nav.Link as="span" className='navBtn'>Buscar</Nav.Link>
-                        </Link>
-
-
-                    </Nav>
-
-                    <Nav className="ml-auto">
-
-                        {
-                            user
-
-                                ?
-
-                                <>
-
-                                    <Link to={`/profile/${user._id}`} className='notDecoration'>
-                                        <Nav.Link as="span" className='navBtn'>Perfil</Nav.Link>
-                                    </Link>
-
-                                    <Nav.Link as="span" onClick={logout} className='navBtn notDecoration'>Cerrar sesión</Nav.Link>
-
-                                </>
-
-                                :
-
-                                <>
-
-                                    <Link to="/login" className='notDecoration'>
-                                        <Nav.Link as="span" className='navBtn'>Iniciar sesión</Nav.Link>
-                                    </Link>
-
-                                    <Link to="/signup" className='notDecoration'>
-                                        <Nav.Link as="span" className='navBtn'>Registrarme</Nav.Link>
-                                    </Link>
-
-                                </>
-                        }
-
-                    </Nav>
-
-                </Navbar.Collapse>
-
-            </Container >
-        </Navbar >
-
-    )
+							{user ? (
+								<>
+									<Link to={`/profile/${user._id}`} className='not-decoration nav-button'>
+										Perfil
+									</Link>
+									<Nav.Link
+										as='span'
+										onClick={logout}
+										className='not-decoration nav-button'
+									>
+										Cerrar sesión
+									</Nav.Link>
+								</>
+							) : (
+								<>
+									<Link to='/login' className='not-decoration nav-button'>
+										log in
+									</Link>
+									<Link to='/signup' className='not-decoration nav-button'>
+										sign in
+									</Link>
+								</>
+							)}
+						</div>
+					</Navbar.Collapse>
+				</Col>
+			</Row>
+		</Navbar>
+	)
 }
 
 export default Navigation

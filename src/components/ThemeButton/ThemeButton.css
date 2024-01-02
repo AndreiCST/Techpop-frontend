@@ -1,0 +1,18 @@
+.t-button-container {
+	height: 20px;
+	width: 40px;
+}
+.t-button {
+	height: 100%;
+	width: 50%;
+}
+
+.b-movement-dark {
+	transform: translateX(20px);
+	transition: transform 0.5s ease-out 0s;
+}
+
+.b-movement-light {
+	transform: translateX(0px);
+	transition: transform 0.5s ease-out 0s;
+}
