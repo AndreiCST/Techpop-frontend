@@ -1,0 +1,25 @@
+.product {
+	border: 0;
+	color: black;
+	background-color: rgb(0, 0, 0, 0);
+}
+
+.product img {
+	/* height: 13rem; */
+	border-radius: 15px;
+	height: 80%;
+	width: 90%;
+}
+
+.price {
+	font-weight: 700;
+}
+
+.notification {
+	background-color: lightgray;
+	border: solid grey 1px;
+}
+
+.prod-text {
+	color: rgba(0, 0, 0, 0.5);
+}

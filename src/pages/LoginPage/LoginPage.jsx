@@ -1,27 +1,20 @@
 import { Container, Row, Col } from 'react-bootstrap'
-import LoginForm from '../../components/LoginForm/LoginForm'
+import LoginForm from '../../components/FormLogin/FormLogin'
 
 const LoginPage = () => {
+	return (
+		<Container className='pagePos'>
+			<Row>
+				<Col md={{ offset: 3, span: 6 }}>
+					<h1>Login</h1>
 
-    return (
+					<hr />
 
-        <Container className='pagePos'>
-
-            <Row>
-
-                <Col md={{ offset: 3, span: 6 }}>
-
-                    <h1>Login</h1>
-
-                    <hr />
-
-                    <LoginForm />
-
-                </Col>
-            </Row>
-
-        </Container>
-    )
+					<LoginForm />
+				</Col>
+			</Row>
+		</Container>
+	)
 }
 
 export default LoginPage

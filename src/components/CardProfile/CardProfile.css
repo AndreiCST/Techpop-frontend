@@ -1,0 +1,23 @@
+.profileCard {
+	background-color: rgb(0, 0, 0, 0);
+	border: none;
+}
+
+.avatar-container {
+	height: 200px;
+	width: 200px;
+	padding: 0;
+	border-radius: 1000px;
+	border: 2px solid #97b2c9;
+	position: relative;
+	overflow: hidden;
+}
+
+.profile-image {
+	position: absolute;
+	height: 100%;
+	width: 120%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

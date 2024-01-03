@@ -29,7 +29,7 @@ const HomeCarousel = () => {
 		<Carousel fade className='main-carousel p-0 rounded-1'>
 			{images.map((e) => {
 				return (
-					<Carousel.Item key={e}>
+					<Carousel.Item key={e.image_url}>
 						<img src={e.image_url} alt='' />
 						<Carousel.Caption className='carousel-text'>{e.text}</Carousel.Caption>
 					</Carousel.Item>

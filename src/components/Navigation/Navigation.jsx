@@ -1,12 +1,18 @@
 import './Navigation.css'
 import logo from './../../assets/imagenes/logo.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Col, Nav, Navbar, Row } from 'react-bootstrap'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/auth.context'
 
 const Navigation = () => {
 	const { user, logout } = useContext(AuthContext)
+	const navigate = useNavigate()
+
+	const HandleLogOut = () => {
+		logout()
+		navigate('/')
+	}
 
 	return (
 		<Navbar sticky='top' expand='md' className='p-0'>
@@ -35,7 +41,7 @@ const Navigation = () => {
 									</Link>
 									<Nav.Link
 										as='span'
-										onClick={logout}
+										onClick={HandleLogOut}
 										className='not-decoration nav-button'
 									>
 										Cerrar sesión

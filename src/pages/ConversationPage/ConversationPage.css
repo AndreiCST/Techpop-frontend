@@ -1,9 +1,0 @@
-.chat {
-    height: 500px;
-}
-
-.messages {
-    height: 70%;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-}

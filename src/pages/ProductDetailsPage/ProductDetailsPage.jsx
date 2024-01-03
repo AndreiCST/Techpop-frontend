@@ -1,232 +1,194 @@
-import { useContext, useEffect, useState } from "react"
-import { Container, Row, Col, Button, Carousel, ListGroup } from "react-bootstrap"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { AuthContext } from "../../contexts/auth.context"
-import StarValoration from "../../components/StarValoration/StarValoration"
-import userService from "../../services/user.services"
-import productService from "../../services/product.services"
+import { useContext, useEffect, useState } from 'react'
+import { Container, Row, Col, Button, Carousel, ListGroup } from 'react-bootstrap'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { AuthContext } from '../../contexts/auth.context'
+import StarValoration from '../../components/StarValoration/StarValoration'
+import userService from '../../services/user.services'
+import productService from '../../services/product.services'
+import transactionService from '../../services/transactions.services'
 import './ProductDetailsPage.css'
-
+import '../../assets/DocumentEdit_40924.png'
 
 const ProductPage = () => {
+	const { product_id } = useParams()
+	const { user } = useContext(AuthContext)
+	const [product, setProduct] = useState([])
+	const [productOwner, setProductOwner] = useState({})
+	const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
+	const [isOwner, setIsOwner] = useState(false)
 
-    const { product_id } = useParams()
-    const { user } = useContext(AuthContext)
+	const navigate = useNavigate()
 
-    const [product, setProduct] = useState([])
-    const [productOwner, setProductOwner] = useState({})
-    const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
-    const [isOwner, setIsOwner] = useState(false)
+	useEffect(() => {
+		loadProduct()
+	}, [])
 
-    const navigate = useNavigate()
+	const loadProduct = () => {
+		productService
+			.getOneProduct(product_id)
+			.then(({ data }) => {
+				setProduct(data)
+				setProductOwner(data.owner)
+				if (user) {
+					isFavProduct()
+				}
+				if (data?.owner?._id === user?._id) {
+					setIsOwner(true)
+				}
+			})
+			.catch((err) => console.log(err))
+	}
 
-    useEffect(() => {
-        loadProduct()
-    }, [])
+	const isFavProduct = () => {
+		userService
+			.getFavProd(user._id, product_id)
+			.then((data) => {
+				setIsFavouriteProducts(data.data)
+			})
+			.catch((err) => console.log(err))
+	}
 
-    const loadProduct = () => {
-        productService
-            .getOneProduct(product_id)
-            .then(({ data }) => {
-                setProduct(data)
-                setProductOwner(data.owner)
-                if (user) {
-                    isFavProduct()
-                }
-                if (data?.owner?._id === user?._id) {
-                    setIsOwner(true)
-                }
+	const handleFavClick = () => {
+		if (isFavouriteProducts) {
+			userService
+				.removeFromFavProd(user._id, product_id)
+				.then(() => {
+					setIsFavouriteProducts(false)
+				})
+				.catch((err) => console.log(err))
+		} else {
+			userService
+				.addToFavProd(user._id, product_id)
+				.then(() => {
+					setIsFavouriteProducts(true)
+				})
+				.catch((err) => console.log(err))
+		}
+	}
 
-            })
-            .catch(err => console.log(err))
-    }
+	const handleEditClick = () => {
+		navigate(`/product/edit/${product_id}`)
+	}
 
-    const isFavProduct = () => {
+	const HandleBuyButton = () => {
+		transactionService
+			.startTrans(product_id, user._id, productOwner._id)
+			.then(navigate('/'))
+			.catch((err) => console.log(err))
+	}
 
-        userService
-            .getFavProd(user._id, product_id)
-            .then(data => {
-                setIsFavouriteProducts(data.data)
-            })
-            .catch(err => console.log(err))
-    }
+	const handleDeleteClick = () => {
+		productService
+			.deleteProduct(product_id)
+			.then(() => navigate(`/profile/${user._id}`))
+			.catch((err) => console.log(err))
+	}
 
+	return (
+		<div className='pt-5 prod-details px-5 pb-5'>
+			<Row className='pb-5'>
+				<Col xs={12} sm={10} md={10}>
+					<h1 className='mb-4 prod-tittle'>{product.name}</h1>
+				</Col>
 
-    const handleFavClick = () => {
-        if (isFavouriteProducts) {
-            userService
-                .removeFromFavProd(user._id, product_id)
-                .then(() => {
-                    setIsFavouriteProducts(false)
-                })
-                .catch(err => console.log(err))
-        } else {
-            userService
-                .addToFavProd(user._id, product_id)
-                .then(() => {
-                    setIsFavouriteProducts(true)
-                })
-                .catch(err => console.log(err))
-        }
-    }
+				{isOwner && (
+					<Col xs={12} sm={2} md={2}>
+						<Link to={`/buy-requests/${product_id}`} className='not-decoration'>
+							Solicitudes de compra
+						</Link>
+					</Col>
+				)}
+			</Row>
 
-    const handleConversation = () => {
+			<Row>
+				<Carousel className='prod-carousel'>
+					{product?.images?.map((elm, index) => {
+						return (
+							<Carousel.Item key={index}>
+								<img src={elm} alt={`Slide ${elm._id}`} />
+							</Carousel.Item>
+						)
+					})}
+				</Carousel>
+			</Row>
 
-        userService
-            .verifyConv(user._id, productOwner._id, product._id)
-            .then(({ data }) => {
+			<Row className='pt-5'>
+				<Col xs={12} md={6}>
+					<p className='description'>{product.description}</p>
+				</Col>
+				<Col md={2}></Col>
+				<Col xs={12} md={4} className='mb-4 pt-5'>
+					<div className='pb-5'>
+						<h1 className='price'>Precio: {product.price}</h1>
+						<p className='state'>State: {product.stateOfProduct}</p>
 
-                if (data !== 'false') {
-                    navigate(`/profile/conversations/${data}`)
-                } else {
-                    userService.createConv(user._id, productOwner._id, product._id)
-                    navigate(`/profile/${user._id}`)
-                }
-            })
-            .catch(err => console.log(err))
-    }
+						<Link to={`/profile/${productOwner._id}`} className='owner'>
+							<p className='mb-0'>
+								{productOwner.firstName} {productOwner.lastName}
+							</p>
+							<StarValoration stars={productOwner.valorations?.avgValoration} />
+						</Link>
+					</div>
 
-    const handleEditClick = () => { navigate(`/product/edit/${product_id}`) }
+					<div className=''>
+						{!isOwner && product.inSale === true && (
+							<Row className='buttons'>
+								<Col xs={12} md={6}>
+									<Button
+										onClick={HandleBuyButton}
+										className='ms-3'
+										variant='bg-secondary '
+									>
+										<img
+											src='https://cdn.icon-icons.com/icons2/1580/PNG/512/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png'
+											alt=''
+										/>
+									</Button>
+									<Button onClick={handleFavClick} variant='bg-secondary '>
+										<img
+											src={
+												isFavProduct
+													? 'https://cdn.icon-icons.com/icons2/38/PNG/512/like_favorite_heart_5759.png'
+													: 'https://cdn.icon-icons.com/icons2/2073/PNG/512/heart_like_love_twitter_icon_127132.png'
+											}
+											alt=''
+										/>
+									</Button>
+								</Col>
+							</Row>
+						)}
 
-    const handleDeleteClick = () => {
-
-        productService
-            .deleteProduct(product_id)
-            .then(() => navigate(`/profile/${user._id}`))
-            .catch(err => console.log(err))
-    }
-
-    return (
-
-        <Container className="pt-5">
-
-            <Row>
-
-                <Col md={10}>
-                    <h1 className="mb-4">{product.name}</h1>
-                </Col>
-
-
-                {
-                    isOwner
-
-                        ?
-
-                        <Col md={2}>
-
-                            <Link to={`/buy-requests/${product_id}`}>Solicitudes de compra</Link>
-
-                        </Col>
-
-                        :
-
-                        <h1></h1>
-                }
-
-            </Row>
-
-
-
-            <hr />
-
-            <Row>
-
-                <Col md={{ span: 4 }}>
-
-                    <Carousel>
-                        {
-                            product?.images?.map((elm, index) => {
-                                return (
-                                    <Carousel.Item key={index}>
-                                        <img
-                                            className="d-block w-100"
-                                            src={elm}
-                                            alt={`Slide ${elm._id}`}
-                                            style={{ objectFit: 'fit', width: '100%', height: '100%' }}
-                                        />
-                                    </Carousel.Item>
-                                )
-                            })
-                        }
-                    </Carousel>
-                </Col>
-
-                <Col md={{ span: 6, offset: 1 }} className="mb-4">
-                    <h3>Descripcion:</h3>
-                    <p>{product.description}</p>
-                    <ListGroup>
-                        <ListGroup.Item>Precio: {product.price}</ListGroup.Item>
-                        <ListGroup.Item>
-                            <Link to={`/profile/${productOwner._id}`}>{productOwner.firstName} {productOwner.lastName}</Link>
-                            <StarValoration stars={productOwner.valorations?.avgValoration} />
-                        </ListGroup.Item>
-                        <ListGroup.Item>State: {product.stateOfProduct}</ListGroup.Item>
-                        <>
-
-                            {
-
-                                <Link to={`/create-valoration/${product._id}`}>
-
-                                    <Button>Valorar</Button>
-
-                                </Link>
-
-                            }
-
-                        </>
-                    </ListGroup>
-
-                    <hr />
-
-                    {
-                        !isOwner && product.inSale === true
-
-                            ?
-
-                            <>
-                                <Button onClick={handleConversation} className="ms-3">Chat</Button>
-
-                                <Button onClick={handleFavClick} variant="secondary">{isFavouriteProducts ? 'Eliminar de favoritos' : 'Agregar a favoritos'}</Button>
-                            </>
-
-                            :
-
-                            <h1></h1>
-                    }
-
-
-
-                    {
-                        isOwner && product.inSale === true
-
-                            ?
-
-                            <Row>
-                                <Col>
-                                    <Button onClick={handleEditClick} className='mt-2' variant="warning">Editar Producto</Button>
-                                </Col>
-                                <Col>
-                                    <Button onClick={handleDeleteClick} className='mt-2' variant="danger">Eliminar Producto</Button>
-                                </Col>
-                            </Row>
-
-                            :
-
-                            <h1></h1>
-                    }
-
-                </Col >
-
-                <hr />
-
-                <Link to="/search">
-                    <Button as="figure" variant="dark">Volver a la lista</Button>
-                </Link>
-
-            </Row >
-
-        </Container >
-    )
+						{isOwner && product.inSale === true && (
+							<Row className='buttons'>
+								<Col xs={12} md={4}>
+									<Button
+										onClick={handleEditClick}
+										className='mt-2'
+										variant='bg-secondary '
+									>
+										<img
+											src='https://cdn.icon-icons.com/icons2/520/PNG/512/Document-edit_icon-icons.com_52127.png'
+											alt=''
+										/>
+									</Button>
+									<Button
+										onClick={handleDeleteClick}
+										className='mt-2'
+										variant='bg-secondary'
+									>
+										<img
+											src='https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png'
+											alt=''
+										/>
+									</Button>
+								</Col>
+							</Row>
+						)}
+					</div>
+				</Col>
+			</Row>
+		</div>
+	)
 }
 
 export default ProductPage

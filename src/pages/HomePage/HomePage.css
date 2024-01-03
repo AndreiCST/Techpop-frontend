@@ -2,7 +2,6 @@
 	background-color: #b0c8dc5c;
 	height: 55vh;
 	overflow: hidden;
-	padding-top: 20px;
 }
 
 .carousel img {
@@ -10,7 +9,7 @@
 }
 
 .main {
-	height: 100vh;
+	min-height: 100vh;
 	background-color: #b0c8dc5c;
 	padding-top: 50px;
 }

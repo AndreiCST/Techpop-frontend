@@ -1,23 +1,21 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import NewProductForm from '../../components/NewProductForm/NewProductForm'
+import NewProductForm from '../../components/FormNewProduct/FormNewProduct'
 
 import './NewProductPage.css'
 
 const NewProduct = () => {
+	const navigate = useNavigate()
 
-    const navigate = useNavigate()
-
-    return (
-
-        <Container className='pagePos'>
-            <Row>
-                <Col md={{ offset: 2, span: 8 }}>
-                    <NewProductForm />
-                </Col>
-            </Row>
-        </Container>
-    )
+	return (
+		<Container className='pagePos'>
+			<Row>
+				<Col md={{ offset: 2, span: 8 }}>
+					<NewProductForm />
+				</Col>
+			</Row>
+		</Container>
+	)
 }
 
 export default NewProduct

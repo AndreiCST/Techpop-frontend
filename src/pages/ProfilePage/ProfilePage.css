@@ -1,109 +1,22 @@
-.aaa {
-    padding-top: 4rem;
+.main {
+	min-height: 120vh;
 }
 
-
-hr {
-    border: 1px solid transparent;
+.top-section {
+	height: 10%;
+	background-color: #b0c8dc5c;
+	padding: 20px;
+	box-sizing: content-box;
+	margin-right: 0;
 }
 
-.navColumn {
-    height: 100%;
-    background-color: #F5F5FA;
+.bottom-section {
+	margin-right: 0;
 }
 
-.sectionColumn {
-    height: 100%;
+.tabs-content {
+	padding-right: 0;
+	margin: 0;
 }
 
-.float {
-    transition: .2s, color .10s;
-    -webkit-transition: .5s, color .10s;
-    -moz-transition: .5s, color .10s;
-}
-
-.float:hover {
-    box-shadow: 0 5px 10px 0 #318802, 0 8px 8px 0 #f8f8a8;
-    transform: translate(0px, 5px);
-    -webkit-transform: translate(0px, 5px);
-    -moz-transform: translate(0px, 5px);
-}
-
-.button-88 {
-    display: flex;
-    align-items: center;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 16px;
-    padding: 0.7em 1.4em 0.7em 1.1em;
-    color: white;
-    background: #ad5389;
-    background: linear-gradient(0deg, rgba(20, 167, 62, 1) 0%, rgba(102, 247, 113, 1) 100%);
-    border: none;
-    letter-spacing: 0.05em;
-    border-radius: 20em;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
-
-.button-88:hover {
-    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
-}
-
-.button-88:active {
-    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
-}
-
-.transLeft {
-    transition: .5s, color .10s;
-    -webkit-transition: .5s, color .10s;
-    -moz-transition: .5s, color .10s;
-}
-
-.transLeft:hover {
-    transform: translatex(-10px);
-    -webkit-transform: translatex(-10px);
-    -moz-transform: translatex(-10px);
-}
-
-.profileNavBut {
-    color: #318802;
-}
-
-.button-67 {
-    align-items: center;
-    background: #f5f5fa;
-    border: .5px solid lightgray;
-    border-radius: 8px;
-    box-shadow: -10px -10px 30px 0 #fff, 10px 10px 30px 0 #00000017;
-    box-sizing: border-box;
-    color: #2a1f62;
-    cursor: pointer;
-    display: flex;
-    font-family: "Cascadia Code", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    font-size: 1rem;
-    justify-content: center;
-    line-height: 1.5rem;
-    padding: 10px;
-    position: relative;
-    text-align: left;
-    transition: .2s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: pre;
-    word-break: normal;
-    word-spacing: normal;
-}
-
-.button-67:hover {
-    background: #f8f8ff;
-    box-shadow: -15px -15px 30px 0 #fff, 10px 10px 15px 0 #0dca2317;
-}
-
-
-
-/* Parent background */
-/* #F5F5FA */
+/*el padding derecho en tabs-content es extraño y lo tengo que resetear*/

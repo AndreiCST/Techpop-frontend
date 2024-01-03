@@ -24,7 +24,7 @@ const HomePage = () => {
 	}
 
 	return (
-		<Row className='m-0'>
+		<Row className='m-0 main'>
 			<Col xs={12} className='carousel'>
 				<Row className=''>
 					<Col xs={12} className='p-0'>
@@ -32,7 +32,7 @@ const HomePage = () => {
 					</Col>
 				</Row>
 			</Col>
-			<Col className='main'>
+			<Col className=''>
 				<div className=''>
 					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident obcaecati
 					asperiores repellendus dolorem culpa? Delectus magni tempore ipsa consequatur
