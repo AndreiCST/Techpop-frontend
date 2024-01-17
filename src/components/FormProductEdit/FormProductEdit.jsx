@@ -11,20 +11,16 @@ const EditProductForm = ({ product }) => {
 	const [productData, setProductData] = useState({
 		name: product.name,
 		description: product.description,
-		// images: product.images,
+		images: product.images,
 		price: product.price,
 		stateOfProduct: product.stateOfProduct,
 		category: product.category,
 		subcategory: product.subcategory,
 	})
-
 	const { user } = useContext(AuthContext)
-
 	const { product_id } = useParams()
-
 	const [errors, setErrors] = useState([])
-	// const [loadingImage, setLoadingImage] = useState(false)
-
+	const [loadingImage, setLoadingImage] = useState(false)
 	const navigate = useNavigate()
 
 	function handleInputChange(e) {
@@ -32,31 +28,28 @@ const EditProductForm = ({ product }) => {
 		setProductData({ ...productData, [name]: value })
 	}
 
-	// const handleImageChange = e => {
-	//     const { name, value, files } = e.target
-	//     const newImages = [...productData.images]
+	const handleFileUpload = (e, index) => {
+		setLoadingImage(true)
 
-	//     const file = files[0]
-	//     const reader = new FileReader()
+		const formData = new FormData()
+		formData.append('imageData', e.target.files[0])
 
-	//     reader.onloadend = () => {
-	//         newImages[value] = reader.result
-	//         setProductData({ ...productData, images: newImages })
+		uploadServices
+			.uploadimage(formData)
+			.then(({ data }) => {
+				const newImages = productData.images.map((e, i) => {
+					if (i === index) {
+						return data[0]
+					} else {
+						return e
+					}
+				})
 
-	//         const formData = new FormData()
-	//         formData.append('imageData', file)
-
-	//         uploadServices.uploadimage(formData)
-	//             .then(res => {
-	//                 console.log('Image uploaded successfully!')
-	//             })
-	//             .catch(err => {
-	//                 console.error(err)
-	//             })
-	//     }
-
-	//     reader.readAsDataURL(file)
-	// }
+				setProductData({ ...productData, images: newImages })
+				setLoadingImage(false)
+			})
+			.catch((err) => console.log(err))
+	}
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault()
@@ -72,9 +65,8 @@ const EditProductForm = ({ product }) => {
 	return (
 		<>
 			<h1>Edit Product Form</h1>
-			<hr />
 
-			<Form onSubmit={handleFormSubmit}>
+			<Form className='pt-5' onSubmit={handleFormSubmit}>
 				<Row className='mb-3'>
 					<Form.Group as={Col} controlId='name'>
 						<Form.Label>Nombre:</Form.Label>
@@ -95,23 +87,6 @@ const EditProductForm = ({ product }) => {
 						/>
 					</Form.Group>
 				</Row>
-
-				{/* <Row>
-                    {productData.images.map((image, index) => (
-                        // <Link onClick={(e) => handleImageChange(index, e)}>
-                        <Form.Group key={index} as={Col} lg={2} >
-                            <Form.Label>Image {index + 1}</Form.Label>
-                            <div onClick={(e) => handleImageChange(index, e)}>
-                                <img
-                                    src={image}
-                                    alt={`Image ${index}`}
-                                    className="imageChange"
-                                />
-                            </div>
-                        </Form.Group>
-                        // </Link>
-                    ))}
-                </Row> */}
 
 				<Form.Group className='mb-3' controlId='description'>
 					<Form.Label>Descripcion:</Form.Label>
@@ -174,21 +149,45 @@ const EditProductForm = ({ product }) => {
 					</Form.Group>
 				</Row>
 
+				<Row className='py-5 w-100 m-0 image-list d-flex justify-content-center'>
+					{Array.from({ length: 8 }).map((e, index) => {
+						const placeholder =
+							'https://uning.es/wp-content/uploads/2016/08/ef3-placeholder-image.jpg'
+
+						let coverImg
+
+						if (productData.images[index] === '') {
+							coverImg = placeholder
+						} else {
+							coverImg = productData.images[index]
+						}
+
+						return (
+							<Col key={index} xs={6} sm={5} md={3} className='p-2 image-container'>
+								<input
+									className='image'
+									type='file'
+									style={{
+										backgroundImage: `url(${coverImg})`,
+									}}
+									onChange={(e) => handleFileUpload(e, index)}
+								/>
+							</Col>
+						)
+					})}
+				</Row>
+
 				{errors.length > 0 && (
-					<FormError>
+					<FormError className='py-5'>
 						{errors.map((elm) => (
 							<p>{elm}</p>
 						))}
 					</FormError>
 				)}
 
-				<Button variant='dark' type='submit'>
-					Editar Producto
+				<Button variant='dark' type='submit' disabled={loadingImage}>
+					{loadingImage ? 'Cargando Imagen...' : 'Editar Producto'}
 				</Button>
-
-				{/* <div className="d-grid">
-                    <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Cargando Imagen...' : 'Editar Producto'}</Button>
-                </div> */}
 			</Form>
 		</>
 	)

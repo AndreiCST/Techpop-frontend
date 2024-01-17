@@ -1,20 +1,21 @@
 import { Card, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import StarValoration from '../StarValoration/StarValoration'
 import './CardProfile.css'
 
-const ProfileHeader = ({ id, firstName, lastName, averageValoration, profilImage }) => {
+const ProfileHeader = ({ user }) => {
+	const { firstName, lastName, valorations, avatar } = user
+
 	return (
 		<Card className='profileCard '>
 			<Row className='d-flex justify-content-center'>
 				<div className='d-flex avatar-container'>
-					<Card.Img src={profilImage} className='profile-image' />
+					<Card.Img src={avatar} className='profile-image' />
 				</div>
 			</Row>
 			<Row>
 				<Card.Body>
 					<Card.Title>{`${firstName} ${lastName}`}</Card.Title>
-					<StarValoration stars={averageValoration} />
+					<StarValoration stars={valorations?.avgValoration} />
 				</Card.Body>
 			</Row>
 		</Card>

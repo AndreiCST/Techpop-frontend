@@ -1,19 +1,25 @@
-import { Container, Row, Col } from 'react-bootstrap'
-import SignupForm from '../../components/FormSignup/FormSignup'
+import { Row, Col } from 'react-bootstrap'
+import SignupForm from '../../components/FormSignIn/FormSignIn'
+import './SignupPage.css'
+import logo from '../../assets/imagenes/logo.jpg'
 
 const SignupPage = () => {
 	return (
-		<Container className='pagePos'>
-			<Row>
-				<Col md={{ offset: 3, span: 6 }}>
-					<h1>Signup</h1>
+		<Row className='signin-page pt-5'>
+			<Col
+				xs={{ offset: 1, span: 10 }}
+				sm={{ offset: 2, span: 8 }}
+				md={{ offset: 3, span: 6 }}
+				lg={{ offset: 4, span: 4 }}
+			>
+				<img src={logo} alt='' />
+				<h1>Sign in to Techpop</h1>
 
-					<hr />
-
+				<div className='signin-form d-flex justify-content-center mt-5'>
 					<SignupForm />
-				</Col>
-			</Row>
-		</Container>
+				</div>
+			</Col>
+		</Row>
 	)
 }
 

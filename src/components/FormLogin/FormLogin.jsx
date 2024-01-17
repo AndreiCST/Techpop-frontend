@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import FormError from '../FormError/FormError'
 import { AuthContext } from '../../contexts/auth.context'
 import authService from '../../services/auth.services'
+import './FormLogin.css'
 
 const LoginForm = () => {
 	const [loginData, setLoginData] = useState({
@@ -35,7 +36,7 @@ const LoginForm = () => {
 	}
 
 	return (
-		<Form onSubmit={handleSubmit}>
+		<Form onSubmit={handleSubmit} className=''>
 			<Form.Group className='mb-3' controlId='email'>
 				<Form.Label>Email</Form.Label>
 				<Form.Control

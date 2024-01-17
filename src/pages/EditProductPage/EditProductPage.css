@@ -1,0 +1,13 @@
+.edit-product-page {
+	min-height: 90vh;
+	background-color: #b0c8dc5c;
+	margin: 0;
+}
+
+.edit-product-form {
+	min-height: fit-content;
+	padding: 3%;
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: #97b2c9;
+}

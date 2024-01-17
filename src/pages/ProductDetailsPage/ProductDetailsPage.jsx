@@ -7,7 +7,6 @@ import userService from '../../services/user.services'
 import productService from '../../services/product.services'
 import transactionService from '../../services/transactions.services'
 import './ProductDetailsPage.css'
-import '../../assets/DocumentEdit_40924.png'
 
 const ProductPage = () => {
 	const { product_id } = useParams()
@@ -20,13 +19,9 @@ const ProductPage = () => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		loadProduct()
-	}, [])
-
-	const loadProduct = () => {
-		productService
-			.getOneProduct(product_id)
-			.then(({ data }) => {
+		const loadProduct = async () => {
+			try {
+				const { data } = await productService.getOneProduct(product_id)
 				setProduct(data)
 				setProductOwner(data.owner)
 				if (user) {
@@ -35,9 +30,13 @@ const ProductPage = () => {
 				if (data?.owner?._id === user?._id) {
 					setIsOwner(true)
 				}
-			})
-			.catch((err) => console.log(err))
-	}
+			} catch (error) {
+				console.log(error)
+			}
+		}
+
+		loadProduct()
+	}, [user])
 
 	const isFavProduct = () => {
 		userService
@@ -103,11 +102,13 @@ const ProductPage = () => {
 			<Row>
 				<Carousel className='prod-carousel'>
 					{product?.images?.map((elm, index) => {
-						return (
-							<Carousel.Item key={index}>
-								<img src={elm} alt={`Slide ${elm._id}`} />
-							</Carousel.Item>
-						)
+						if (elm !== '') {
+							return (
+								<Carousel.Item key={index}>
+									<img src={elm} alt={`Slide ${elm._id}`} />
+								</Carousel.Item>
+							)
+						}
 					})}
 				</Carousel>
 			</Row>
@@ -119,7 +120,7 @@ const ProductPage = () => {
 				<Col md={2}></Col>
 				<Col xs={12} md={4} className='mb-4 pt-5'>
 					<div className='pb-5'>
-						<h1 className='price'>Precio: {product.price}</h1>
+						<h2 className='price'>Precio: {product.price}€</h2>
 						<p className='state'>State: {product.stateOfProduct}</p>
 
 						<Link to={`/profile/${productOwner._id}`} className='owner'>
@@ -131,7 +132,7 @@ const ProductPage = () => {
 					</div>
 
 					<div className=''>
-						{!isOwner && product.inSale === true && (
+						{!isOwner && product.inSale === true && user && (
 							<Row className='buttons'>
 								<Col xs={12} md={6}>
 									<Button

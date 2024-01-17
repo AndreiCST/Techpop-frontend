@@ -1,0 +1,13 @@
+.search-page {
+	min-height: 90vh;
+	background-color: #b0c8dc5c;
+	margin-top: 0;
+}
+
+.search-bar {
+	min-height: 10vh;
+	background-color: rgba(211, 211, 211, 0.377);
+}
+
+.search-bar input {
+}

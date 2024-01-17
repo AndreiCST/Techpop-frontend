@@ -9,8 +9,8 @@ const Purchases = ({ purchases }) => {
 			{purchases.length > 0 ? (
 				<ProductList products={purchases} />
 			) : (
-				<Row>
-					<Col sm={{ span: 6, offset: 3 }}>
+				<Row className='pt-5'>
+					<Col sm={{ span: 6, offset: 3 }} className='d-flex justify-content-center'>
 						<Card className='PurchasesPlaceholder'>
 							<Card.Img src={purchasesImg} />
 							<Card.Text className='mt-5'>

@@ -1,6 +1,6 @@
 import { AuthContext } from './../../contexts/auth.context'
 import productService from '../../services/product.services'
-import { Container, Form, Button } from 'react-bootstrap'
+import { Form, Col } from 'react-bootstrap'
 import ProductsList from '../../components/ListProduct/ListProduct'
 import { useState, useEffect, useContext } from 'react'
 import Loader from './../../components/Loader/Loader'
@@ -51,37 +51,25 @@ const ProductsListPage = () => {
 	}
 
 	return (
-		<div className='pagePos'>
-			<Form className='d-flex mt-5' onSubmit={handleSearch}>
-				<Form.Control
-					type='search'
-					placeholder='Search'
-					className='me-2 ms-5 mb-5'
-					aria-label='Search'
-					value={searchString ? searchString : ''}
-					onChange={(e) => setSearchString(e.target.value)}
-				/>
-				<Button type='submit' className='me-5 mb-5' variant='dark'>
-					Search
-				</Button>
+		<div className='search-page'>
+			<Form className='pt-3 search-bar' onSubmit={handleSearch}>
+				<Col xs={{ offset: 2, span: 8 }} sm={{ offset: 3, span: 6 }}>
+					<Form.Control
+						type='search'
+						placeholder='Search'
+						aria-label='Search'
+						value={searchString ? searchString : ''}
+						onChange={(e) => setSearchString(e.target.value)}
+					/>
+				</Col>
 			</Form>
 
 			{isLoading ? (
 				<Loader />
 			) : (
-				<Container>
-					<h1>Lista de Productos</h1>
-					<hr />
+				<div className='search-products px-5'>
 					<ProductsList products={products} />
-				</Container>
-			)}
-
-			{empySearch ? (
-				<Button onClick={loadProducts} variant='dark'>
-					Volver a la lista
-				</Button>
-			) : (
-				<></>
+				</div>
 			)}
 		</div>
 	)

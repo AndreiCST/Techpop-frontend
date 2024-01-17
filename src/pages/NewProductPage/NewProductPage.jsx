@@ -1,4 +1,4 @@
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import NewProductForm from '../../components/FormNewProduct/FormNewProduct'
 
@@ -8,13 +8,14 @@ const NewProduct = () => {
 	const navigate = useNavigate()
 
 	return (
-		<Container className='pagePos'>
-			<Row>
-				<Col md={{ offset: 2, span: 8 }}>
+		<div className='new-prod-page pt-5 pb-5'>
+			<Container>
+				<h2 className='pb-5'>New Product Form</h2>
+				<div className='new-prod-form'>
 					<NewProductForm />
-				</Col>
-			</Row>
-		</Container>
+				</div>
+			</Container>
+		</div>
 	)
 }
 

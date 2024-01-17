@@ -1,17 +1,16 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Col, Row, Form, Button } from 'react-bootstrap'
 import { AuthContext } from '../../contexts/auth.context.jsx'
 import userService from '../../services/user.services.js'
-import authService from '../../services/auth.services.js'
 import uploadServices from '../../services/upload.services.js'
 import FormError from '../FormError/FormError.jsx'
 
 const UserEditForm = ({ user, setUser }) => {
 	const { refreshToken } = useContext(AuthContext)
-
 	const [loadingImage, setLoadingImage] = useState(false)
 	const [errors, setErrors] = useState([])
+	const { logout } = useContext(AuthContext)
 
 	const navigate = useNavigate()
 
@@ -50,32 +49,37 @@ const UserEditForm = ({ user, setUser }) => {
 				navigate(`/profile/${user._id}`)
 				console.log(user.avatar)
 			})
-			// .catch(err => console.log(err))
 			.catch((err) => setErrors(err.response.data.errorMessages))
+	}
+
+	const handleDeleteButton = () => {
+		logout()
+
+		userService
+			.deleteUser(user._id)
+			.then(() => console.log('el usuario se ha borrado'))
+			.catch((err) => console.log(err))
 	}
 
 	return (
 		<>
-			<h1>Editar Perfil</h1>
-			<hr />
-
 			<Form onSubmit={handleFormSubmit}>
 				<Row className='mb-3'>
-					<Form.Group as={Col} controlId='fistName'>
+					<Form.Group as={Col} sm={12} md={6} controlId='fistName'>
 						<Form.Label>Nombre</Form.Label>
 						<Form.Control
 							type='text'
-							value={user.firstName}
+							value={user.firstName || ''}
 							onChange={handleInputChange}
 							name='firstName'
 						/>
 					</Form.Group>
 
-					<Form.Group as={Col} controlId='lastName'>
+					<Form.Group as={Col} sm={12} md={6} controlId='lastName'>
 						<Form.Label>Apellido</Form.Label>
 						<Form.Control
 							type='text'
-							value={user.lastName}
+							value={user.lastName || ''}
 							onChange={handleInputChange}
 							name='lastName'
 						/>
@@ -86,7 +90,7 @@ const UserEditForm = ({ user, setUser }) => {
 					<Form.Label>Email</Form.Label>
 					<Form.Control
 						type='email'
-						value={user.email}
+						value={user.email || ''}
 						onChange={handleInputChange}
 						name='email'
 					/>
@@ -97,7 +101,7 @@ const UserEditForm = ({ user, setUser }) => {
 					<Form.Control type='file' onChange={handleFileUpload} />
 				</Form.Group>
 
-				{errors.length > 0 && (
+				{errors?.length > 0 && (
 					<FormError>
 						{errors.map((elm) => (
 							<p>{elm}</p>
@@ -105,11 +109,18 @@ const UserEditForm = ({ user, setUser }) => {
 					</FormError>
 				)}
 
-				<div className='d-grid'>
-					<Button variant='dark' type='submit' disabled={loadingImage}>
-						{loadingImage ? 'Cargando Avatar...' : 'Editar perfil'}
-					</Button>
-				</div>
+				<Row>
+					<Col>
+						<Button variant='dark' type='submit' disabled={loadingImage}>
+							{loadingImage ? 'Cargando Avatar...' : 'Editar perfil'}
+						</Button>
+					</Col>
+					<Col>
+						<Button onClick={handleDeleteButton} variant='warning'>
+							Eliminar perfil
+						</Button>
+					</Col>
+				</Row>
 			</Form>
 		</>
 	)

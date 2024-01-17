@@ -67,33 +67,6 @@ const ProfilePage = () => {
 			.catch((err) => console.log(err))
 	}
 
-	const handleFavClick = () => {
-		if (isFavouriteSeller) {
-			userService
-				.removeFromFavSel(user._id, user_id)
-				.then(() => {
-					setISFavouriteSeller(false)
-				})
-				.catch((err) => console.log(err))
-		} else {
-			userService
-				.addToFavSel(user._id, user_id)
-				.then(() => {
-					setISFavouriteSeller(true)
-				})
-				.catch((err) => console.log(err))
-		}
-	}
-
-	const handleDeleteButton = () => {
-		logout()
-
-		userService
-			.deleteUser(infoUser._id)
-			.then(() => console.log('el usuario se ha borrado'))
-			.catch((err) => console.log(err))
-	}
-
 	return (
 		<div className='main'>
 			{isLoading ? (
@@ -101,19 +74,20 @@ const ProfilePage = () => {
 			) : (
 				<>
 					<Row className='top-section'>
-						<Col xs={12} sm={5}>
-							<ProfileCard {...profilInfo} />
+						<Col xs={12} sm={{ offset: 0, span: 3 }} className=''>
+							<Row>
+								<ProfileCard user={infoUser} />
+							</Row>
+							<Row className='edit-button'>
+								<Col xs={12}>
+									<Link to={`/profile/edit/${user_id}`} className='notDecoration '>
+										Edit perfil
+									</Link>
+								</Col>
+							</Row>
 						</Col>
 
-						<Col xs={12} sm={2}>
-							<Link to={`/profile/edit/${user_id}`} className='notDecoration'>
-								Editar Perfil
-							</Link>
-
-							<Nav.Link onClick={handleDeleteButton}>Eliminar perfil</Nav.Link>
-						</Col>
-
-						<Col xs={12} sm={5}>
+						<Col xs={12} sm={{ offset: 6, span: 2 }} className='pt-5'>
 							{isCurrentUser && (
 								<>
 									<Link to={`/profile/new_product`} className='notDecoration'>

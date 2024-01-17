@@ -12,8 +12,8 @@ const Favourites = ({ favourites }) => {
 			{activeProducts.length > 0 ? (
 				<ProductList products={activeProducts} />
 			) : (
-				<Row className=''>
-					<Col sm={{ span: 6, offset: 5 }}>
+				<Row className='pt-5'>
+					<Col sm={{ span: 6, offset: 3 }} className='d-flex justify-content-center'>
 						<Card className='favouritesPlaceholder'>
 							<Card.Img src={productImg} />
 							<Card.Text className='mt-5'>

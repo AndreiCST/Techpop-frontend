@@ -23,7 +23,7 @@ const ProductCard = ({ _id, name, images, price, buyRequest, owner, inSale }) =>
 		<Link to={`/${_id}`} className='not-decoration'>
 			<Card className={haveBuyer}>
 				<div className='prod-img'>
-					<Card.Img variant='top' src={images ? images[0] : ''} className='p-2' />
+					<Card.Img variant='top' src={images[0]} className='p-2' />
 				</div>
 				<Card.Body>
 					<Card.Title className='mb-2 d-flex price '>{price} €</Card.Title>

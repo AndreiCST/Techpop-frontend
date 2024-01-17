@@ -3,7 +3,6 @@ import { Col, Row, Form, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import productService from '../../services/product.services'
-import userSerice from '../../services/user.services'
 import uploadServices from '../../services/upload.services'
 import { CATEGORIES, SUBCATEGORIES, STATEOFPRODUCT } from '../../consts'
 
@@ -15,7 +14,7 @@ const NewProductForm = () => {
 	const [productData, setProductData] = useState({
 		name: '',
 		description: '',
-		images: [],
+		images: ['', '', '', '', '', '', '', ''],
 		price: '',
 		stateOfProduct: '',
 		category: '',
@@ -32,25 +31,6 @@ const NewProductForm = () => {
 		setProductData({ ...productData, [name]: value })
 	}
 
-	const handleFileUpload = (e) => {
-		setLoadingImage(true)
-
-		const formData = new FormData()
-		for (let key in e.target.files) {
-			formData.append('imageData', e.target.files[key])
-		}
-
-		uploadServices
-			.uploadimage(formData)
-			.then((res) => {
-				setProductData({ ...productData, images: res.data })
-				setLoadingImage(false)
-			})
-			.catch((err) => {
-				setLoadingImage(false)
-			})
-	}
-
 	const handleFormSubmit = (e) => {
 		e.preventDefault()
 
@@ -60,14 +40,34 @@ const NewProductForm = () => {
 			.catch((err) => setErrors(err.response.data.errorMessages))
 	}
 
+	const handleFileUpload = (e, index) => {
+		setLoadingImage(true)
+
+		const formData = new FormData()
+		formData.append('imageData', e.target.files[0])
+
+		uploadServices
+			.uploadimage(formData)
+			.then(({ data }) => {
+				const newImages = productData.images.map((e, i) => {
+					if (i === index) {
+						return data[0]
+					} else {
+						return e
+					}
+				})
+
+				setProductData({ ...productData, images: newImages })
+				setLoadingImage(false)
+			})
+			.catch((err) => console.log(err))
+	}
+
 	return (
 		<>
-			<h2>New Product Form</h2>
-			<hr />
-
 			<Form onSubmit={handleFormSubmit}>
 				<Row className='mb-3'>
-					<Form.Group as={Col} controlId='name'>
+					<Form.Group as={Col} sm={12} md={6} controlId='name'>
 						<Form.Label>Nombre:</Form.Label>
 						<Form.Control
 							type='text'
@@ -76,7 +76,7 @@ const NewProductForm = () => {
 							name='name'
 						/>
 					</Form.Group>
-					<Form.Group as={Col} controlId='price'>
+					<Form.Group as={Col} sm={12} md={6} controlId='price'>
 						<Form.Label>Precio:</Form.Label>
 						<Form.Control
 							type='text'
@@ -86,11 +86,6 @@ const NewProductForm = () => {
 						/>
 					</Form.Group>
 				</Row>
-
-				<Form.Group className='mb-3' controlId='images'>
-					<Form.Label>Imagen (URL)</Form.Label>
-					<Form.Control type='file' onChange={handleFileUpload} multiple />
-				</Form.Group>
 
 				<Form.Group className='mb-3' controlId='description'>
 					<Form.Label>Descripcion:</Form.Label>
@@ -103,7 +98,7 @@ const NewProductForm = () => {
 				</Form.Group>
 
 				<Row className='mb-3'>
-					<Form.Group as={Col} controlId='category'>
+					<Form.Group as={Col} sm={12} md={4} controlId='category'>
 						<Form.Label>Categoria:</Form.Label>
 						<Form.Select
 							aria-label='Default select example'
@@ -122,7 +117,7 @@ const NewProductForm = () => {
 						</Form.Select>
 					</Form.Group>
 
-					<Form.Group as={Col} controlId='subcategory'>
+					<Form.Group as={Col} sm={12} md={4} controlId='subcategory'>
 						<Form.Label>Subategoria:</Form.Label>
 						<Form.Select
 							aria-label='Default select example'
@@ -141,7 +136,7 @@ const NewProductForm = () => {
 						</Form.Select>
 					</Form.Group>
 
-					<Form.Group as={Col} controlId='stateOfProduct'>
+					<Form.Group as={Col} sm={12} md={4} controlId='stateOfProduct'>
 						<Form.Label>Estado del Producto:</Form.Label>
 						<Form.Select
 							aria-label='Default select example'
@@ -159,6 +154,38 @@ const NewProductForm = () => {
 							})}
 						</Form.Select>
 					</Form.Group>
+				</Row>
+				<Row className='py-5 w-100 m-0 image-list d-flex justify-content-center'>
+					{Array.from({ length: 8 }).map((e, index) => {
+						const placeholder =
+							'https://uning.es/wp-content/uploads/2016/08/ef3-placeholder-image.jpg'
+
+						let coverImg
+
+						if (productData.images[index] === '') {
+							coverImg = placeholder
+						} else {
+							coverImg = productData.images[index]
+						}
+
+						const state = productData.images[index - 1] === ''
+						const stateStyle = state ? '0.5' : '1'
+
+						return (
+							<Col key={index} xs={6} sm={5} md={3} className='p-2 image-container'>
+								<input
+									disabled={state}
+									className='image'
+									type='file'
+									style={{
+										backgroundImage: `url(${coverImg})`,
+										opacity: stateStyle,
+									}}
+									onChange={(e) => handleFileUpload(e, index)}
+								/>
+							</Col>
+						)
+					})}
 				</Row>
 
 				{errors.length > 0 && (

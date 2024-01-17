@@ -1,5 +1,5 @@
 .main {
-	min-height: 120vh;
+	min-height: 150vh;
 }
 
 .top-section {
@@ -20,3 +20,9 @@
 }
 
 /*el padding derecho en tabs-content es extraño y lo tengo que resetear*/
+.edit-button {
+	height: 10%;
+}
+.edit-button img {
+	width: 100%;
+}

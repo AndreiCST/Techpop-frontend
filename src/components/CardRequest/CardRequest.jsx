@@ -10,7 +10,7 @@ const RequestCard = ({ _id, buyer, seller, product }) => {
 	const { user } = useContext(AuthContext)
 
 	const navigate = useNavigate()
-	console.log(product)
+
 	const handleBtnSell = () => {
 		transactionService
 			.acceptTrans(_id, product._id, buyer._id, seller)

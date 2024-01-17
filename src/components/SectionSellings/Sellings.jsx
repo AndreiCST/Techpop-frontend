@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Card, Col, ListGroup, Row, Tab, Tabs } from 'react-bootstrap'
+import { Card, Col, Row, Tab, Tabs } from 'react-bootstrap'
 import ProductList from '../ListProduct/ListProduct'
 import productImg from './../../assets/imagenes/placeholderSelling.png'
 
@@ -14,8 +13,8 @@ const Sellings = ({ selling, sold }) => {
 					{activeSellings.length > 0 ? (
 						<ProductList products={activeSellings} />
 					) : (
-						<Row className='m-2'>
-							<Col sm={{ span: 6, offset: 5 }}>
+						<Row className='pt-5'>
+							<Col sm={{ span: 6, offset: 3 }} className='d-flex justify-content-center'>
 								<Card className='favouritesPlaceholder'>
 									<Card.Img src={productImg} />
 									<Card.Text className='mt-5'>
@@ -30,8 +29,8 @@ const Sellings = ({ selling, sold }) => {
 					{activeSold.length > 0 ? (
 						<ProductList products={activeSold} />
 					) : (
-						<Row className='m-2'>
-							<Col sm={{ span: 6, offset: 5 }}>
+						<Row className='pt-5'>
+							<Col sm={{ span: 6, offset: 3 }} className='d-flex justify-content-center'>
 								<Card className='favouritesPlaceholder'>
 									<Card.Img src={productImg} />
 									<Card.Text className='mt-5'>

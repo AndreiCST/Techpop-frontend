@@ -30,17 +30,20 @@ const EditProductPage = () => {
 	}
 
 	return (
-		<Container>
-			{isLoading ? (
-				<Loader />
-			) : (
-				<>
-					<h1>{product.name}</h1>
-					<hr />
-					<ProductEditForm product={product} />
-				</>
-			)}
-		</Container>
+		<div className='edit-product-page py-5'>
+			<Container>
+				{isLoading ? (
+					<Loader />
+				) : (
+					<>
+						<h1 className='pb-5'>{product.name}</h1>
+						<div className='edit-product-form'>
+							<ProductEditForm product={product} />
+						</div>
+					</>
+				)}
+			</Container>
+		</div>
 	)
 }
 

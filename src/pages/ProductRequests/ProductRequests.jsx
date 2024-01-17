@@ -23,8 +23,8 @@ const ProductRequests = () => {
 
 	return (
 		<Row>
-			{requests?.map((elem, index) => {
-				return <RequestCard key={index} {...elem} />
+			{requests?.map((elem) => {
+				return <RequestCard key={elem._id} {...elem} />
 			})}
 		</Row>
 	)
