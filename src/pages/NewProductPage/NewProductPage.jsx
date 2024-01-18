@@ -10,7 +10,6 @@ const NewProduct = () => {
 	return (
 		<div className='new-prod-page pt-5 pb-5'>
 			<Container>
-				<h2 className='pb-5'>New Product Form</h2>
 				<div className='new-prod-form'>
 					<NewProductForm />
 				</div>

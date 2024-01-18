@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Container, Row, Col, Button, Carousel, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Button, Carousel, ListGroup, Modal } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import StarValoration from '../../components/StarValoration/StarValoration'
@@ -15,7 +15,9 @@ const ProductPage = () => {
 	const [productOwner, setProductOwner] = useState({})
 	const [isFavouriteProducts, setIsFavouriteProducts] = useState({})
 	const [isOwner, setIsOwner] = useState(false)
-
+	const [showReq, setShowReq] = useState(false)
+	const [showBuy, setShowBuy] = useState(false)
+	const [isRequested, setIsRequested] = useState(false)
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -24,6 +26,15 @@ const ProductPage = () => {
 				const { data } = await productService.getOneProduct(product_id)
 				setProduct(data)
 				setProductOwner(data.owner)
+
+				const transactions = await transactionService.getTransactions(product.buyRequest)
+				transactions.data.forEach(({ buyer }) => {
+					if (buyer?._id === user?._id) {
+						setIsRequested(true)
+						return
+					}
+				})
+
 				if (user) {
 					isFavProduct()
 				}
@@ -36,7 +47,7 @@ const ProductPage = () => {
 		}
 
 		loadProduct()
-	}, [user])
+	}, [user, product_id, isFavouriteProducts])
 
 	const isFavProduct = () => {
 		userService
@@ -72,7 +83,7 @@ const ProductPage = () => {
 	const HandleBuyButton = () => {
 		transactionService
 			.startTrans(product_id, user._id, productOwner._id)
-			.then(navigate('/'))
+			.then()
 			.catch((err) => console.log(err))
 	}
 
@@ -81,6 +92,21 @@ const ProductPage = () => {
 			.deleteProduct(product_id)
 			.then(() => navigate(`/profile/${user._id}`))
 			.catch((err) => console.log(err))
+	}
+
+	const handleCloseReq = () => setShowReq(false)
+	const handleShowReq = () => {
+		if (!product.buyRequest.length) {
+			setShowReq(true)
+		} else {
+			navigate(`/buy-requests/${product_id}`)
+		}
+	}
+
+	const handleCloseBuy = () => navigate('/')
+	const handleShowBuy = () => {
+		HandleBuyButton()
+		setShowBuy(true)
 	}
 
 	return (
@@ -92,9 +118,14 @@ const ProductPage = () => {
 
 				{isOwner && (
 					<Col xs={12} sm={2} md={2}>
-						<Link to={`/buy-requests/${product_id}`} className='not-decoration'>
+						<Button variant='primary' onClick={handleShowReq}>
 							Solicitudes de compra
-						</Link>
+						</Button>
+
+						<Modal show={showReq} onHide={handleCloseReq}>
+							<Modal.Header closeButton></Modal.Header>
+							<Modal.Body>El producto aun no tiene solicitudes de compra</Modal.Body>
+						</Modal>
 					</Col>
 				)}
 			</Row>
@@ -134,28 +165,35 @@ const ProductPage = () => {
 					<div className=''>
 						{!isOwner && product.inSale === true && user && (
 							<Row className='buttons'>
-								<Col xs={12} md={6}>
-									<Button
-										onClick={HandleBuyButton}
-										className='ms-3'
-										variant='bg-secondary '
-									>
-										<img
-											src='https://cdn.icon-icons.com/icons2/1580/PNG/512/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png'
-											alt=''
-										/>
-									</Button>
-									<Button onClick={handleFavClick} variant='bg-secondary '>
-										<img
-											src={
-												isFavProduct
-													? 'https://cdn.icon-icons.com/icons2/38/PNG/512/like_favorite_heart_5759.png'
-													: 'https://cdn.icon-icons.com/icons2/2073/PNG/512/heart_like_love_twitter_icon_127132.png'
-											}
-											alt=''
-										/>
-									</Button>
-								</Col>
+								{product.buyRequest && (
+									<Col xs={12} md={6}>
+										<Button
+											disabled={isRequested}
+											onClick={handleShowBuy}
+											className='ms-3'
+											variant='bg-secondary '
+										>
+											<img
+												src='https://cdn.icon-icons.com/icons2/1580/PNG/512/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png'
+												alt=''
+											/>
+											<Modal show={showBuy} onHide={handleCloseBuy}>
+												<Modal.Header closeButton></Modal.Header>
+												<Modal.Body>Se ha enviado la solicitud al vendedor</Modal.Body>
+											</Modal>
+										</Button>
+										<Button onClick={handleFavClick} variant='bg-secondary '>
+											<img
+												src={
+													isFavouriteProducts
+														? 'https://cdn.icon-icons.com/icons2/38/PNG/512/like_favorite_heart_5759.png'
+														: 'https://cdn.icon-icons.com/icons2/2073/PNG/512/heart_like_love_twitter_icon_127132.png'
+												}
+												alt=''
+											/>
+										</Button>
+									</Col>
+								)}
 							</Row>
 						)}
 

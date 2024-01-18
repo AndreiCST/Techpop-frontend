@@ -4,14 +4,20 @@
 	font-size: xx-small;
 	color: transparent;
 	background-size: cover;
-	position: relative;
 }
 
 .image-container {
 	padding: 0;
+	position: relative;
 }
 
 .image-list {
 	min-height: 500px;
 	overflow: auto;
+}
+
+.delete-button {
+	position: absolute;
+	right: 10%;
+	top: 20%;
 }

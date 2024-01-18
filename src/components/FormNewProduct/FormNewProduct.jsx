@@ -20,7 +20,6 @@ const NewProductForm = () => {
 		category: '',
 		subcategory: '',
 	})
-
 	const [errors, setErrors] = useState([])
 	const [loadingImage, setLoadingImage] = useState(false)
 
@@ -61,6 +60,18 @@ const NewProductForm = () => {
 				setLoadingImage(false)
 			})
 			.catch((err) => console.log(err))
+	}
+
+	const handleDeleteImage = (index) => {
+		const newImages = productData.images.map((e, i) => {
+			if (i === index) {
+				return ''
+			} else {
+				return e
+			}
+		})
+
+		setProductData({ ...productData, images: newImages })
 	}
 
 	return (
@@ -117,24 +128,26 @@ const NewProductForm = () => {
 						</Form.Select>
 					</Form.Group>
 
-					<Form.Group as={Col} sm={12} md={4} controlId='subcategory'>
-						<Form.Label>Subategoria:</Form.Label>
-						<Form.Select
-							aria-label='Default select example'
-							value={productData.subcategory}
-							onChange={handleInputChange}
-							name='subcategory'
-						>
-							<option>Seleccionar</option>
-							{SUBCATEGORIES.map((elm) => {
-								return (
-									<option value={elm} key={elm}>
-										{elm}
-									</option>
-								)
-							})}
-						</Form.Select>
-					</Form.Group>
+					{productData.category !== '' && productData.category !== 'Seleccionar' && (
+						<Form.Group as={Col} sm={12} md={4} controlId='subcategory'>
+							<Form.Label>Subategoria:</Form.Label>
+							<Form.Select
+								aria-label='Default select example'
+								value={productData.subcategory}
+								onChange={handleInputChange}
+								name='subcategory'
+							>
+								<option>Seleccionar</option>
+								{SUBCATEGORIES[productData.category].map((elm) => {
+									return (
+										<option value={elm} key={elm}>
+											{elm}
+										</option>
+									)
+								})}
+							</Form.Select>
+						</Form.Group>
+					)}
 
 					<Form.Group as={Col} sm={12} md={4} controlId='stateOfProduct'>
 						<Form.Label>Estado del Producto:</Form.Label>
@@ -161,6 +174,7 @@ const NewProductForm = () => {
 							'https://uning.es/wp-content/uploads/2016/08/ef3-placeholder-image.jpg'
 
 						let coverImg
+						let state
 
 						if (productData.images[index] === '') {
 							coverImg = placeholder
@@ -168,7 +182,12 @@ const NewProductForm = () => {
 							coverImg = productData.images[index]
 						}
 
-						const state = productData.images[index - 1] === ''
+						if (productData.images[index] !== '') {
+							state = false
+						} else if (productData.images[index - 1] === '') {
+							state = true
+						}
+
 						const stateStyle = state ? '0.5' : '1'
 
 						return (
@@ -183,6 +202,13 @@ const NewProductForm = () => {
 									}}
 									onChange={(e) => handleFileUpload(e, index)}
 								/>
+								<Button
+									className='delete-button'
+									onClick={() => handleDeleteImage(index)}
+									variant='danger'
+								>
+									X
+								</Button>
 							</Col>
 						)
 					})}

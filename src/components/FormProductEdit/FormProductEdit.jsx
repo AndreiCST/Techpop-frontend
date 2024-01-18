@@ -62,10 +62,20 @@ const EditProductForm = ({ product }) => {
 			.catch((err) => setErrors(err.response.data.errorMessages))
 	}
 
+	const handleDeleteImage = (index) => {
+		const newImages = productData.images.map((e, i) => {
+			if (i === index) {
+				return ''
+			} else {
+				return e
+			}
+		})
+
+		setProductData({ ...productData, images: newImages })
+	}
+
 	return (
 		<>
-			<h1>Edit Product Form</h1>
-
 			<Form className='pt-5' onSubmit={handleFormSubmit}>
 				<Row className='mb-3'>
 					<Form.Group as={Col} controlId='name'>
@@ -155,6 +165,7 @@ const EditProductForm = ({ product }) => {
 							'https://uning.es/wp-content/uploads/2016/08/ef3-placeholder-image.jpg'
 
 						let coverImg
+						let state
 
 						if (productData.images[index] === '') {
 							coverImg = placeholder
@@ -162,16 +173,33 @@ const EditProductForm = ({ product }) => {
 							coverImg = productData.images[index]
 						}
 
+						if (productData.images[index] !== '') {
+							state = false
+						} else if (productData.images[index - 1] === '') {
+							state = true
+						}
+
+						const stateStyle = state ? '0.5' : '1'
+
 						return (
 							<Col key={index} xs={6} sm={5} md={3} className='p-2 image-container'>
 								<input
+									disabled={state}
 									className='image'
 									type='file'
 									style={{
 										backgroundImage: `url(${coverImg})`,
+										opacity: stateStyle,
 									}}
 									onChange={(e) => handleFileUpload(e, index)}
 								/>
+								<Button
+									className='delete-button'
+									onClick={() => handleDeleteImage(index)}
+									variant='danger'
+								>
+									X
+								</Button>
 							</Col>
 						)
 					})}
