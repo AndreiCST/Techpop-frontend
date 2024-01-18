@@ -1,7 +1,7 @@
 export const CATEGORIES = [
 	'Teléfonos',
 	'Ordenadores',
-	'Cámaras y Fotografía',
+	'Fotografía',
 	'Audio',
 	'Gaming',
 	'Almacenamiento',
