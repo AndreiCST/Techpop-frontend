@@ -6,19 +6,19 @@ API personalizada creada por nosotros, la cual utiliza MongoDB para almacenar y 
 
 # Conceptos aprendidos durente el proyecto
 
--La importancia de los componentes en la construcción de la interfaz de usuario, destacando su reutilización, facilidad de mantenimiento y mejora en la legibilidad del código, entre otras ventajas.
--El manejo de información mutable a través del uso del estado y otros hooks proporcionados por React.
--La utilización de la función .map para renderizar listas de elementos de manera eficiente y dinámica.
--La gestión de rutas, incluyendo rutas públicas y privadas, utilizando herramientas como React Router para la navegación en la aplicación.
--La implementación de renderizado condicional para adaptar la interfaz de usuario según diferentes condiciones y estados.
--La comprensión y aplicación de la comunicación entre componentes, tanto de padres a hijos como de hijos a padres, utilizando props y funciones como mecanismos de transferencia de datos.
--Realizar solicitudes a API utilizando bibliotecas como Axios.
--Implementar formularios controlados en React, gestionando el estado del formulario y manejando eventos de entrada.
--etc.
-
-# Rutas
+- La importancia de los componentes en la construcción de la interfaz de usuario, destacando su reutilización, facilidad de mantenimiento y mejora en la legibilidad del código, entre otras ventajas.
+- El manejo de información mutable a través del uso del estado y otros hooks proporcionados por React.
+- La utilización de la función .map para renderizar listas de elementos de manera eficiente y dinámica.
+- La gestión de rutas, incluyendo rutas públicas y privadas, utilizando herramientas como React Router para la navegación en la aplicación.
+- La implementación de renderizado condicional para adaptar la interfaz de usuario según diferentes condiciones y estados.
+- La comprensión y aplicación de la comunicación entre componentes, tanto de padres a hijos como de hijos a padres, utilizando props y funciones como mecanismos de transferencia de datos.
+- Realizar solicitudes a API utilizando bibliotecas como Axios.
+- Implementar formularios controlados en React, gestionando el estado del formulario y manejando eventos de entrada.
+- etc.
 
 ---
+
+# Rutas
 
 ### Rutas publicas
 
