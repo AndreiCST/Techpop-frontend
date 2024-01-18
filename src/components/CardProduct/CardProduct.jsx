@@ -20,7 +20,7 @@ const ProductCard = ({ _id, name, images, price, buyRequest, owner, inSale }) =>
 	}
 
 	return (
-		<Link to={`/${_id}`} className='not-decoration'>
+		<Link to={`/product/${_id}`} className='not-decoration'>
 			<Card className={haveBuyer}>
 				<div className='prod-img'>
 					<Card.Img variant='top' src={images[0]} className='p-2' />

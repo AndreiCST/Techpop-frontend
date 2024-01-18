@@ -10,6 +10,7 @@ import ProductsListPage from '../pages/ProductsListPage/ProductsListPage'
 import EditProductPage from '../pages/EditProductPage/EditProductPage'
 import UserEditPage from '../pages/UserEditPage/UserEditPage'
 import ProductRequests from '../pages/ProductRequests/ProductRequests'
+import ErrorPage from '../pages/ErrorPage/ErrorPage'
 
 const AppRoutes = () => {
 	return (
@@ -23,10 +24,10 @@ const AppRoutes = () => {
 				<Route path='/buy-requests/:product_id' element={<ProductRequests />} />
 			</Route>
 			<Route path='/search' element={<ProductsListPage />} />
-			<Route path='/:product_id' element={<ProductDetailsPage />} />
+			<Route path='/product/:product_id' element={<ProductDetailsPage />} />
 			<Route path='/signup' element={<SignupPage />} />
 			<Route path='/login' element={<LoginPage />} />
-			<Route path='*' element={<p>404</p>} />
+			<Route path='*' element={<ErrorPage />} />
 		</Routes>
 	)
 }
