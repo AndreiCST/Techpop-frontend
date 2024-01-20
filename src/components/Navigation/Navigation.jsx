@@ -1,12 +1,13 @@
 import './Navigation.css'
 import logo from './../../assets/imagenes/logo.jpg'
 import { Link, useNavigate } from 'react-router-dom'
-import { Col, Nav, Navbar, Row } from 'react-bootstrap'
-import { useContext } from 'react'
+import { Button, Col, Offcanvas, Row } from 'react-bootstrap'
+import { useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/auth.context'
 
 const Navigation = () => {
 	const { user, logout } = useContext(AuthContext)
+	const [show, setShow] = useState(false)
 	const navigate = useNavigate()
 
 	const HandleLogOut = () => {
@@ -14,54 +15,96 @@ const Navigation = () => {
 		navigate('/')
 	}
 
+	const handleClose = () => setShow(false)
+	const handleShow = () => setShow(true)
+
 	return (
-		<Navbar sticky='top' expand='md' className='p-0'>
-			<Row className='navbar'>
-				<Col xs={{ span: 4, offset: 0 }} className=''>
-					<Navbar.Brand href='/' className='brand'>
-						<img src={logo} alt='' /> Techpop
-					</Navbar.Brand>
+		<div className='nav-bar'>
+			<Row className='position-relative'>
+				<Col xs={2} className='brand d-flex'>
+					<Link to='/' className='not-decoration brand'>
+						<img className='h-25' src={logo} alt='' /> Techpop
+					</Link>
 				</Col>
-				<Col xs={{ span: 2, offset: 6 }} md={{ span: 4, offset: 4 }} className=''>
-					<Navbar.Toggle aria-controls='basic-navbar-nav' />
-
-					<Navbar.Collapse id='basic-navbar-nav'>
-						<div className='nav-buttons d-flex flex-row justify-content-around '>
-							<Link to='/' className='not-decoration nav-button'>
-								Inicio
+				<Col xs={8} md={8} lg={10} className='pt-4 main-menu d-flex justify-content-end'>
+					<Link to='/' className='not-decoration nav-btn'>
+						Inicio
+					</Link>
+					<Link to='/search' className='not-decoration nav-btn ps-5'>
+						Buscar
+					</Link>
+					{user ? (
+						<>
+							<Link to={`/profile/${user._id}`} className='not-decoration nav-btn ps-5'>
+								Perfil
 							</Link>
-							<Link to='/search' className='not-decoration nav-button'>
-								Buscar
+							<Link
+								as='span'
+								onClick={HandleLogOut}
+								className='not-decoration nav-btn ps-5'
+							>
+								Cerrar sesión
 							</Link>
-
-							{user ? (
-								<>
-									<Link to={`/profile/${user._id}`} className='not-decoration nav-button'>
-										Perfil
-									</Link>
-									<Nav.Link
-										as='span'
-										onClick={HandleLogOut}
-										className='not-decoration nav-button'
-									>
-										Cerrar sesión
-									</Nav.Link>
-								</>
-							) : (
-								<>
-									<Link to='/login' className='not-decoration nav-button'>
-										log in
-									</Link>
-									<Link to='/signup' className='not-decoration nav-button'>
-										sign in
-									</Link>
-								</>
-							)}
-						</div>
-					</Navbar.Collapse>
+						</>
+					) : (
+						<>
+							<Link to='/login' className='not-decoration nav-btn ps-5'>
+								log in
+							</Link>
+							<Link to='/signup' className='not-decoration nav-btn ps-5'>
+								sign in
+							</Link>
+						</>
+					)}
+				</Col>
+				<Col xs={2} className='pt-4 offcanvas-menu-btn'>
+					<Button variant='' className='border border-2' onClick={handleShow}>
+						Menu
+					</Button>
 				</Col>
 			</Row>
-		</Navbar>
+			<Offcanvas
+				placement='end'
+				className='offcanvas-menu'
+				show={show}
+				onHide={handleClose}
+				responsive='lg'
+			>
+				<Offcanvas.Header closeButton></Offcanvas.Header>
+				<Link to='/' className='not-decoration nav-btn offcanvas-btn pt-5 w-25'>
+					Inicio
+				</Link>
+				<Link to='/search' className='not-decoration nav-btn offcanvas-btn w-50'>
+					Buscar
+				</Link>
+				{user ? (
+					<>
+						<Link
+							to={`/profile/${user._id}`}
+							className='not-decoration nav-btn offcanvas-btn w-75'
+						>
+							Perfil
+						</Link>
+						<Link
+							as='span'
+							onClick={HandleLogOut}
+							className='not-decoration nav-btn offcanvas-btn'
+						>
+							Cerrar sesión
+						</Link>
+					</>
+				) : (
+					<>
+						<Link to='/login' className='not-decoration nav-btn offcanvas-btn w-75'>
+							log in
+						</Link>
+						<Link to='/signup' className='not-decoration nav-btn offcanvas-btn'>
+							sign in
+						</Link>
+					</>
+				)}
+			</Offcanvas>
+		</div>
 	)
 }
 
