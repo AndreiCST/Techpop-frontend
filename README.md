@@ -4,6 +4,9 @@ TechPop es mi proyecto final en Ironhack, desarrollado en colaboración con [Mig
 Se trata de una aplicación MERN construida con React y estilizada mediante CSS y Bootstrap. La aplicación está conectada a
 API personalizada creada por nosotros, la cual utiliza MongoDB para almacenar y organizar información sobre productos y usuarios.
 
+Se puede ver la pagina aqui,[link](https://techpop.vercel.app/).
+Los datos tarndan un poco en cargar debido a la inactividad.
+
 # Conceptos aprendidos durente el proyecto
 
 - La importancia de los componentes en la construcción de la interfaz de usuario, destacando su reutilización, facilidad de mantenimiento y mejora en la legibilidad del código, entre otras ventajas.
