@@ -21,9 +21,9 @@ const Navigation = () => {
 	return (
 		<div className='nav-bar'>
 			<Row className='position-relative'>
-				<Col xs={2} className='brand d-flex'>
+				<Col xs={2} className='d-flex'>
 					<Link to='/' className='not-decoration brand'>
-						<img className='h-25' src={logo} alt='' /> Techpop
+						 Techpop
 					</Link>
 				</Col>
 				<Col xs={8} md={8} lg={10} className='pt-4 main-menu d-flex justify-content-end'>
